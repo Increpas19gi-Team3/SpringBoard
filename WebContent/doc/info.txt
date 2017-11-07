@@ -1,0 +1,4 @@
+파일 저장: C:\myjava17gi\images
+파일명 지정 : id_UUID_파일명
+
+
