@@ -22,10 +22,11 @@ public class AdminLogin {
 	 * 전체 글 검색
 	 * @return - List<BoardDTO>
 	 */
-	public List<AdminDTO> adminList(){
+	public AdminDTO adminList(){
 		
-		List<AdminDTO> list = new ArrayList<AdminDTO>();		
 		
+		
+		AdminDTO aDTO = null;
 		Connection con = null;
 		PreparedStatement prepStmt = null;
 		ResultSet rs = null;
@@ -37,11 +38,9 @@ public class AdminLogin {
 			
 			while (rs.next()) {
 				
-				AdminDTO aDTO = new AdminDTO();
-				
+				aDTO = new AdminDTO();
 				aDTO.setID(rs.getString("id"));
 				aDTO.setNAME(rs.getString("name"));				
-				list.add(aDTO);
 				
 				System.out.println("adminList DTO: "+ aDTO.toString());
 			}
@@ -52,7 +51,7 @@ public class AdminLogin {
 		}finally {
 			DBManager.close(con, prepStmt, rs);
 		}		
-		return list;
+		return aDTO;
 		
 	} // List<AdminDTO> adminList() - End
 	

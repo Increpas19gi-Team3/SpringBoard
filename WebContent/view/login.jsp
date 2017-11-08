@@ -3,7 +3,7 @@
 
 <!-- 스프링  태그 라이브러리 사용 -->
 <%-- <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%> --%>
-<%-- <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%> --%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <!DOCTYPE html>
 <html>
@@ -32,29 +32,19 @@
 
 			<div class="log">
 				<input type="text" style="margin-top: 10px" name="id"
-					placeholder="아이디" maxlength="20" value="${icmd.id}">
+					placeholder="아이디" maxlength="20">
 			</div>
 
 			<div class="row">
 				<input type="password" style="margin-top: 10px" name="pwd"
-					placeholder="비밀번호" maxlength="20" value="${icmd.pwd}">
+					placeholder="비밀번호" maxlength="20">
 			</div>
+
+			<input type="submit" value="로그인">
+			<input type="reset" value="취소">
 		</form:form>
 	</section>
 
 	<footer>
 		<jsp:include page="footer.jsp" />
 	</footer>
-
-
-
-
-
-
-
-
-
-
-
-
-
