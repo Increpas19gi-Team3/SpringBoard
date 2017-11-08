@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<link rel= "stylesheet" type="text/css" href="css/shopping.css">
+
+
 <div id="adminLogin" style="text-align: right;">
 	
 	<a href="reg.do">글등록</a>
@@ -16,3 +19,4 @@
 </div>
 
 <hr>
+<p /><p /><p />

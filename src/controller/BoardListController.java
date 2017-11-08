@@ -26,7 +26,7 @@ public class BoardListController {
 	ListService listService;
 	
 	
-	@RequestMapping(value="list.do", method=RequestMethod.GET)
+	@RequestMapping(value="/list.do", method=RequestMethod.GET)
 	public String getList(Model model){
 		
 		//검색, 정렬, 페이징 정보도 받아와야 함.
