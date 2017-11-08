@@ -6,6 +6,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>	
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
+<%
+	
+%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,16 +24,50 @@
 		<jsp:include page="header.jsp" />
 		</nav>
 	</header>
+			
+		제목 / 날짜 <br />
+	\${sortColumn }: ${sortColumn } <br />
+	\${orderby }: ${orderby }<p /><p />
 	
 	
 	<section>
 		<table border="1" id="list">
 			<tr>
 				<th>No.</th>
-				<th>제목</th>
+				
+				<th>
+					<c:if test="${empty sortColumn }">
+						<a href="list.do?sort='TITLE'&orderby='ASC'">제목 ▼</a>
+					</c:if>
+					<c:if test="${sortColumn eq 'TITLE'}">
+					<c:choose>
+						<c:when test="${orderby eq 'ASC' }">
+							<a href="list.do?sort='TITLE'&orderby='DESC'">제목 ▲</a>		
+						</c:when>
+						<c:otherwise>
+							<a href="list.do?sort='TITLE'&orderby='ASC'">제목 ▼</a>
+						</c:otherwise>
+					</c:choose>
+					</c:if>
+				</th>
 				<th>작성자</th>
 				<th>조회수</th>
-				<th>작성일</th>
+				<th>
+					
+					<c:if test="${empty sortColumn }">
+						<a href="list.do?sort='REGTIME'&orderby='ASC'">작성일 ▼</a>
+					</c:if>
+					<c:if test="${sortColumn eq 'REGTIME'}">
+					<c:choose>
+						<c:when test="${orderby eq 'ASC' }">
+							<a href="list.do?sort='REGTIME'&orderby='DESC'">작성일 ▲</a>		
+						</c:when>
+						<c:otherwise>
+							<a href="list.do?sort='REGTIME'&orderby='ASC'">작성일 ▼</a>
+						</c:otherwise>
+					</c:choose>
+					</c:if>
+				</th>
 			</tr>
 			
 			
@@ -88,6 +127,11 @@
 		<p /><p /><p />
 		<div id="search" style="text-align: center;">
 			<form action="search.do" method="post">
+				
+				<input type="hidden" name="sortColumn" value="" />
+				<input type="hidden" name="orderby" value="" />
+			
+			
 				<select name="whereColumn">
 					<option value="" >전체검색</option>
 					<option value="TITLE" >제목</option>
