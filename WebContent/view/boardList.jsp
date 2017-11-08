@@ -22,7 +22,7 @@
 	
 	
 	<section>
-		<table border="1">
+		<table border="1" id="list">
 			<tr>
 				<th>No.</th>
 				<th>제목</th>
@@ -38,15 +38,21 @@
 					
 					<c:choose>
 						<c:when test="${list.ISNOTICE eq '1' }"> <%-- 공지사항 처리 --%>
-							<td id="notice" style="font: bold; color: red;"><img src="/image/notice.png">
+							<td id="notice" style="font: bold; color: red;">
 								<strong> 
 								
 								<c:choose>
 									<c:when test="${list.ISBLOCK eq '1' }"> <%-- 블록글 처리 --%>
-										<div style="text-decoration: line-through; color: grey;">${list.TITLE }</div>
+										<div style="text-decoration: line-through; color: grey;">
+											<img src="/image/notice.png">&nbsp;
+												${list.TITLE }
+										</div>
 									</c:when>
 									<c:otherwise>
-										<a href="listView.do?no=${list.NUM }" > ${list.TITLE } </a>		
+										<img src="/image/notice.png">&nbsp;
+										<a href="listView.do?no=${list.NUM }" > 
+											${list.TITLE } 
+										</a>		
 									</c:otherwise>
 								</c:choose>
 								 
@@ -77,6 +83,21 @@
 				</tr>
 			</c:forEach>			
 		</table>
+	
+	
+		<p /><p /><p />
+		<div id="search" style="text-align: center;">
+			<form action="search.do" method="post">
+				<select name="whereColumn">
+					<option value="" >전체검색</option>
+					<option value="TITLE" >제목</option>
+					<option value="WRITER"> 작성자</option>
+				</select>
+				
+				<input type="text" name="word">
+				<input type="submit" value="검색">
+			</form>
+		</div>
 	
 	</section>
 	

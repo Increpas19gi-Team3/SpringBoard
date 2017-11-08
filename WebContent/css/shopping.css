@@ -19,6 +19,7 @@ table td, th {
    padding: 5px;              /* 안쪽 여백 */  
 }
 
+
 table.list td, th {
    border: #d3d3d3 solid 1px; /* 경계선 색상 스타일 굵기 */
    padding: 5px;              /* 안쪽 여백 */
@@ -43,7 +44,11 @@ a:HOVER {
 }
 
 
-td #notice{
+#notice td, div{
 	color: red;
 	font: bold;
+}
+#list table td, th{
+	text-align: center;		/* 가운데 정렬 */
+   	vertical-align: middle;
 }
