@@ -32,8 +32,8 @@ public class BoardListController {
 		//검색, 정렬, 페이징 정보도 받아와야 함.
 		System.out.println("검색 / 정렬 / 페이징 처리 예정");
 		
-		// = new ListService();
-		List<BoardDTO> list = listService.selectList();
+
+		List<BoardDTO> list = listService.getList();
 		model.addAttribute("list", list);
 		
 		return "/boardList";
