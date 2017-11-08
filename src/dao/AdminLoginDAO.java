@@ -1,4 +1,4 @@
-package service;
+package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,17 +14,15 @@ import util.DBManager;
 
 
 @Service	// 보통 서비스 클래스는 component 보다 service를 많이 붙인다
-public class AdminLogin {
+public class AdminLoginDAO {
 		
 	private final String Find_id_name = "SELECT id, name FROM SB_Admin";
 	
 	/**
-	 * 전체 글 검색
-	 * @return - List<BoardDTO>
+	 * 관리자 로그인, 로그아웃 기능
+	 * @return - AdminDTO
 	 */
-	public AdminDTO adminList(){
-		
-		
+	public AdminDTO adminList(){		
 		
 		AdminDTO aDTO = null;
 		Connection con = null;
@@ -56,12 +54,3 @@ public class AdminLogin {
 	} // List<AdminDTO> adminList() - End
 	
 } // class AdminLogin -End
-
-
-
-
-
-
-
-
-
