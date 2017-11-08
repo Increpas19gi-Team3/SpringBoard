@@ -20,33 +20,27 @@ public class WriteDAO {
 		}
 
 		public void insertWrite(BoardDTO bdto) {
-			String sql = "select * from board where pass=? and num=?";
+			String sql = "INSERT INTO SB_BOARD VALUES(SB_BOARD_SEQ.NEXTVAL, ?, '0', ?,?,?,?,?, 0, sysdate)";
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			BoardDTO bDTO = null;
-			
-			System.out.println(bdto.getCONTENTS());
-			System.out.println(bdto.getIMGNAME());
-			System.out.println(bdto.getISNOTICE());
-			System.out.println(bdto.getPWD());
-			System.out.println(bdto.getTITLE());
-			System.out.println(bdto.getWRITER());
-			
-			/*try {
+
+			try {
 				conn = DBManager.getConnection();
 				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, pass);
-				pstmt.setString(2, num);
+				pstmt.setString(1, bdto.getISNOTICE());
+				pstmt.setString(2, bdto.getTITLE());
+				pstmt.setString(3, bdto.getWRITER());
+				pstmt.setString(4, bdto.getPWD());
+				pstmt.setString(5, bdto.getCONTENTS());
+				pstmt.setString(6, bdto.getIMGNAME());
+				
 				rs = pstmt.executeQuery();
-				if (rs.next()) {
-					bDTO = new BoardVO();
-					bDTO.setNum(rs.getInt("num"));
 
-				}
 			} catch (SQLException e) {
 				e.printStackTrace();
-			}*/
+			}
 			//return bDTO;
 		}
 

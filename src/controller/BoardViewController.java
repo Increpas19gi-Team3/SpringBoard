@@ -70,14 +70,13 @@ public class BoardViewController {
 			}
 		}
 		
-		
-		WriteDAO wDao = WriteDAO.getInstance();
-		wDao.insertWrite(bdto);
-		
 		if(errors.hasErrors()){
 			return "boardReg";
 		}
+		
+		WriteDAO wDao = WriteDAO.getInstance();
+		wDao.insertWrite(bdto);
 						
-		return "boardReg2";
+		return "redirect:index.jsp";
 	}
 }
