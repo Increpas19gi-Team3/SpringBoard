@@ -21,20 +21,24 @@ public class ListDAO {
 	public List<BoardDTO> selectList(){
 		List<BoardDTO> list = new ArrayList<BoardDTO>();
 		
-		String sql = "SELECT * FROM SB_BOARD "
-				 	+ "ORDER BY NUM DESC";
-		
 		Connection con = null;
 		PreparedStatement prepStmt = null;
 		ResultSet rs = null;
+		BoardDTO bDTO = null;
 		
 		try {
+			
+			StringBuffer query = new StringBuffer();
+	        query.append("SELECT * FROM SB_BOARD ");
+	        query.append("ORDER BY ISNOTICE DESC, NUM DESC");	
+	        
+			
 			con = DBManager.getConnection();
-			prepStmt = con.prepareStatement(sql);
+			prepStmt = con.prepareStatement(query.toString());
 			rs = prepStmt.executeQuery();
 			
 			while (rs.next()) {
-				BoardDTO bDTO = new BoardDTO();
+				bDTO = new BoardDTO();
 				
 				bDTO.setNUM(rs.getInt("NUM"));
 				bDTO.setISNOTICE(rs.getString("ISNOTICE"));

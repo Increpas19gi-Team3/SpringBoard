@@ -22,7 +22,6 @@
 	
 	
 	<section>
-	
 		<table border="1">
 			<tr>
 				<th>No.</th>
@@ -36,7 +35,19 @@
 			<c:forEach var="list" items="${list }">
 				<tr>
 					<td>${list.NUM }</td>
-					<td>${list.TITLE }</td>
+					
+					<c:choose>
+						<c:when test="${list.ISNOTICE eq '1' }">
+							<td id="notice" style="font: bold; color: red;"><img src="/image/notice.png">
+								<strong> ${list.TITLE } </strong>
+							</td>
+						</c:when>
+						<c:otherwise>
+							<td>${list.TITLE }</td>
+						</c:otherwise>
+					</c:choose>
+					
+					
 					<td>${list.WRITER }</td>
 					<td>${list.COUNT }</td>
 					<td>

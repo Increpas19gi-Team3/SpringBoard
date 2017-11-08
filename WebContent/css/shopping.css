@@ -27,10 +27,12 @@ table.list td, th {
 th {   
    background: skyblue;   /* 배경색 */   
 }
+/*
 img{
-   width: 220px;              /* 이미지 너비(가로) */   
-   height: 300px;             /* 이미지 높이(세로) */   
+   width: 220px;              / 이미지 너비(가로) /   
+   height: 300px;             / 이미지 높이(세로) /   
 }
+*/
 a{
    text-decoration:none;     /* 링크 밑줄 없애기 */
    color:black;               /* 글 색상 */
@@ -38,4 +40,10 @@ a{
 a:HOVER {
    text-decoration:underline;/* 밑줄 */
    color:purple;              /* 글 색상 */
+}
+
+
+td #notice{
+	color: red;
+	font: bold;
 }
