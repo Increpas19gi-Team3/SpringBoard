@@ -23,7 +23,7 @@
 
 
 	<section>
-		<form name="frm" method="post" action="reg.do"  enctype="multipart/form-data">
+		<form:form commandName="icmd" action="reg.do" method="post" enctype="multipart/form-data">
 			<table>
 				<tr>
 					<th>작성자</th>
@@ -62,7 +62,7 @@
 			<br>
 			<br> <input type="submit" value="등록"> 
 			<input type="reset" value="다시 작성"> 
-		</form>
+		</form:form>
 
 	</section>
 

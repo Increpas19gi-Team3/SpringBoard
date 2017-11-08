@@ -11,6 +11,7 @@ import javax.validation.constraints.Max;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sun.istack.internal.NotNull;
 
@@ -26,13 +27,14 @@ public class BoardDTO {
 	@NotBlank(message="비밀번호를 입력해주세요")
 	private String PWD;			//비밀번호, VARCHAR2(20)
 	@NotNull
-	@Max(value=3000,message="1500자 이하")
+	/*@Max(value=3000,message="1500자 이하")*/
 	private String CONTENTS;	//글내용, VARCHAR2(3000)
 	private String IMGNAME;		//이미지파일명, VARCHAR2(500)
 	private int COUNT;			//조회수, NUMBER(4)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date REGTIME;		//작성일, DATE
 	
+	MultipartFile upfile;
 	
 	public int getNUM() {
 		return NUM;
@@ -95,6 +97,13 @@ public class BoardDTO {
 		REGTIME = rEGTIME;
 	}
 	
+	
+	public MultipartFile getUpfile() {
+		return upfile;
+	}
+	public void setUpfile(MultipartFile upfile) {
+		this.upfile = upfile;
+	}
 	@Override
 	public String toString() {
 		return "BoardDTO [NUM=" + NUM + ", ISNOTICE=" + ISNOTICE + ", ISBLOCK=" + ISBLOCK + ", TITLE=" + TITLE
