@@ -37,7 +37,9 @@
 					<th>글종류</th>
 					<td>
 						<input type="radio" name="ISNOTICE" value="0" checked="checked">일반글
-						<input type="radio" name="ISNOTICE" value="1" >공지글
+						<c:if test="${not empty sessionScope.id }">
+							<input type="radio" name="ISNOTICE" value="1" >공지글
+						</c:if>						
 					</td>
 				</tr>
 
