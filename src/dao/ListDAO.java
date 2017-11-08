@@ -77,12 +77,14 @@ public class ListDAO {
 	 * @return - List<BoardDTO>
 	 */
 	public List<BoardDTO> selectList(String whereColumn, String word, String sortColumn, String orderby){
-		List<BoardDTO> list = new ArrayList<BoardDTO>();
+		List<BoardDTO> list = null;
 		
-		String sql = "SELECT * FROM SB_BOARD "
-					+ "WHERE ? LIKE ? "
-				 	+ "ORDER BY ? ?";
-		System.out.println("whereColumn:"+whereColumn);
+		StringBuffer query = new StringBuffer();
+        query.append("SELECT * FROM SB_BOARD ");
+        query.append("WHERE ? LIKE ? ");
+        query.append("ORDER BY ? ?");
+		
+        System.out.println("whereColumn:"+whereColumn);
 		System.out.println("word:"+word);
 		System.out.println("sortColumn:"+sortColumn);
 		System.out.println("orderby:"+orderby);
@@ -93,13 +95,14 @@ public class ListDAO {
 		
 		try {
 			con = DBManager.getConnection();
-			prepStmt = con.prepareStatement(sql);
+			prepStmt = con.prepareStatement(query.toString());
 			prepStmt.setString(1, whereColumn);
 			prepStmt.setString(2, word);
 			prepStmt.setString(3, sortColumn);
 			prepStmt.setString(4, orderby);
 			
 			rs = prepStmt.executeQuery();
+			list = new ArrayList<BoardDTO>();
 			
 			while (rs.next()) {
 				BoardDTO bDTO = new BoardDTO();

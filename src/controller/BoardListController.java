@@ -47,4 +47,11 @@ public class BoardListController {
 		
 		return "/boardList";
 	}
+	
+	@RequestMapping(value="/search.do", method=RequestMethod.POST)
+	public String search(){
+		return "/boardList";
+	}
+	
+	
 }
