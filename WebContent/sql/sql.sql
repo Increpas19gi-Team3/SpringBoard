@@ -85,29 +85,16 @@ CREATE SEQUENCE SB_BOARD_SEQ
 insert into SB_ADMIN values('admin', '관리자', '1234');
 
 
-INSERT INTO SB_BOARD 
-VALUES(SB_BOARD_SEQ.NEXTVAL, '1', '1', '공지사항 제목', '관리자', '1234', '공지사항공지사항공지사항', 'Penguins.jpg', 0, sysdate);
+INSERT INTO SB_BOARD VALUES(SB_BOARD_SEQ.NEXTVAL, '1', '1', '공지사항 제목 블락', '관리자', '1234', '공지사항공지사항공지사항', 'Penguins.jpg', 0, sysdate);
 
-INSERT INTO SB_BOARD 
-VALUES(SB_BOARD_SEQ.NEXTVAL, '0', '1', '일반글 제목1', '한범석', 
-'1234', '일반글일반글', 'Penguins.jpg', 0, sysdate);
+INSERT INTO SB_BOARD VALUES(SB_BOARD_SEQ.NEXTVAL, '0', '0', '일반글 제목1', '한범석', '1234', '일반글일반글', 'Penguins.jpg', 0, sysdate);
 
-INSERT INTO SB_BOARD 
-VALUES(SB_BOARD_SEQ.NEXTVAL, '0', '0', '일반글 제목2 블락블락', '한범석', 
-'1234', '나쁜글나쁜글', 'Penguins.jpg', 0, sysdate);
+INSERT INTO SB_BOARD VALUES(SB_BOARD_SEQ.NEXTVAL, '0', '1', '일반글 제목2 블락블락', '한범석', '1234', '나쁜글나쁜글', 'Penguins.jpg', 0, sysdate);
 
-INSERT INTO SB_BOARD 
-VALUES(SB_BOARD_SEQ.NEXTVAL, '0', '1', '일반글 제목3', '손가연', 
-'1234', '일반글일반글', 'Penguins.jpg', 0, sysdate);
+INSERT INTO SB_BOARD VALUES(SB_BOARD_SEQ.NEXTVAL, '0', '0', '일반글 제목3', '손가연', '1234', '일반글일반글', 'Penguins.jpg', 0, sysdate);
 
-INSERT INTO SB_BOARD 
-VALUES(SB_BOARD_SEQ.NEXTVAL, '0', '1', '일반글 제목4', 'han', 
-'1234', '일반글일반글4', 'Penguins.jpg', 0, sysdate);
+INSERT INTO SB_BOARD VALUES(SB_BOARD_SEQ.NEXTVAL, '0', '0', '일반글 제목4', 'han', '1234', '일반글일반글4', 'Penguins.jpg', 0, sysdate);
 
-INSERT INTO SB_BOARD 
-VALUES(SB_BOARD_SEQ.NEXTVAL, '0', '1', '일반글 제목5', 'han', 
-'1234', '일반글일반글5', 'Penguins.jpg', 0, sysdate);
+INSERT INTO SB_BOARD VALUES(SB_BOARD_SEQ.NEXTVAL, '0', '0', '일반글 제목5', 'han', '1234', '일반글일반글5', 'Penguins.jpg', 0, sysdate);
 
-INSERT INTO SB_BOARD 
-VALUES(SB_BOARD_SEQ.NEXTVAL, '0', '1', '공지사항글 제목6', 'han', 
-'1234', '공지사항내용5', 'Penguins.jpg', 0, sysdate);
+INSERT INTO SB_BOARD VALUES(SB_BOARD_SEQ.NEXTVAL, '0', '0', '공지사항글 제목6', 'han', '1234', '공지사항내용5', 'Penguins.jpg', 0, sysdate);

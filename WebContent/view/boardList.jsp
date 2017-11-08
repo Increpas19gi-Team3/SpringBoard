@@ -37,13 +37,34 @@
 					<td>${list.NUM }</td>
 					
 					<c:choose>
-						<c:when test="${list.ISNOTICE eq '1' }">
+						<c:when test="${list.ISNOTICE eq '1' }"> <%-- 공지사항 처리 --%>
 							<td id="notice" style="font: bold; color: red;"><img src="/image/notice.png">
-								<strong> ${list.TITLE } </strong>
+								<strong> 
+								
+								<c:choose>
+									<c:when test="${list.ISBLOCK eq '1' }"> <%-- 블록글 처리 --%>
+										<div style="text-decoration: line-through; color: grey;">${list.TITLE }</div>
+									</c:when>
+									<c:otherwise>
+										<a href="listView.do?no=${list.NUM }" > ${list.TITLE } </a>		
+									</c:otherwise>
+								</c:choose>
+								 
+								
+								</strong>
 							</td>
 						</c:when>
 						<c:otherwise>
-							<td>${list.TITLE }</td>
+							<td>
+								<c:choose>
+									<c:when test="${list.ISBLOCK eq '1' }"> <%-- 블록글 처리 --%>
+										<div style="text-decoration: line-through; color: grey;">${list.TITLE }</div>
+									</c:when>
+									<c:otherwise>
+										<a href="listView.do?no=${list.NUM }" > ${list.TITLE } </a>		
+									</c:otherwise>
+								</c:choose>
+							</td>	
 						</c:otherwise>
 					</c:choose>
 					

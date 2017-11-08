@@ -25,7 +25,8 @@ public class ListDAO {
 		PreparedStatement prepStmt = null;
 		ResultSet rs = null;
 		BoardDTO bDTO = null;
-		
+
+
 		try {
 			
 			StringBuffer query = new StringBuffer();
