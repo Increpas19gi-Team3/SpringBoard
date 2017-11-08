@@ -27,35 +27,31 @@
 			<table>
 				<tr>
 					<th>작성자</th>
-					<td><input type="text" name="user"></td>
+					<td><input type="text" name="WRITER"></td>
 				</tr>
 				<tr>
 					<th>비밀번호</th>
-					<td><input type="password" name="pwd"></td>
+					<td><input type="password" name="PWD"></td>
 				</tr>
 				<tr>
 					<th>글종류</th>
 					<td>
-						<input type="radio" name="write_kind" value="0" checked="checked">일반글
-						<input type="radio" name="write_kind" value="1">공지글
+						<input type="radio" name="ISNOTICE" value="0" checked="checked">일반글
+						<input type="radio" name="ISNOTICE" value="1">공지글
 					</td>
-				</tr>
-				<tr>
-					<th>글제목</th>
-					<td><input type="text" name="title"></td>
 				</tr>
 
 				<tr>
 					<th>제목</th>
-					<td><input type="text" size="70" name="title"></td>
+					<td><input type="text" size="70" name="TITLE"></td>
 				</tr>
 				<tr>
 					<th>내용</th>
-					<td><textarea cols="70" rows="15" name="content"></textarea></td>
+					<td><textarea cols="70" rows="15" name="CONTENTS"></textarea></td>
 				</tr>
 				<tr>
 					<th>첨부파일</th>
-					<td>상품그림파일 <input type="file" name="upfile"></td>
+					<td><input type="file" name="upfile"></td>
 				</tr>
 				
 			</table>

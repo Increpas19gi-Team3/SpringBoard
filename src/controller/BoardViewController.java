@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
+
+import dao.WriteDAO;
 import dto.BoardDTO;
 import dto.UploadFileDTO;
 import service.ListService;
@@ -57,6 +59,7 @@ public class BoardViewController {
 				fileDTO.setSystemFilename(systemFilename);
 				fileDTO.setFileSize(file.getSize());
 				//모델에 fileDTO 추가
+				bdto.setIMGNAME(systemFilename);
 				model.addAttribute("fileDTO", fileDTO);
 			} catch (IllegalStateException e) {
 				// TODO Auto-generated catch block
@@ -66,6 +69,10 @@ public class BoardViewController {
 				e.printStackTrace();
 			}
 		}
+		
+		
+		WriteDAO wDao = WriteDAO.getInstance();
+		wDao.insertWrite(bdto);
 		
 		if(errors.hasErrors()){
 			return "boardReg";
