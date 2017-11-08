@@ -4,7 +4,7 @@
 
 <div id="adminLogin" style="text-align: right;">
 	
-	
+	<a href="reg.do">글등록</a>
 	<c:choose>
 		<c:when test="${not empty sessionScope.id }">
 			<a href="#">관리자 로그아웃</a>
