@@ -10,10 +10,10 @@
 	<a href="reg.do">글등록</a>
 	<c:choose>
 		<c:when test="${not empty sessionScope.id }">
-			<a href="/loing.do">관리자 로그아웃</a>
+			<a href="logout.do">관리자 로그아웃</a>
 		</c:when>
 		<c:otherwise>
-			<a href="/login.do">관리자 로그인</a>
+			<a href="login.do">관리자 로그인</a>
 		</c:otherwise>
 	</c:choose>
 </div>

@@ -10,13 +10,10 @@
 
 	
 	<context:component-scan base-package="controller, service, dao, dto" />
-
 	
 	<!-- Mapping -->
 	<mvc:annotation-driven/>	
-	<mvc:default-servlet-handler/>
-	
-	
+	<mvc:default-servlet-handler/>	
 	
 	<!-- IRVR : 내부자원(JSP)의 상위경로, 확장자 설정 → 유지보수 하기 편함 -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
