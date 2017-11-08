@@ -25,6 +25,6 @@ public class BoardViewController {
 	@RequestMapping(value="/reg.do",method=RequestMethod.GET)
 	public String form() {
 	
-		return "boardListReg";
+		return "boardReg";
 	}
 }
