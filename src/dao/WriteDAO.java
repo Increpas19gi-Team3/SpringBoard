@@ -103,4 +103,47 @@ public class WriteDAO {
 			return pwd;
 		}
 
+		public void updateWrite(BoardDTO bdto) {
+			String sql = "update SB_BOARD set TITLE=?,WRITER=?, PWD=?, CONTENTS=?, IMGNAME=? where num=?";
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			try {
+				conn = DBManager.getConnection();
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, XSSFilterUtil.doFilter(bdto.getTITLE()));
+				pstmt.setString(2, XSSFilterUtil.doFilter(bdto.getWRITER()));
+				pstmt.setString(3, XSSFilterUtil.doFilter(bdto.getPWD()));
+				pstmt.setString(4, XSSFilterUtil.doFilter(bdto.getCONTENTS()));
+				pstmt.setString(5, bdto.getIMGNAME());
+				pstmt.setInt(6, bdto.getNUM());
+				
+				rs = pstmt.executeQuery();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
+		
+		public void deleteWrite(int writeNum) {
+			String sql = "delete from SB_BOARD where num=?";
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String pwd=null;
+			
+			try {
+				conn = DBManager.getConnection();
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, writeNum);
+
+				rs = pstmt.executeQuery();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
 }

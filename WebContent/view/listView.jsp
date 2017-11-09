@@ -21,7 +21,8 @@
 	</header>
 	<hr>
 
-	<form action="modify.do" method="post">
+	<form action="boardChk.jsp" method="post">
+		<input type="hidden" name="NUM" value="${bDTO.NUM}"> 
 		<section>
 			<div id="#" align="center">
 				<h1>게시판 상세보기</h1>
@@ -29,7 +30,7 @@
 				<table class="#">
 					<tr>
 						<th>게시판 번호</th>
-						<td><input type="text" name="NUM" value="${bDTO.NUM}"> </td>
+						<td>${bDTO.NUM}</td>
 					</tr>
 
 					<tr>
