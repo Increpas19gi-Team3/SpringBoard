@@ -5,8 +5,14 @@
 <link rel= "stylesheet" type="text/css" href="css/shopping.css?ver=1">
 
 
+<div style="text-align: center; padding: 50px 100px;">
+	<p /><p /><p />
+	<h1>Spring Board</h1>
+	<p /><p /><p />
+</div>
+
+
 <div id="adminLogin" style="text-align: right;">
-	
 	<a href="reg.do">글등록</a>
 	<c:choose>
 		<c:when test="${not empty sessionScope.id }">
