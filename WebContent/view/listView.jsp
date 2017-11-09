@@ -53,7 +53,8 @@
 
 				<tr>
 					<th>이미지파일명</th>
-					<td><img src="../image/${bDTO.IMGNAME}" width="400" height="400"></td>
+					<td><img src="../image/${bDTO.IMGNAME}" width="400"
+						height="400"></td>
 				</tr>
 
 				<tr>
@@ -72,20 +73,26 @@
 				</tr>
 			</table>
 			<hr>
-			<br> <br> 
-			<input type="button" value="수정" onclick="location.href='updateForm.do?NUM=${bDTO.NUM}'"> 
-			<input type="button" value="삭제">
+			<br> <br> <input type="button" value="수정"
+				onclick="location.href='updateForm.do?NUM=${bDTO.NUM}'"> <input
+				type="button" value="삭제">
 
 			<c:choose>
-				<c:when test="${not empty sessionScope.id}">
-					<input type="button" value="블락">
-					<input type="button" value="블락취소">
+				<c:when test="${not empty sessionScope.id}">				
+					<c:choose>
+						<c:when test="${bDTO.ISBLOCK eq'0'}">
+							<input type="button" value="블락">						
+						</c:when>
+						<c:otherwise>
+							<input type="button" value="블락취소">
+						</c:otherwise>
+					</c:choose>					
 				</c:when>
+				
 				<c:otherwise>
-					<input type="button" value="취소" onclick="location.href='list.do'">
+					<input type="button" value="목록" onclick="location.href='list.do'">
 				</c:otherwise>
 			</c:choose>
-
 
 		</div>
 	</section>
