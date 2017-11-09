@@ -30,7 +30,7 @@ public class adminLoginController {
 	
 	@RequestMapping(value="/login.do", method=RequestMethod.POST)
 	public String postAdminLogin(HttpServletRequest request, 
-			HttpServletResponse responce, AdminDTO aDTO, Model model){
+			HttpServletResponse responce, Model model){
 				
 		System.out.println("세션 저장 테스트");
 		AdminDTO user = adminLogin.adminList();				
