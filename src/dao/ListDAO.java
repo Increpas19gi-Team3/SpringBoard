@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import dto.BoardDTO;
 import util.DBManager;
+import util.LoggableStatement;
 
 @Component
 public class ListDAO {
@@ -54,7 +55,7 @@ public class ListDAO {
 				
 				list.add(bDTO);
 				
-				System.out.println("selectList DTO: "+ bDTO.toString());
+				//System.out.println("selectList DTO: "+ bDTO.toString());
 			}
 			
 			
@@ -74,20 +75,49 @@ public class ListDAO {
 	 * @param word	: 검색어
 	 * @param sortColumn : 정렬 컬럼
 	 * @param orderby : 정렬방식 ASC, DESC
+	 * @param isBlock : 전체글 검색, 블록글 검색
 	 * @return - List<BoardDTO>
 	 */
-	public List<BoardDTO> selectList(String whereColumn, String word, String sortColumn, String orderby){
-		List<BoardDTO> list = null;
+	public List<BoardDTO> selectSetList(String whereColumn, String word, 
+			String sortColumn, String orderby, 
+			String isBlock){
+		
+		List<BoardDTO> list = null;			
+		int parameterIndex = 1;
+		
 		
 		StringBuffer query = new StringBuffer();
         query.append("SELECT * FROM SB_BOARD ");
-        query.append("WHERE ? LIKE ? ");
-        query.append("ORDER BY ? ?");
-		
-        System.out.println("whereColumn:"+whereColumn);
-		System.out.println("word:"+word);
-		System.out.println("sortColumn:"+sortColumn);
-		System.out.println("orderby:"+orderby);
+        
+        
+        //글보기 설정 - isBlock
+        if(isBlock.length() > 0){
+        	if(!isBlock.equals("ALL")){//전체글 보기가 아닐때
+        		query.append("WHERE ISBLOCK = ?");
+        	}
+        }
+        
+        //검색 조건 - search
+        if(whereColumn.length() > 0){
+        	if(!whereColumn.equals("ALL")){//전체글 검색이 아닐때
+        		if(query.toString().contains("WHERE")){//이미 where 조건이 되어 있다면
+            		query.append(" AND "+whereColumn+" LIKE ? ");
+            	}else{
+            		query.append("WHERE "+whereColumn+" LIKE ? ");
+            	}
+        	}
+        }
+        
+        //정렬 조건
+        if(sortColumn.length() > 0 && orderby.length() > 0){
+        	query.append(" ORDER BY ISNOTICE DESC, "+ sortColumn+" "+orderby);
+        }else{
+        	query.append(" ORDER BY ISNOTICE DESC, NUM DESC");
+        }
+        
+//      System.out.println("selectSetList SQL:" + query.toString());
+//      System.out.println("whereColumn:"+whereColumn);
+//		System.out.println("word:"+word);
 		
 		Connection con = null;
 		PreparedStatement prepStmt = null;
@@ -95,11 +125,27 @@ public class ListDAO {
 		
 		try {
 			con = DBManager.getConnection();
-			prepStmt = con.prepareStatement(query.toString());
-			prepStmt.setString(1, whereColumn);
-			prepStmt.setString(2, word);
-			prepStmt.setString(3, sortColumn);
-			prepStmt.setString(4, orderby);
+			//prepStmt = con.prepareStatement(query.toString()); //기존방식
+			prepStmt = new LoggableStatement(con, query.toString()); //PreparedStatement 쿼리 확인용 처리방식
+			
+			
+			//글보기 설정 - isBlock
+			if(isBlock.length() > 0){
+	        	if(!isBlock.equals("ALL")){//전체글 보기가 아닐때
+	        		prepStmt.setString(parameterIndex++, isBlock);
+	        	}
+	        }
+			
+			
+			//검색 조건 - search
+	        if(whereColumn.length() > 0){//전체검색시 검색어 입력 X
+	        	if(!whereColumn.equals("ALL")){//전체글 검색이 아닐때
+		        	prepStmt.setString(parameterIndex++, "%" + word + "%");
+	        	}
+	        }
+			
+	        
+			System.out.println("▶▶▶▶▶▶ ListDAO selectSetList SQL:"+((LoggableStatement)prepStmt).getQueryString());
 			
 			rs = prepStmt.executeQuery();
 			list = new ArrayList<BoardDTO>();
@@ -120,7 +166,7 @@ public class ListDAO {
 				
 				list.add(bDTO);
 				
-				System.out.println("selectList DTO: "+ bDTO.toString());
+				System.out.println("selectSetList DTO: "+ bDTO.toString());
 			}
 			
 			
@@ -129,6 +175,12 @@ public class ListDAO {
 		}finally {
 			DBManager.close(con, prepStmt, rs);
 		}
+		
+		/*
+		for (BoardDTO boardDTO : list) {
+			System.out.println("▷▷▷▷▷"+boardDTO.toString());
+		}
+		*/
 		
 		return list;
 	}
