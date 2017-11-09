@@ -40,9 +40,9 @@ public class BoardListController {
 		// 블록글 여부
 		
 		//정렬
-		String sortColumn = NullToBlank.doChange(req.getParameter("sort"));
+		String sortColumn = NullToBlank.doChange(req.getParameter("sortColumn"));
 		String orderby = NullToBlank.doChange(req.getParameter("orderby"));
-		//System.out.println("sortColumn="+sortColumn+", orderby="+orderby);
+		System.out.println("sortColumn="+sortColumn+", orderby="+orderby);
 		model.addAttribute("sortColumn", sortColumn);
 		model.addAttribute("orderby", orderby);
 		
@@ -84,7 +84,7 @@ public class BoardListController {
 		// 블록글 여부
 		
 		//정렬
-		String sortColumn = NullToBlank.doChange(req.getParameter("sort"));
+		String sortColumn = NullToBlank.doChange(req.getParameter("sortColumn"));
 		String orderby = NullToBlank.doChange(req.getParameter("orderby"));
 		System.out.println("sortColumn="+sortColumn+", orderby="+orderby);
 		model.addAttribute("sortColumn", sortColumn);

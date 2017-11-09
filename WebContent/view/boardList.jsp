@@ -15,7 +15,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title> 스프링 리스트 </title>
+<title> 스프링 게시판 </title>
+
+	<script type="text/javascript">
+		function click_whereColumn(){
+			document.listForm.word.value = "";
+		}
+	</script>
+	
 </head>
 <body>
 	
@@ -25,7 +32,10 @@
 		</nav>
 	</header>
 			
-		1. 검색조건 유지  <br />
+	<%--
+	onclick="location.href='delete.do?NUM=${number}'"
+	 --%>
+		1. 검색조건 유지 -  관리자모드: 일반글, 블록글 <br />
 		2. 페이징 처리  <br />
 	\${sortColumn }: ${sortColumn } <br />
 	\${orderby }: ${orderby } <br />
@@ -39,8 +49,10 @@
 	
 	<section>
 	<div id="search" style="text-align: center;">
-	<form action="search.do" method="post">
+	<form action="search.do" method="post" name="listForm">
 	
+		<input type="hidden" name="sortColumn" value="${sortColumn }">
+		<input type="hidden" name="orderby" value="${orderby }">
 	
 		
 		<table id="listGubun" style="">
@@ -75,15 +87,15 @@
 						<c:when test="${sortColumn eq 'TITLE'}"><!-- 제목 정렬일때 -->
 							<c:choose>
 								<c:when test="${orderby eq 'ASC' }">
-									<a href="list.do?sort=TITLE&orderby=DESC">제목 ▲</a>		
+									<a href="list.do?sortColumn=TITLE&orderby=DESC&whereColumn=${whereColumn }&word=${word }">제목 ▲</a>		
 								</c:when>
 								<c:otherwise>
-									<a href="list.do?sort=TITLE&orderby=ASC">제목 ▼</a>
+									<a href="list.do?sortColumn=TITLE&orderby=ASC&whereColumn=${whereColumn }&word=${word }">제목 ▼</a>
 								</c:otherwise>
 							</c:choose>
 						</c:when>
 						<c:otherwise><!-- 제목 정렬이 아닐 때 -->
-							<a href="list.do?sort=TITLE&orderby=ASC">제목 ▼</a>
+							<a href="list.do?sortColumn=TITLE&orderby=ASC&whereColumn=${whereColumn }&word=${word }">제목 ▼</a>
 						</c:otherwise>
 					</c:choose>
 					
@@ -97,15 +109,15 @@
 						<c:when test="${sortColumn eq 'REGTIME'}"><!-- 작성일 일때 -->
 							<c:choose>
 								<c:when test="${orderby eq 'ASC' }">
-									<a href="list.do?sort=REGTIME&orderby=DESC">작성일 ▲</a>		
+									<a href="list.do?sortColumn=REGTIME&orderby=DESC&whereColumn=${whereColumn }&word=${word }">작성일 ▲</a>		
 								</c:when>
 								<c:otherwise>
-									<a href="list.do?sort=REGTIME&orderby=ASC">작성일 ▼</a>
+									<a href="list.do?sortColumn=REGTIME&orderby=ASC&whereColumn=${whereColumn }&word=${word }">작성일 ▼</a>
 								</c:otherwise>
 							</c:choose>
 						</c:when>
 						<c:otherwise><!-- 작성일 정렬이 아닐 때 -->
-							<a href="list.do?sort=REGTIME&orderby=ASC">작성일 ▼</a>
+							<a href="list.do?sortColumn=REGTIME&orderby=ASC&whereColumn=${whereColumn }&word=${word }">작성일 ▼</a>
 						</c:otherwise>
 					</c:choose>
 					
@@ -188,16 +200,38 @@
 		<p /><p /><p />
 		
 				
-				<input type="hidden" name="sortColumn" value="" />
-				<input type="hidden" name="orderby" value="" />
-			
-			
-				<select name="whereColumn">
-					<option value="ALL">전체검색</option>
-					<option value="TITLE" >제목</option>
-					<option value="WRITER"> 작성자</option>
+				<select name="whereColumn" onclick="click_whereColumn()">
+					<c:choose>
+						<c:when test="${not empty whereColumn }">
+							
+							<c:choose>
+								<c:when test="${whereColumn eq 'ALL'}">
+									<option value="ALL" selected="selected">전체검색</option>
+									<option value="TITLE" >제목</option>
+									<option value="WRITER"> 작성자</option>
+								</c:when>
+								<c:when test="${whereColumn eq 'TITLE'}">
+									<option value="ALL">전체검색</option>
+									<option value="TITLE" selected="selected">제목</option>
+									<option value="WRITER"> 작성자</option>
+								</c:when>
+								<c:when test="${whereColumn eq 'WRITER'}">
+									<option value="ALL">전체검색</option>
+									<option value="TITLE" >제목</option>
+									<option value="WRITER" selected="selected"> 작성자</option>
+								</c:when>
+							</c:choose>
+						
+						</c:when>
+						<c:otherwise>
+							<option value="ALL">전체검색</option>
+							<option value="TITLE" >제목</option>
+							<option value="WRITER"> 작성자</option>
+						</c:otherwise>
+					</c:choose>
 				</select>
-				<input type="text" name="word">
+				
+				<input type="text" name="word" value="${word }">
 				<input type="submit" value="검색">
 	</form>	
 	</div>
