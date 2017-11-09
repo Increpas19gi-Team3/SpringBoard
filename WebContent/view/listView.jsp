@@ -21,11 +21,7 @@
 	</header>
 	<hr>
 
-
-	<!-- 변경됨 -->
-	<form action="view/boardChk.jsp" method="post">
-		<input type="hidden" name="NUM" value="${bDTO.NUM}">
-
+	<form action="view/modify.do" method="post">
 		<section>
 			<div id="#" align="center">
 				<h1>게시판 상세보기</h1>
@@ -33,7 +29,7 @@
 				<table class="#">
 					<tr>
 						<th>게시판 번호</th>
-						<td>${bDTO.NUM}</td>
+						<td><input type="text" name="NUM" value="${bDTO.NUM}"> </td>
 					</tr>
 
 					<tr>
@@ -81,24 +77,27 @@
 
 				<hr>
 				<br> <br> 
-				<input type="submit" value="수정/삭제"> 
+				<input type="submit" value="수정"> 
 
 				<c:choose>
 					<c:when test="${not empty sessionScope.id}">
+					
 						<c:choose>
 							<c:when test="${bDTO.ISBLOCK eq'0'}">
 								<input type="button" value="블락" onclick="location.href='block.do?NUM=${bDTO.NUM}'">
+								
 							</c:when>
 							<c:otherwise>
 								<input type="button" value="블락취소" onclick="location.href='unblock.do?NUM=${bDTO.NUM}'">
+								
 							</c:otherwise>
 						</c:choose>
 					</c:when>
-
-					<c:otherwise>
-						<input type="button" value="목록" onclick="location.href='list.do'">
-					</c:otherwise>
 				</c:choose>
+				
+
+				<input type="button" value="목록" onclick="location.href='list.do'">
+
 
 			</div>
 		</section>
