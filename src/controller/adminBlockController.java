@@ -38,7 +38,8 @@ public class adminBlockController {
 		
 		adminBlock.Block(num);		
 		System.out.println("Block 저장");
-		return "redirect:/list.do"; // "boardList";
+		//return "redirect:/list.do"; // "boardList";
+		return "redirect:/listView.do?no="+num;
 	}
 
 	@RequestMapping(value = "/unblock.do", method = RequestMethod.GET)
@@ -49,6 +50,7 @@ public class adminBlockController {
 		
 		adminBlock.unBlock(num);		
 		System.out.println("unBlock 저장");
-		return "redirect:/list.do";
+		//return "redirect:/list.do";
+		return "redirect:/listView.do?no="+num;
 	}
 }
