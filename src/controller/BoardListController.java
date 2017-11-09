@@ -59,6 +59,11 @@ public class BoardListController {
 		model.addAttribute("listGubun", isBlock);
 		
 		
+		//페이징  처리
+		
+		
+		
+		
 		// listService.getListAll(); //전체 리스트용 - 검색, 정렬, 안됨
 		List<BoardDTO> list = listService.getSetList(whereColumn, word, sortColumn, orderby, isBlock);				
 		model.addAttribute("list", list);
@@ -96,6 +101,10 @@ public class BoardListController {
 		String isBlock = NullToBlank.doChange(req.getParameter("listGubun"));
 		System.out.println("listGubun="+isBlock);
 		model.addAttribute("listGubun", isBlock);
+		
+		
+		//페이징  처리
+		
 		
 		
 		// listService.getListAll(); //전체 리스트용 - 검색, 정렬, 안됨

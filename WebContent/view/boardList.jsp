@@ -25,7 +25,8 @@
 		</nav>
 	</header>
 			
-		제목 / 날짜 <br />
+		1. 검색조건 유지  <br />
+		2. 페이징 처리  <br />
 	\${sortColumn }: ${sortColumn } <br />
 	\${orderby }: ${orderby } <br />
 	
