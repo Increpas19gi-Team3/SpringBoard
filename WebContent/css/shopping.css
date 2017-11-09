@@ -52,3 +52,7 @@ a:HOVER {
 	text-align: center;		/* 가운데 정렬 */
    	vertical-align: middle;
 }
+
+#search form #listMode table tr, td{
+	border: #ffffff solid 1px;
+}

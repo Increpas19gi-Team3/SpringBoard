@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<link rel= "stylesheet" type="text/css" href="css/shopping.css">
+<link rel= "stylesheet" type="text/css" href="css/shopping.css?ver=1">
 
 
 <div id="adminLogin" style="text-align: right;">
