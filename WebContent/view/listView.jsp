@@ -19,59 +19,63 @@
 			<jsp:include page="header.jsp" />
 		</nav>
 	</header>
-
 	<hr>
-	
-	<section>		
-			<table>
+
+	<section>
+		<div id="#" align="center">
+			<h1>게시판 상세보기</h1>
+			<br>
+			<table class="#">
+				<tr>
+					<th>게시판 번호</th>
+					<td>${bDTO.NUM}</td>
+				</tr>
+
+				<tr>
+					<th>공지사항여부</th>
+					<td>${bDTO.ISNOTICE}</td>
+				</tr>
+
+				<tr>
+					<th>블락여부</th>
+					<td>${bDTO.ISBLOCK}</td>
+				</tr>
+
+				<tr>
+					<th>제&nbsp;목</th>
+					<td>${bDTO.TITLE}</td>
+				</tr>
+
 				<tr>
 					<th>작성자</th>
-					<td><input type="text" name="WRITER"></td>
-				</tr>
-				<tr>
-					<th>비밀번호</th>
-					<td><input type="password" name="PWD"></td>
-				</tr>
-				<tr>
-					<th>글종류</th>
-					<td>
-						<input type="radio" name="ISNOTICE" value="0" checked="checked">일반글
-						<c:if test="${not empty sessionScope.id }">
-							<input type="radio" name="ISNOTICE" value="1" >공지글
-						</c:if>						
-					</td>
+					<td>${bDTO.WRITER}</td>
 				</tr>
 
 				<tr>
-					<th>제목</th>
-					<td><input type="text" size="70" name="TITLE"></td>
+					<th>이미지파일명</th>
+					<td><img src="../image/${bDTO.IMGNAME}"></td>
 				</tr>
+
 				<tr>
 					<th>내용</th>
-					<td><textarea cols="70" rows="15" name="CONTENTS"></textarea></td>
+					<td>${bDTO.CONTENTS}</td>
 				</tr>
-				<tr>
-					<th>첨부파일</th>
-					<td><input type="file" name="upfile"></td>
-				</tr>
-				
-			</table>
-			<br>
-			<br> <input type="submit" value="등록"> 
-			<input type="reset" value="다시 작성"> 
-		
 
+				<tr>
+					<th>조회수</th>
+					<td>${bDTO.COUNT}</td>
+				</tr>
+
+				<tr>
+					<th>작성시간</th>
+					<td>${bDTO.REGTIME}</td>
+				</tr>
+			</table>
+			<hr>
+			<br> <br> <input type="button" value="수정"> <input
+				type="button" value="삭제"> <input type="button" value="관리자?">
+		</div>
 	</section>
-	
-	
-	
-	
-	
-	
-		<tr>
-			<td><fmt:formatDate value="${list.REGTIME }" pattern="yyyy-MM-dd" /></td>
-		</tr>
-	<hr>
 
 	<footer>
 		<jsp:include page="footer.jsp" />
