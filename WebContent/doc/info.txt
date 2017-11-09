@@ -10,11 +10,11 @@
 	
 	<!-- 
 		Server > 톰캣 > server.xml
-	  	C:\myjava17gi\images 경로 → /image 웹 컨텍스트 경로로 정의
+	  	C:\images 경로 → /image 웹 컨텍스트 경로로 정의
 	  	웹서버 내부에 이미지를 저장하는 것이 아니라,
 		외부 폴더 or 외부 서버에 저장하는 이미지 경로를 설정
 	-->
-	<Context docBase="C:\myjava17gi\images" path="/image" reloadable="true" />
+	<Context docBase="C:\images" path="/image" reloadable="true" />
 	
 	
 ▶ 
