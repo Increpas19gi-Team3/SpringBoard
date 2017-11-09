@@ -72,8 +72,21 @@
 				</tr>
 			</table>
 			<hr>
-			<br> <br> <input type="button" value="수정"> <input
-				type="button" value="삭제"> <input type="button" value="관리자?">
+			<br> <br> 
+			<input type="button" value="수정" onclick="location.href='updateForm.do?NUM=${bDTO.NUM}'"> 
+			<input type="button" value="삭제">
+
+			<c:choose>
+				<c:when test="${not empty sessionScope.id}">
+					<input type="button" value="블락">
+					<input type="button" value="블락취소">
+				</c:when>
+				<c:otherwise>
+					<input type="button" value="취소" onclick="location.href='list.do'">
+				</c:otherwise>
+			</c:choose>
+
+
 		</div>
 	</section>
 
