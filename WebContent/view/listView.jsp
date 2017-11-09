@@ -53,7 +53,7 @@
 
 				<tr>
 					<th>이미지파일명</th>
-					<td><img src="../image/${bDTO.IMGNAME}"></td>
+					<td><img src="../image/${bDTO.IMGNAME}" width="400" height="400"></td>
 				</tr>
 
 				<tr>
