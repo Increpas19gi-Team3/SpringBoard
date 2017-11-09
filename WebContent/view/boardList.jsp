@@ -84,7 +84,14 @@
 									<c:when test="${list.ISBLOCK eq '1' }"> <%-- 블록글 처리 --%>
 										<div style="text-decoration: line-through; color: grey;">
 											<img src="/image/notice.png">&nbsp;
-												${list.TITLE }
+											<c:choose> <%-- 관리자는 블록글 내용보기 가능 --%>
+												<c:when test="${not empty sessionScope.id }">
+													<a href="listView.do?no=${list.NUM }" > 
+														${list.TITLE } 
+													</a>
+												</c:when>
+												<c:otherwise> ${list.TITLE } </c:otherwise>
+											</c:choose>
 										</div>
 									</c:when>
 									<c:otherwise>
@@ -103,7 +110,18 @@
 							<td>
 								<c:choose>
 									<c:when test="${list.ISBLOCK eq '1' }"> <%-- 블록글 처리 --%>
-										<div style="text-decoration: line-through; color: grey;">${list.TITLE }</div>
+										<div style="text-decoration: line-through; color: grey;">
+										
+											<c:choose><%-- 관리자는 블록글 내용보기 가능 --%>
+												<c:when test="${not empty sessionScope.id }">
+													<a href="listView.do?no=${list.NUM }" > 
+														${list.TITLE } 
+													</a>
+												</c:when>
+												<c:otherwise> ${list.TITLE } </c:otherwise>
+											</c:choose>
+											
+										</div>										
 									</c:when>
 									<c:otherwise>
 										<a href="listView.do?no=${list.NUM }" > ${list.TITLE } </a>		
