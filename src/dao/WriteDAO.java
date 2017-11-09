@@ -25,7 +25,6 @@ public class WriteDAO {
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
-			BoardDTO bDTO = null;
 			
 			try {
 				conn = DBManager.getConnection();
@@ -44,6 +43,64 @@ public class WriteDAO {
 			}
 
 		}
+		
+		public BoardDTO selectWrite(int writeNum) {
+			String sql = "select * from SB_BOARD where num=?";
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			BoardDTO bdto = new BoardDTO();
+			
+			try {
+				conn = DBManager.getConnection();
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, writeNum);
 
+				rs = pstmt.executeQuery();
+				while (rs.next()) {
+					bdto.setCONTENTS(rs.getString("CONTENTS"));
+					bdto.setCOUNT(rs.getInt("COUNT"));
+					bdto.setIMGNAME(rs.getString("IMGNAME"));
+					bdto.setISBLOCK(rs.getString("ISBLOCK"));
+					bdto.setISNOTICE(rs.getString("ISNOTICE"));
+					bdto.setNUM(writeNum);
+					bdto.setPWD(rs.getString("PWD"));
+					bdto.setREGTIME(rs.getDate("REGTIME"));
+					bdto.setTITLE(rs.getString("TITLE"));
+					bdto.setWRITER(rs.getString("WRITER"));
+				}
+				
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			return bdto;
+		}
+
+		public String selectPW(int writeNum) {
+			String sql = "select PWD from SB_BOARD where num=?";
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String pwd=null;
+			
+			try {
+				conn = DBManager.getConnection();
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, writeNum);
+
+				rs = pstmt.executeQuery();
+				while (rs.next()) {
+					pwd = rs.getString("PWD");
+				}
+				
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			return pwd;
+		}
 
 }

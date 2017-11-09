@@ -29,7 +29,7 @@
 				<table class="#">
 					<tr>
 						<th>게시판 번호</th>
-						<td>${bDTO.NUM}</td>
+						<td><input type="text" name="NUM" value="${bDTO.NUM}"> </td>
 					</tr>
 
 					<tr>
@@ -77,7 +77,7 @@
 
 				<hr>
 				<br> <br> 
-				<input type="button" value="수정"> 
+				<input type="submit" value="수정"> 
 
 				<c:choose>
 					<c:when test="${not empty sessionScope.id}">

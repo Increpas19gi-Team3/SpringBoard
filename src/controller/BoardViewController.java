@@ -4,9 +4,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,4 +81,37 @@ public class BoardViewController {
 						
 		return "redirect:index.jsp";
 	}
+	
+	@RequestMapping(value="/updateForm.do",method=RequestMethod.GET)
+	public String uptForm(HttpServletRequest request, Model model) {
+		int writeNum = Integer.parseInt(request.getParameter("NUM"));
+		
+		WriteDAO wDao = WriteDAO.getInstance();
+		BoardDTO uptDTO = wDao.selectWrite(writeNum);
+		
+		model.addAttribute("uptDTO", uptDTO);
+		
+		return "boardUpt";
+	}
+	
+	
+	/*@RequestMapping(value="/passChk.do",method=RequestMethod.GET)
+	public String passForm(HttpServletRequest request, Model model) {
+		int writeNum = Integer.parseInt(request.getParameter("NUM"));
+		int pass = Integer.parseInt(request.getParameter("PWD"));
+		
+		return "boardUpt";
+	}*/
+	
+	@RequestMapping(value="/modify.do",method=RequestMethod.POST)
+	public String pass(HttpServletRequest request, Model model) {
+		int writeNum = Integer.parseInt(request.getParameter("NUM"));
+		
+		WriteDAO wDao = WriteDAO.getInstance();
+		String pw = wDao.selectPW(writeNum);
+		
+		return "boardUpt";
+	}
+	
+	
 }
