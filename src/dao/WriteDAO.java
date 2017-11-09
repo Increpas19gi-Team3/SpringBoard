@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import dto.BoardDTO;
+import secure.XSSFilterUtil;
 import util.DBManager;
 
 public class WriteDAO {
@@ -25,15 +26,15 @@ public class WriteDAO {
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			BoardDTO bDTO = null;
-
+			
 			try {
 				conn = DBManager.getConnection();
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, bdto.getISNOTICE());
-				pstmt.setString(2, bdto.getTITLE());
-				pstmt.setString(3, bdto.getWRITER());
-				pstmt.setString(4, bdto.getPWD());
-				pstmt.setString(5, bdto.getCONTENTS());
+				pstmt.setString(2, XSSFilterUtil.doFilter(bdto.getTITLE()));
+				pstmt.setString(3, XSSFilterUtil.doFilter(bdto.getWRITER()));
+				pstmt.setString(4, XSSFilterUtil.doFilter(bdto.getPWD()));
+				pstmt.setString(5, XSSFilterUtil.doFilter(bdto.getCONTENTS()));
 				pstmt.setString(6, bdto.getIMGNAME());
 				
 				rs = pstmt.executeQuery();
@@ -41,7 +42,7 @@ public class WriteDAO {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			//return bDTO;
+
 		}
 
 
