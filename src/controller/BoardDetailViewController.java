@@ -28,7 +28,7 @@ public class BoardDetailViewController {
 	@RequestMapping(value = "/listView.do", method = RequestMethod.GET)
 	public String GET_BoardDetailView(Model model, HttpServletRequest req, HttpServletResponse resp) {
 
-		System.out.println("상세 페이지(POST)로 들어왔니?");
+		System.out.println("상세 페이지(GET)로 들어왔니?");
 
 		int num = Integer.parseInt(req.getParameter("no"));
 		BoardDTO bDTO = listViewDAO.BoardDetailView(num);

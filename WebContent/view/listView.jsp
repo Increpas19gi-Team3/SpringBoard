@@ -21,7 +21,7 @@
 	</header>
 	<hr>
 
-	<form action="modify.do" method="post">
+	<form action="view/modify.do" method="post">
 		<section>
 			<div id="#" align="center">
 				<h1>게시판 상세보기</h1>
@@ -83,10 +83,10 @@
 					<c:when test="${not empty sessionScope.id}">
 						<c:choose>
 							<c:when test="${bDTO.ISBLOCK eq'0'}">
-								<input type="button" value="블락" onclick="">
+								<input type="button" value="블락" onclick="location.href='block.do?NUM=${bDTO.NUM}'">
 							</c:when>
 							<c:otherwise>
-								<input type="button" value="블락취소" onclick="">
+								<input type="button" value="블락취소" onclick="location.href='unblock.do?NUM=${bDTO.NUM}'">
 							</c:otherwise>
 						</c:choose>
 					</c:when>
