@@ -27,46 +27,88 @@
 			
 		제목 / 날짜 <br />
 	\${sortColumn }: ${sortColumn } <br />
-	\${orderby }: ${orderby }<p /><p />
+	\${orderby }: ${orderby } <br />
+	
+	\${listGubun }: ${listGubun } <br />
+	
+	\${whereColumn }: ${whereColumn } <br />
+	\${word }: ${word } <br />
+	<p /><p />
 	
 	
 	<section>
+	<div id="search" style="text-align: center;">
+	<form action="search.do" method="post">
+	
+	
+		
+		<table id="listGubun" style="">
+			<tr >
+				<td style="text-align: left;">
+					<!-- 관리자 모드 메뉴 -->
+					<c:if test="${not empty sessionScope.id }">
+						<select name = "listGubun">
+							<option value="ALL">전체글</option>
+							<option value="1">블록글</option>
+							<option value="0">일반글</option>
+						</select>			
+					</c:if>			
+				</td>
+				<td style="text-align: right;">
+				
+					<select name = "listCnt">
+						<option>5줄</option>
+						<option>10줄</option>
+						<option>20줄</option>
+					</select>				
+				</td>
+			</tr>
+		</table>
+		
+	
 		<table border="1" id="list">
 			<tr>
 				<th>No.</th>
-				
 				<th>
-					<c:if test="${empty sortColumn }">
-						<a href="list.do?sort='TITLE'&orderby='ASC'">제목 ▼</a>
-					</c:if>
-					<c:if test="${sortColumn eq 'TITLE'}">
 					<c:choose>
-						<c:when test="${orderby eq 'ASC' }">
-							<a href="list.do?sort='TITLE'&orderby='DESC'">제목 ▲</a>		
+						<c:when test="${sortColumn eq 'TITLE'}"><!-- 제목 정렬일때 -->
+							<c:choose>
+								<c:when test="${orderby eq 'ASC' }">
+									<a href="list.do?sort=TITLE&orderby=DESC">제목 ▲</a>		
+								</c:when>
+								<c:otherwise>
+									<a href="list.do?sort=TITLE&orderby=ASC">제목 ▼</a>
+								</c:otherwise>
+							</c:choose>
 						</c:when>
-						<c:otherwise>
-							<a href="list.do?sort='TITLE'&orderby='ASC'">제목 ▼</a>
+						<c:otherwise><!-- 제목 정렬이 아닐 때 -->
+							<a href="list.do?sort=TITLE&orderby=ASC">제목 ▼</a>
 						</c:otherwise>
 					</c:choose>
-					</c:if>
+					
+					
+					
 				</th>
 				<th>작성자</th>
 				<th>조회수</th>
 				<th>
-					
-					<c:if test="${empty sortColumn }">
-						<a href="list.do?sort='REGTIME'&orderby='ASC'">작성일 ▼</a>
-					</c:if>
-					<c:if test="${sortColumn eq 'REGTIME'}">
 					<c:choose>
-						<c:when test="${orderby eq 'ASC' }">
-							<a href="list.do?sort='REGTIME'&orderby='DESC'">작성일 ▲</a>		
+						<c:when test="${sortColumn eq 'REGTIME'}"><!-- 작성일 일때 -->
+							<c:choose>
+								<c:when test="${orderby eq 'ASC' }">
+									<a href="list.do?sort=REGTIME&orderby=DESC">작성일 ▲</a>		
+								</c:when>
+								<c:otherwise>
+									<a href="list.do?sort=REGTIME&orderby=ASC">작성일 ▼</a>
+								</c:otherwise>
+							</c:choose>
 						</c:when>
-						<c:otherwise>
-							<a href="list.do?sort='REGTIME'&orderby='ASC'">작성일 ▼</a>
+						<c:otherwise><!-- 작성일 정렬이 아닐 때 -->
+							<a href="list.do?sort=REGTIME&orderby=ASC">작성일 ▼</a>
 						</c:otherwise>
 					</c:choose>
-					</c:if>
+					
+					
 				</th>
 			</tr>
 			
@@ -135,7 +177,7 @@
 					<td>${list.WRITER }</td>
 					<td>${list.COUNT }</td>
 					<td>
-						<fmt:formatDate value="${list.REGTIME }" pattern="yyyy-MM-dd"/>
+						<fmt:formatDate value="${list.REGTIME }" pattern="yyyy-MM-dd hh:mm"/>
 					</td>
 				</tr>
 			</c:forEach>			
@@ -143,24 +185,22 @@
 	
 	
 		<p /><p /><p />
-		<div id="search" style="text-align: center;">
-			<form action="search.do" method="post">
+		
 				
 				<input type="hidden" name="sortColumn" value="" />
 				<input type="hidden" name="orderby" value="" />
 			
 			
 				<select name="whereColumn">
-					<option value="" >전체검색</option>
+					<option value="ALL">전체검색</option>
 					<option value="TITLE" >제목</option>
 					<option value="WRITER"> 작성자</option>
 				</select>
-				
 				<input type="text" name="word">
 				<input type="submit" value="검색">
-			</form>
-		</div>
-	
+	</form>	
+	</div>
+		
 	</section>
 	
 	

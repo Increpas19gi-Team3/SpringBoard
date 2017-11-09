@@ -24,7 +24,15 @@ public class ListService {
 	 * 전체 게시글 목록 가져오기 DAO 활용
 	 * @return
 	 */
-	public List<BoardDTO> getList(){
+	public List<BoardDTO> getListAll(){
 		return listDAO.selectList();		
-	} 
+	}
+	
+	
+	
+	public List<BoardDTO> getSetList(String whereColumn, String word, 
+			String sortColumn, String orderby, 
+			String isBlock){
+		return listDAO.selectSetList(whereColumn, word, sortColumn, orderby, isBlock);
+	}
 }
