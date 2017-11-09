@@ -22,7 +22,8 @@
 	<hr>
 
 
-	<form action="view/modify.do" method="post">
+	<form action="view/boardChk.jsp" method="post">
+		<input type="hidden" name="NUM" value="${bDTO.NUM}">
 
 		<section>
 			<div id="#" align="center">
@@ -79,7 +80,7 @@
 
 				<hr>
 				<br> <br> 
-				<input type="submit" value="수정"> 
+				<input type="submit" value="수정/삭제"> 
 
 				<c:choose>
 					<c:when test="${not empty sessionScope.id}">

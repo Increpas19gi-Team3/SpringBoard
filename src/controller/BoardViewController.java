@@ -81,37 +81,103 @@ public class BoardViewController {
 						
 		return "redirect:index.jsp";
 	}
-	
-	@RequestMapping(value="/updateForm.do",method=RequestMethod.GET)
-	public String uptForm(HttpServletRequest request, Model model) {
-		int writeNum = Integer.parseInt(request.getParameter("NUM"));
+
+		
+	@RequestMapping(value="/pwdCheck.do",method=RequestMethod.POST)
+	public String passChk(HttpServletRequest request, Model model) {
+		int writeNum = Integer.parseInt(request.getParameter("NUMBER"));
+		String pass = request.getParameter("pass");
 		
 		WriteDAO wDao = WriteDAO.getInstance();
 		BoardDTO uptDTO = wDao.selectWrite(writeNum);
 		
+		if(!pass.equals(uptDTO.getPWD())){
+			return "notOK";
+		}
+		
 		model.addAttribute("uptDTO", uptDTO);
+		model.addAttribute("number",writeNum);
 		
 		return "boardUpt";
 	}
+
 	
-	
-	/*@RequestMapping(value="/passChk.do",method=RequestMethod.GET)
-	public String passForm(HttpServletRequest request, Model model) {
-		int writeNum = Integer.parseInt(request.getParameter("NUM"));
-		int pass = Integer.parseInt(request.getParameter("PWD"));
+	@RequestMapping(value="/update.do",method=RequestMethod.POST)
+	public String upt(@Valid @ModelAttribute("icmd") BoardDTO bdto,Errors errors, Model model) {
 		
-		return "boardUpt";
-	}*/
+		WriteDAO wDao = WriteDAO.getInstance();
+		BoardDTO preDTO = wDao.selectWrite(bdto.getNUM());
+		
+		// MultipartFile 파일 객체
+		MultipartFile file = bdto.getUpfile();
+		String path="C:/images/";
+		
+		if(bdto.getCONTENTS().isEmpty()){
+			bdto.setCONTENTS(preDTO.getCONTENTS());
+		}
+		
+		if(bdto.getPWD().isEmpty()){
+			bdto.setCONTENTS(preDTO.getPWD());
+		}
+		
+		if(bdto.getTITLE().isEmpty()){
+			bdto.setCONTENTS(preDTO.getTITLE());
+		}
+		
+		if(bdto.getWRITER().isEmpty()){
+			bdto.setCONTENTS(preDTO.getWRITER());
+		}
+
+		if (!file.isEmpty()) {
+			// 업로드파일객체를 지정한 파일에 복사
+			try {
+				String originalFilename = file.getOriginalFilename();
+				String systemFilename = bdto.getWRITER()+"_"+UUID.randomUUID()+"_"+originalFilename;
+				
+				file.transferTo(new File(path,systemFilename));
+				System.out.println(systemFilename + " 업로드완료.");
+				UploadFileDTO fileDTO = new UploadFileDTO();
+				fileDTO.setOriginalFilename(originalFilename);
+				fileDTO.setSystemFilename(systemFilename);
+				fileDTO.setFileSize(file.getSize());
+				//모델에 fileDTO 추가
+				bdto.setIMGNAME(systemFilename);
+				model.addAttribute("fileDTO", fileDTO);
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else{
+			bdto.setIMGNAME(preDTO.getIMGNAME());
+		}
+		
+		if(errors.hasErrors()){
+			return "boardReg";
+		}
+	/*	System.out.println("bdto.getWRITER() >>> "+bdto.getWRITER());
+		System.out.println("bdto.getCONTENTS() >>> "+bdto.getCONTENTS());
+		System.out.println("bdto.getPWD() >>> "+bdto.getPWD());
+		System.out.println("bdto.getTITLE() >>> "+bdto.getTITLE());
+		System.out.println("bdto.getNUM() >>> "+bdto.getNUM());
+		System.out.println("bdto.getIMGNAME() >>> "+bdto.getIMGNAME());*/
+		
+		WriteDAO Dao = WriteDAO.getInstance();
+		Dao.updateWrite(bdto);
+						
+		return "redirect:index.jsp";
+	}
 	
-	@RequestMapping(value="/modify.do",method=RequestMethod.POST)
-	public String pass(HttpServletRequest request, Model model) {
+	
+	@RequestMapping(value="/delete.do",method=RequestMethod.GET)
+	public String reg(HttpServletRequest request, Model model) {
 		int writeNum = Integer.parseInt(request.getParameter("NUM"));
 		
 		WriteDAO wDao = WriteDAO.getInstance();
-		String pw = wDao.selectPW(writeNum);
-		
-		return "boardUpt";
+		wDao.deleteWrite(writeNum);
+						
+		return "redirect:index.jsp";
 	}
-	
-	
 }
