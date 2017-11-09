@@ -125,8 +125,8 @@ public class ListDAO {
 		
 		try {
 			con = DBManager.getConnection();
-			//prepStmt = con.prepareStatement(query.toString()); //기존방식
-			prepStmt = new LoggableStatement(con, query.toString()); //PreparedStatement 쿼리 확인용 처리방식
+			//prepStmt = con.prepareStatement(query.toString()); //기존방식 - 상용
+			prepStmt = new LoggableStatement(con, query.toString()); //PreparedStatement 쿼리 확인용 처리방식 - 개발용
 			
 			
 			//글보기 설정 - isBlock
@@ -145,7 +145,7 @@ public class ListDAO {
 	        }
 			
 	        
-			System.out.println("▶▶▶▶▶▶ ListDAO selectSetList SQL:"+((LoggableStatement)prepStmt).getQueryString());
+			System.out.println("▶▶▶▶▶▶ ListDAO selectSetList SQL:"+((LoggableStatement)prepStmt).getQueryString());//상용 시, 주석처리
 			
 			rs = prepStmt.executeQuery();
 			list = new ArrayList<BoardDTO>();
