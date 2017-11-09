@@ -22,6 +22,7 @@
 	<hr>
 
 
+	<!-- 변경됨 -->
 	<form action="view/boardChk.jsp" method="post">
 		<input type="hidden" name="NUM" value="${bDTO.NUM}">
 
