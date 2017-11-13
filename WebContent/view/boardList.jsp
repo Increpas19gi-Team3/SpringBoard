@@ -32,9 +32,9 @@
 		</nav>
 	</header>
 			
-	<%--
+	<%-- 미구현 작업용 주석처리
 	onclick="location.href='delete.do?NUM=${number}'"
-	 --%>
+	
 		1. 검색조건 유지 -  관리자모드: 일반글, 블록글 <br />
 		2. 페이징 처리  <br />
 	\${sortColumn }: ${sortColumn } <br />
@@ -45,7 +45,7 @@
 	\${whereColumn }: ${whereColumn } <br />
 	\${word }: ${word } <br />
 	<p /><p />
-	
+	 --%>
 	
 	<section>
 	<div id="search" style="text-align: center;">
@@ -54,11 +54,11 @@
 		<input type="hidden" name="sortColumn" value="${sortColumn }">
 		<input type="hidden" name="orderby" value="${orderby }">
 	
-		
+		<!-- 관리자 모드 메뉴 : 미구현 주석처리
 		<table id="listGubun" style="">
 			<tr >
 				<td style="text-align: left;">
-					<!-- 관리자 모드 메뉴 -->
+					
 					<c:if test="${not empty sessionScope.id }">
 						<select name = "listGubun">
 							<option value="ALL">전체글</option>
@@ -77,7 +77,7 @@
 				</td>
 			</tr>
 		</table>
-		
+		 -->
 	
 		<table border="1" id="list">
 			<tr>
@@ -132,12 +132,11 @@
 					
 					<c:choose>
 						<c:when test="${list.ISNOTICE eq '1' }"> <%-- 공지사항 처리 --%>
-							<td id="notice" style="font: bold; color: red;">
+							<td id="notice">
 								<strong> 
-								
 								<c:choose>
 									<c:when test="${list.ISBLOCK eq '1' }"> <%-- 블록글 처리 --%>
-										<div style="text-decoration: line-through; color: grey;">
+										<div style="text-decoration: line-through; color: gray;">
 											<img src="/image/notice.png">&nbsp;
 											<c:choose> <%-- 관리자는 블록글 내용보기 가능 --%>
 												<c:when test="${not empty sessionScope.id }">
@@ -150,14 +149,14 @@
 										</div>
 									</c:when>
 									<c:otherwise>
-										<img src="/image/notice.png">&nbsp;
-										<a href="listView.do?no=${list.NUM }" > 
-											${list.TITLE } 
-										</a>		
+										<div style="color: red;">
+											<img src="/image/notice.png">&nbsp;
+											<a href="listView.do?no=${list.NUM }" > 
+												${list.TITLE } 
+											</a>		
+										</div>
 									</c:otherwise>
 								</c:choose>
-								 
-								
 								</strong>
 							</td>
 						</c:when>

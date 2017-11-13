@@ -44,9 +44,9 @@ a:HOVER {
 }
 
 
-#notice td, div{
-	color: red;
-	font: bold;
+#notice td{
+	/* color: red;
+	font: bold; */
 }
 #list table td, th{
 	text-align: center;		/* 가운데 정렬 */

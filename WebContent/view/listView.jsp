@@ -30,7 +30,10 @@
 				<table class="#">
 					<tr>
 						<th>게시판 번호</th>
-						<td><input type="text" name="NUM" value="${bDTO.NUM}"> </td>
+						<td>
+							<%-- 수정 못 하도록 처리 <input type="text" name="NUM" value=""> --%> 
+							${bDTO.NUM}
+						</td>
 					</tr>
 
 					<tr>
