@@ -21,7 +21,8 @@
 	</header>
 	<hr>
 
-	<form action="view/modify.do" method="post">
+	<form action="view/boardChk.jsp" method="post">
+		
 		<section>
 			<div id="#" align="center">
 				<h1>게시판 상세보기</h1>
@@ -77,7 +78,7 @@
 
 				<hr>
 				<br> <br> 
-				<input type="submit" value="수정"> 
+				<input type="submit" value="수정/삭제"> 
 
 				<c:choose>
 					<c:when test="${not empty sessionScope.id}">
