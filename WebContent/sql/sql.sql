@@ -1,3 +1,7 @@
+/* 댓글 컬럼 추가 _ 2017.11.15 */
+ALTER TABLE  SB_BOARD ADD (BREF NUMBER , BSTEP NUMBER, BLEVEL NUMBER);
+
+
 /* SB_관리자 */
 CREATE TABLE SB_Admin (
 	id VARCHAR2(20) NOT NULL, /* 아이디 */
