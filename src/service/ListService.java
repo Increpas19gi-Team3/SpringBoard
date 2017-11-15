@@ -25,6 +25,9 @@ public class ListService {
 	 * @return
 	 */
 	public List<BoardDTO> getListAll(){
+		
+		System.err.println("ListService : getSetList >> 들어옴");
+		
 		return listDAO.selectList();		
 	}
 	
@@ -33,6 +36,9 @@ public class ListService {
 	public List<BoardDTO> getSetList(String whereColumn, String word, 
 			String sortColumn, String orderby, 
 			String isBlock){
+		
+		System.err.println("ListService : getSetList >> 들어옴");
+		
 		return listDAO.selectSetList(whereColumn, word, sortColumn, orderby, isBlock);
 	}
 }

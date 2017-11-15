@@ -64,8 +64,8 @@ public class BoardListController {
 		
 		
 		
-		// listService.getListAll(); //전체 리스트용 - 검색, 정렬, 안됨
-		List<BoardDTO> list = listService.getSetList(whereColumn, word, sortColumn, orderby, isBlock);				
+		List<BoardDTO> list = listService.getListAll(); //전체 리스트용 - 검색, 정렬, 안됨
+		//List<BoardDTO> list = listService.getSetList(whereColumn, word, sortColumn, orderby, isBlock);				
 		model.addAttribute("list", list);
 		
 		//System.out.println("ip getRemoteAddr:" + req.getRemoteAddr());
@@ -107,8 +107,8 @@ public class BoardListController {
 		
 		
 		
-		// listService.getListAll(); //전체 리스트용 - 검색, 정렬, 안됨
-		List<BoardDTO> list = listService.getSetList(whereColumn, word, sortColumn, orderby, isBlock);				
+		List<BoardDTO> list = listService.getListAll(); //전체 리스트용 - 검색, 정렬, 안됨
+		//List<BoardDTO> list = listService.getSetList(whereColumn, word, sortColumn, orderby, isBlock);				
 		model.addAttribute("list", list);
 				
 		

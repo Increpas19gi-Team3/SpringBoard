@@ -11,24 +11,6 @@
   </welcome-file-list>
   
   
-  	<servlet>
-		<servlet-name>dispatcher</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<!-- AC -->
-		<init-param>
-			<param-name>contextConfigLocation</param-name>
-			<param-value> /WEB-INF/ac.xml </param-value>
-		</init-param>
-		<load-on-startup>1</load-on-startup><!-- 서블릿이 여러개 일 경우, 우선순위 설정 : 1번 -->
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>dispatcher</servlet-name>
-		<url-pattern>/</url-pattern>
-	</servlet-mapping>
-  
-  
-  
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -41,5 +23,40 @@
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern> <!-- 모든 요청을 대상으로 한글 피터 처리 -->
 	</filter-mapping>
+	
+	
+  
+  
+  	<listener>
+  	<listener-class>
+  		org.springframework.web.context.ContextLoaderListener
+  	</listener-class>
+  
+  </listener>
+  
+  
+  <!-- 2. 공통 설정 파일 경로 -->
+  <context-param>
+  	<param-name>contextConfigLocation</param-name>
+  	<param-value>/WEB-INF/config/board-common-config.xml</param-value>
+  </context-param>
+  
+  
+  <!-- 3. 업무 영역 별로 Dispatcher Servlet(DS) 생성  -->
+  <servlet>
+		<servlet-name>dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value> /WEB-INF/config/board-config.xml </param-value> 
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
 	
 </web-app>

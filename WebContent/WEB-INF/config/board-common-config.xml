@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd">
+
+
+	
+	<!-- commons-fileupload api 사용 멀티파트 처리 : 크기 byte 단위 -->
+	<!-- http://commons.apache.org/proper/commons-fileupload/ -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="-1" /> <!-- 이미지 업로드 사이즈: -1 : 제한 없음<위험>. 가장 좋은건 1MB가 좋음  -->
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+	
+	
+	
+	<!-- 메세지 소스 IRVR 역활 빈 등록 -->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<!-- 에러관련 메시지 처리
+					message.error : src/message/error.properties → 무조건 확장자는 'properties'로 -->  
+				
+				<value>message.error</value>
+				<value>message.label</value>
+				<value>message.messages</value>
+			</list>
+		</property>
+		<!-- property 파일 한글 UTF-8 인코딩 -->
+		<property name="defaultEncoding" value="utf-8" />
+	</bean>
+	
+	
+	<!-- 1. 스프링이 직접 CP 및 JNDI 참조
+		Resource name="jdbc/SpringDB" 을 지정 : 값을 일치 시켜야 함.
+	 -->
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="jdbc/SpringDB" /> <!-- jdbc/SpringDB 이름과 동일하게 줘야 함 -->
+		<property name="resourceRef" value="true" /> <!-- 참조 여부 : true --> <!-- default : false , 참조하지 않음 -->
+		 
+	</bean>
+	
+	<!-- transactionManager 설정 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	
+	
+	<!-- 2. 스프링 - 마이바티스 - CP 및 JNDI 참조 -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+		
+		<!-- 1번에서 선언한 dataSource 를 의미 -->
+		<property name="dataSource" ref="dataSource" /> 
+		
+		<!-- Mybatis-config.xml 설정 경로 -->
+		<property name="configLocation" value="WEB-INF/config/mybatis-config.xml" />
+		
+		<!--  SQL 매핑 파일 경로 --><!-- SQL 매퍼 파일 위치 지정, classpath = src 경로 위치  -->
+		<property name="mapperLocations" value="classpath:sqlmap/*.xml"/><!-- ../*.xml : 모든 매퍼 파일 -->
+	</bean>
+	
+	
+	
+	
+	<!--3. SqlSessionFactoryBean 을 주입시킨 SqlSessionTemplate(SqlSession을 스프링 Template으로 래핑) 빈등록 : 연동의 핵심 -->
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">		
+		<constructor-arg index="0" ref="sqlSession"/>
+	</bean>
+	
+	
+	
+</beans>

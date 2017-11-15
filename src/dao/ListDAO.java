@@ -6,14 +6,21 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import dto.BoardDTO;
 import util.DBManager;
 import util.LoggableStatement;
 
-@Component
+@Repository
 public class ListDAO {
+	
+	@Autowired
+	private SqlSessionTemplate sqlSessionTemplate;
+	
 
 	/**
 	 * 전체 글 검색
@@ -22,6 +29,10 @@ public class ListDAO {
 	public List<BoardDTO> selectList(){
 		List<BoardDTO> list = new ArrayList<BoardDTO>();
 		
+		return sqlSessionTemplate.selectList("sb_list_ns.selectList");
+		
+		
+		/*
 		Connection con = null;
 		PreparedStatement prepStmt = null;
 		ResultSet rs = null;
@@ -66,6 +77,8 @@ public class ListDAO {
 		}
 		
 		return list;
+		
+		*/
 	}
 	
 
