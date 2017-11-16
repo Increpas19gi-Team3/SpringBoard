@@ -6,9 +6,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>	
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<%
-	
-%>
 
 
 <!DOCTYPE html>
@@ -23,15 +20,31 @@
 		}
 		
 		function change_isBlock() {
+			var isBlock = document.getElementById('isBlock').value;
+
+			var sortColumn = '${sortColumn}';
+			var orderby = '${orderby }';
+						
+			var whereColumn = '${whereColumn }';
+			var word = '${word }';
 			
-			//alert(document.listForm.isBlock.value);
-			//"<c:set var = 'isBlock' value = "+ document.listForm.isBlock.value +" />";
+			var pageCutCount = '${pageCutCount }';
+			
+			location.href='list.do?sortColumn='+sortColumn+'&orderby='+orderby+'&whereColumn='+whereColumn+'&word='+word+'&isBlock='+isBlock+'&pageCutCount='+pageCutCount;
 		}
 		
 		function change_pageCutCount() {
-			alert(this.value);
-			alert(document.listForm.pageCutCount.value);
-			//"<c:set var = 'isBlock' value = "+ document.listForm.isBlock.value +" />";
+			var pageCutCount = document.getElementById("pageCutCount").value;
+			
+			var sortColumn = '${sortColumn}';
+			var orderby = '${orderby }';
+						
+			var whereColumn = '${whereColumn }';
+			var word = '${word }';
+			
+			var isBlock = '${isBlock }';
+			
+			location.href='list.do?sortColumn='+sortColumn+'&orderby='+orderby+'&whereColumn='+whereColumn+'&word='+word+'&isBlock='+isBlock+'&pageCutCount='+pageCutCount;
 		}
 	</script>
 	
@@ -87,7 +100,7 @@
 				<td style="text-align: left;">
 					
 					<c:if test="${not empty sessionScope.id }">
-						<select name ="isBlock" onchange="alert('A');">
+						<select name ="isBlock" id ="isBlock" onchange="change_isBlock();">
 							<%-- <c:choose>
 								<c:when test="${empty isBlock }">
 									<option value="ALL" selected="selected">전체글</option>
@@ -154,16 +167,15 @@
 						<c:when test="${sortColumn eq 'TITLE'}"><!-- 제목 정렬일때 -->
 							<c:choose>
 								<c:when test="${orderby eq 'ASC' }">
-									<%-- <a href="list.do?sortColumn=TITLE&orderby=DESC&whereColumn=${whereColumn }&word=${word }&isBlock=${isBlock }&pageCutCount=${pageCutCount }">제목 ▲</a> --%>		
-									<a href="#" onclick="location.href='list.do?sortColumn=TITLE&orderby=DESC&whereColumn=${whereColumn }&word=${word }&isBlock=${isBlock }&pageCutCount=${pageCutCount }'">제목 ▲</a>
+									<a href="list.do?sortColumn=TITLE&orderby=DESC&whereColumn=${whereColumn }&word=${word }&isBlock=${isBlock }&pageCutCount=${pageCutCount }">제목 ▲</a>
 								</c:when>
 								<c:otherwise>
-									<a href="list.do?sortColumn=TITLE&orderby=ASC&whereColumn=${whereColumn }&word=${word }&isBlock=${isBlock }&pageCutCount=${pageCutCount }">제목 ▼</a>
+									<a href="list.do?sortColumn=TITLE&orderby=ASC&whereColumn=${whereColumn }&word=${word }&isBlock=${isBlock }&pageCutCount=${pageCutCount }">제목 ▼</a>									
 								</c:otherwise>
 							</c:choose>
 						</c:when>
 						<c:otherwise><!-- 제목 정렬이 아닐 때 -->
-							<a href="list.do?sortColumn=TITLE&orderby=ASC&whereColumn=${whereColumn }&word=${word }&isBlock=${isBlock }&pageCutCount=${pageCutCount }">제목 ▼</a>
+							<a href="list.do?sortColumn=TITLE&orderby=ASC&whereColumn=${whereColumn }&word=${word }&isBlock=${isBlock }&pageCutCount=${pageCutCount }">제목 ▼</a>													
 						</c:otherwise>
 					</c:choose>
 					
