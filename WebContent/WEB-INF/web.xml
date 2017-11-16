@@ -21,7 +21,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>
-		<url-pattern>/*</url-pattern> <!-- 모든 요청을 대상으로 한글 피터 처리 -->
+		<url-pattern>/*</url-pattern> <!-- 모든 요청을 대상으로 한글 필터 처리 -->
 	</filter-mapping>
 	
 	

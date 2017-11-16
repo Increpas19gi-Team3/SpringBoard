@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import dao.ListDAO;
 import dto.BoardDTO;
+import dto.ListDTO;
 
 
 
@@ -19,6 +20,9 @@ public class ListService {
 	
 	@Autowired
 	ListDAO listDAO;
+	
+	@Autowired
+	ListDTO listDTO;
 
 	/**
 	 * 전체 게시글 목록 가져오기 DAO 활용
@@ -27,6 +31,8 @@ public class ListService {
 	public List<BoardDTO> getListAll(){
 		
 		System.err.println("ListService : getSetList >> 들어옴");
+		
+		
 		
 		return listDAO.selectList();		
 	}
@@ -39,6 +45,12 @@ public class ListService {
 		
 		System.err.println("ListService : getSetList >> 들어옴");
 		
-		return listDAO.selectSetList(whereColumn, word, sortColumn, orderby, isBlock);
+		listDTO.setWhereColumn(whereColumn);
+		listDTO.setWord(word);
+		listDTO.setSortColumn(sortColumn);
+		listDTO.setOrderby(orderby);
+		listDTO.setIsBlock(isBlock);
+		
+		return listDAO.selectSetList(listDTO);
 	}
 }

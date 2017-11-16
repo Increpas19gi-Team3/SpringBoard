@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import dto.BoardDTO;
+import dto.ListDTO;
 import util.DBManager;
 import util.LoggableStatement;
 
@@ -26,13 +27,14 @@ public class ListDAO {
 	 * 전체 글 검색
 	 * @return - List<BoardDTO>
 	 */
-	public List<BoardDTO> selectList(){
-		List<BoardDTO> list = new ArrayList<BoardDTO>();
-		
+	public List<BoardDTO> selectList(){	
 		return sqlSessionTemplate.selectList("sb_list_ns.selectList");
 		
 		
-		/*
+		/* 
+		
+		List<BoardDTO> list = new ArrayList<BoardDTO>();
+		
 		Connection con = null;
 		PreparedStatement prepStmt = null;
 		ResultSet rs = null;
@@ -91,10 +93,13 @@ public class ListDAO {
 	 * @param isBlock : 전체글 검색, 블록글 검색
 	 * @return - List<BoardDTO>
 	 */
-	public List<BoardDTO> selectSetList(String whereColumn, String word, 
-			String sortColumn, String orderby, 
-			String isBlock){
+	public List<BoardDTO> selectSetList(ListDTO listDTO){
 		
+		System.out.println("▶▶▶▶ listDTO="+listDTO.toString());
+		
+		return sqlSessionTemplate.selectList("sb_list_ns.selectSetList", listDTO);
+		
+		/*
 		List<BoardDTO> list = null;			
 		int parameterIndex = 1;
 		
@@ -189,13 +194,14 @@ public class ListDAO {
 			DBManager.close(con, prepStmt, rs);
 		}
 		
-		/*
+		//
 		for (BoardDTO boardDTO : list) {
 			System.out.println("▷▷▷▷▷"+boardDTO.toString());
 		}
-		*/
+		//
 		
 		return list;
+		*/
 	}
 	
 	

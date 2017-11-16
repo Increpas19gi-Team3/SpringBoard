@@ -30,6 +30,44 @@
     </select>
     
     
+    <select id="selectSetList" parameterType="dto.ListDTO" resultMap="BoardResult">
+		SELECT * 
+    	FROM SB_BOARD
+    	
+    	
+    	<!-- WHERE -->
+    	<where>
+    		<if test="!isBlock.equals('') and !isBlock.equals('ALL')"><!-- //전체글 보기가 아닐때 -->
+    			ISBLOCK = #{isBlock}
+    		</if>
+    		
+ 			
+ 			<if test="whereColumn.equals('TITLE')">
+    			AND TITLE LIKE '%' || #{word } || '%'
+    		</if>
+    		
+    		<if test="whereColumn.equals('WRITER')">
+    			AND WRITER LIKE '%' || #{word } || '%'
+    		</if>
+    	</where>	    		
+    		
+    		
+    	<!-- ORDER BY -->
+   		<choose>
+   			<when test="sortColumn.equals('TITLE')">   				
+   				<if test="orderby.equals('ASC')">ORDER BY ISNOTICE DESC, TITLE ASC</if>
+   				<if test="orderby.equals('DESC')">ORDER BY ISNOTICE DESC, TITLE DESC</if>   				
+   			</when>
+   			<when test="sortColumn.equals('REGTIME')">
+   				<if test="orderby.equals('ASC')">ORDER BY ISNOTICE DESC, REGTIME ASC</if>
+   				<if test="orderby.equals('DESC')">ORDER BY ISNOTICE DESC, REGTIME DESC</if>
+   			</when>
+   			<otherwise>
+   				ORDER BY ISNOTICE DESC, NUM DESC
+   			</otherwise>
+   		</choose>
+    </select>
+    
     
     
     
