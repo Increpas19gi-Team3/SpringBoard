@@ -20,19 +20,21 @@ public class WriteService {
 		wDao.insert(bdto);
 		
 	}
-/*	
+	
 	public BoardDTO selectWrt(int writeNum){
-		
-		return wDao.selectWrite(writeNum);
+		System.out.println("테스트!!!!!  " + writeNum);
+		return wDao.selectWrite(writeNum);		
 	}
 	
-	public void updateWrt(BoardDTO bdto){
-		
+	@Transactional
+	public void updatetWrt(BoardDTO bdto){
 		wDao.updateWrite(bdto);
 	}
-
-	public void deleteWrt(int writeNum){
-		
+	
+	
+	@Transactional
+	public void deletetWrt(int writeNum){
 		wDao.deleteWrite(writeNum);
-	}*/
+	}
+
 }

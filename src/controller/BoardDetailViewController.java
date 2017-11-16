@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import dao.ListViewDAO;
 import dto.BoardDTO;
+import service.ViewService;
+import service.WriteService;
 
 /**
  * 상세보기
@@ -22,8 +24,8 @@ import dto.BoardDTO;
 @Controller
 public class BoardDetailViewController {
 
-	@Autowired
-	ListViewDAO listViewDAO;
+	@Autowired	//객체 주입
+	ViewService viewService;
 
 	@RequestMapping(value = "/listView.do", method = RequestMethod.GET)
 	public String GET_BoardDetailView(Model model, HttpServletRequest req, HttpServletResponse resp) {
@@ -31,7 +33,7 @@ public class BoardDetailViewController {
 		System.out.println("상세 페이지(GET)로 들어왔니?");
 
 		int num = Integer.parseInt(req.getParameter("no"));
-		BoardDTO bDTO = listViewDAO.BoardDetailView(num);
+		BoardDTO bDTO = viewService.BoardDetail(num);
 
 		model.addAttribute("bDTO", bDTO);
 

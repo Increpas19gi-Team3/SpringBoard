@@ -11,6 +11,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
+import dao.WriteDAO;
 import dto.BoardDTO;
 import dto.UploadFileDTO;
 import service.WriteService;
@@ -84,14 +86,13 @@ public class BoardViewController {
 		return "redirect:index.jsp";
 	}
 
-/*		
+
 	@RequestMapping(value="/pwdCheck.do",method=RequestMethod.POST)
 	public String passChk(HttpServletRequest request, Model model) {
 		int writeNum = Integer.parseInt(request.getParameter("NUMBER"));
 		String pass = request.getParameter("pass");
 		
-		WriteDAO wDao = WriteDAO.getInstance();
-		BoardDTO uptDTO = wDao.selectWrite(writeNum);
+		BoardDTO uptDTO = writeService.selectWrt(writeNum);
 		
 		if(!pass.equals(uptDTO.getPWD())){
 			return "notOK";
@@ -102,13 +103,11 @@ public class BoardViewController {
 		
 		return "boardUpt";
 	}
-
-	
+			
 	@RequestMapping(value="/update.do",method=RequestMethod.POST)
 	public String upt(@Valid @ModelAttribute("icmd") BoardDTO bdto,Errors errors, Model model) {
-		
-		WriteDAO wDao = WriteDAO.getInstance();
-		BoardDTO preDTO = wDao.selectWrite(bdto.getNUM());
+		System.out.println("update 들어왓음");
+		BoardDTO preDTO = writeService.selectWrt(bdto.getNUM());
 		
 		// MultipartFile 파일 객체
 		MultipartFile file = bdto.getUpfile();
@@ -166,20 +165,17 @@ public class BoardViewController {
 		System.out.println("bdto.getNUM() >>> "+bdto.getNUM());
 		System.out.println("bdto.getIMGNAME() >>> "+bdto.getIMGNAME());
 		
-		WriteDAO Dao = WriteDAO.getInstance();
-		Dao.updateWrite(bdto);
+		writeService.updatetWrt(bdto);
 						
 		return "redirect:index.jsp";
 	}
-	
 	
 	@RequestMapping(value="/delete.do",method=RequestMethod.GET)
 	public String reg(HttpServletRequest request, Model model) {
 		int writeNum = Integer.parseInt(request.getParameter("NUM"));
 		
-		WriteDAO wDao = WriteDAO.getInstance();
-		wDao.deleteWrite(writeNum);
+		writeService.deletetWrt(writeNum);
 						
 		return "redirect:index.jsp";
-	}*/
+	}
 }

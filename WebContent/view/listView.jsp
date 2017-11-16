@@ -22,7 +22,7 @@
 	<hr>
 
 	<form action="view/boardChk.jsp" method="post">
-		
+		 <input type="hidden" name="NUM" value="${bDTO.NUM}">
 		<section>
 			<div id="#" align="center">
 				<h1>게시판 상세보기</h1>

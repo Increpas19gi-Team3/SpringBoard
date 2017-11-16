@@ -7,19 +7,19 @@
     <cache eviction="FIFO" flushInterval="60000" size="1024" readOnly="true"/> 
     
     <resultMap id="BoardResult" type="SB_Board" >
-    	<result property="NUM" />
-    	<result property="ISNOTICE" />
-    	<result property="ISBLOCK" />
-    	<result property="TITLE" />
-    	<result property="WRITER" />
-    	<result property="PWD" />
-    	<result property="CONTENTS" />
-    	<result property="IMGNAME" />
-    	<result property="COUNT" />
-    	<result property="REGTIME" />
-    	<result property="BREF" />
-    	<result property="BSTEP" />
-    	<result property="BLEVEL" />
+    	<result property="NUM" column="NUM"/>
+    	<result property="ISNOTICE" column="ISNOTICE"/>
+    	<result property="ISBLOCK" column="ISBLOCK"/>
+    	<result property="TITLE" column="TITLE"/>
+    	<result property="WRITER" column="WRITER"/>
+    	<result property="PWD" column="PWD"/>
+    	<result property="CONTENTS" column="CONTENTS"/>
+    	<result property="IMGNAME" column="IMGNAME"/>
+    	<result property="COUNT" column="COUNT"/>
+    	<result property="REGTIME" column="REGTIME"/>
+    	<result property="BREF" column="BREF"/>
+    	<result property="BSTEP" column="BSTEP"/>
+    	<result property="BLEVEL" column="BLEVEL"/>
     </resultMap>
     
     
@@ -29,11 +29,19 @@
     	0, sysdate,#{BREF},#{BSTEP},#{BLEVEL})
 
 	</insert>
-    
-    
-    
-    
-    
-    
-    
+ 
+    <select id="selectWrtByNum" parameterType="map" resultMap="BoardResult" >
+		select * from SB_BOARD where num=#{writeNum}
+	</select>
+
+	<update id="updateWrite" parameterType="SB_Board">
+		update SB_BOARD set TITLE=#{TITLE},WRITER=#{WRITER}, PWD=#{PWD}, 
+		CONTENTS=#{CONTENTS, jdbcType=VARCHAR}, IMGNAME=#{IMGNAME, jdbcType=VARCHAR} 
+		where num=#{NUM}
+	</update>
+	
+ 	<delete id="deleteWrite" parameterType="map">
+		delete from SB_BOARD where num=#{writeNum}
+	</delete> 
+
 </mapper>
