@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sb_write_ns">
+    
+    <cache eviction="FIFO" flushInterval="60000" size="1024" readOnly="true"/> 
+    
+    <resultMap id="BoardResult" type="SB_Board" >
+    	<result property="NUM" />
+    	<result property="ISNOTICE" />
+    	<result property="ISBLOCK" />
+    	<result property="TITLE" />
+    	<result property="WRITER" />
+    	<result property="PWD" />
+    	<result property="CONTENTS" />
+    	<result property="IMGNAME" />
+    	<result property="COUNT" />
+    	<result property="REGTIME" />
+    	<result property="BREF" />
+    	<result property="BSTEP" />
+    	<result property="BLEVEL" />
+    </resultMap>
+    
+    
+    <insert id="insertWrite" parameterType="SB_Board">
+    	INSERT INTO SB_BOARD VALUES(SB_BOARD_SEQ.NEXTVAL, #{ISNOTICE}, '0', 
+    	#{TITLE},#{WRITER},#{PWD},#{CONTENTS, jdbcType=VARCHAR},#{IMGNAME, jdbcType=VARCHAR}, 
+    	0, sysdate,#{BREF},#{BSTEP},#{BLEVEL})
+
+	</insert>
+    
+    
+    
+    
+    
+    
+    
+</mapper>

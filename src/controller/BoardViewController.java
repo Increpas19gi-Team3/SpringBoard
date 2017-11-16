@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
-import dao.WriteDAO;
 import dto.BoardDTO;
 import dto.UploadFileDTO;
-import service.ListService;
+import service.WriteService;
+
 import org.springframework.validation.Errors;
 
 /**
@@ -34,6 +34,9 @@ import org.springframework.validation.Errors;
 @Controller
 public class BoardViewController {
 
+	@Autowired	//객체 주입
+	WriteService writeService;
+	
 	@RequestMapping(value="/reg.do",method=RequestMethod.GET)
 	public String form() {
 	
@@ -75,14 +78,13 @@ public class BoardViewController {
 		if(errors.hasErrors()){
 			return "boardReg";
 		}
-		
-		WriteDAO wDao = WriteDAO.getInstance();
-		wDao.insertWrite(bdto);
+
+		writeService.insertWrt(bdto);
 						
 		return "redirect:index.jsp";
 	}
 
-		
+/*		
 	@RequestMapping(value="/pwdCheck.do",method=RequestMethod.POST)
 	public String passChk(HttpServletRequest request, Model model) {
 		int writeNum = Integer.parseInt(request.getParameter("NUMBER"));
@@ -157,12 +159,12 @@ public class BoardViewController {
 		if(errors.hasErrors()){
 			return "boardReg";
 		}
-	/*	System.out.println("bdto.getWRITER() >>> "+bdto.getWRITER());
+		System.out.println("bdto.getWRITER() >>> "+bdto.getWRITER());
 		System.out.println("bdto.getCONTENTS() >>> "+bdto.getCONTENTS());
 		System.out.println("bdto.getPWD() >>> "+bdto.getPWD());
 		System.out.println("bdto.getTITLE() >>> "+bdto.getTITLE());
 		System.out.println("bdto.getNUM() >>> "+bdto.getNUM());
-		System.out.println("bdto.getIMGNAME() >>> "+bdto.getIMGNAME());*/
+		System.out.println("bdto.getIMGNAME() >>> "+bdto.getIMGNAME());
 		
 		WriteDAO Dao = WriteDAO.getInstance();
 		Dao.updateWrite(bdto);
@@ -179,5 +181,5 @@ public class BoardViewController {
 		wDao.deleteWrite(writeNum);
 						
 		return "redirect:index.jsp";
-	}
+	}*/
 }

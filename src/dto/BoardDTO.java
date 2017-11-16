@@ -34,6 +34,10 @@ public class BoardDTO {
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date REGTIME;		//작성일, DATE
 	
+	private int BREF;
+	private int BSTEP;
+	private int BLEVEL;
+	
 	MultipartFile upfile;
 	
 	public int getNUM() {
@@ -103,6 +107,27 @@ public class BoardDTO {
 	}
 	public void setUpfile(MultipartFile upfile) {
 		this.upfile = upfile;
+	}
+	
+	
+	
+	public int getBREF() {
+		return BREF;
+	}
+	public void setBREF(int bREF) {
+		BREF = bREF;
+	}
+	public int getBSTEP() {
+		return BSTEP;
+	}
+	public void setBSTEP(int bSTEP) {
+		BSTEP = bSTEP;
+	}
+	public int getBLEVEL() {
+		return BLEVEL;
+	}
+	public void setBLEVEL(int bLEVEL) {
+		BLEVEL = bLEVEL;
 	}
 	@Override
 	public String toString() {
