@@ -31,7 +31,7 @@ public class BoardListController {
 	@Autowired	//객체 주입
 	ListService listService;
 	
-	
+	/*
 	@RequestMapping(value="/list.do", method=RequestMethod.GET)
 	public String getList(Model model, HttpServletRequest req, HttpServletResponse resp){
 		
@@ -54,13 +54,15 @@ public class BoardListController {
 		model.addAttribute("word", word);
 		
 		//글보기 설정
-		String isBlock = NullToBlank.doChange(req.getParameter("listGubun"));
-		System.out.println("listGubun="+isBlock);
-		model.addAttribute("listGubun", isBlock);
+		String isBlock = NullToBlank.doChange(req.getParameter("isBlock"));
+		System.out.println("isBlock="+isBlock);
+		model.addAttribute("isBlock", isBlock);
 		
 		
 		//페이징  처리
-		
+		String pageCutCount = NullToBlank.doChange(req.getParameter("pageCutCount"));
+		System.out.println("pageCutCount="+pageCutCount);
+		model.addAttribute("pageCutCount", pageCutCount);
 		
 		
 		
@@ -74,8 +76,10 @@ public class BoardListController {
 		
 		return "/boardList";
 	}
+	*/
 	
-	@RequestMapping(value="/search.do", method=RequestMethod.POST)
+	//@RequestMapping(value="/search.do", method=RequestMethod.POST)
+	@RequestMapping(value="/list.do")
 	public String search(Model model, HttpServletRequest req, HttpServletResponse resp){
 		
 		//검색, 정렬, 페이징 정보도 받아와야 함.
@@ -97,13 +101,15 @@ public class BoardListController {
 		model.addAttribute("word", word);
 		
 		//글보기 설정
-		String isBlock = NullToBlank.doChange(req.getParameter("listGubun"));
-		System.out.println("listGubun="+isBlock);
-		model.addAttribute("listGubun", isBlock);
+		String isBlock = NullToBlank.doChange(req.getParameter("isBlock"));
+		System.out.println("isBlock="+isBlock);
+		model.addAttribute("isBlock", isBlock);
 		
 		
 		//페이징  처리
-		
+		String pageCutCount = NullToBlank.doChange(req.getParameter("pageCutCount"));
+		System.out.println("pageCutCount="+pageCutCount);
+		model.addAttribute("pageCutCount", pageCutCount);
 		
 		
 		List<BoardDTO> list = listService.getSetList(whereColumn, word, sortColumn, orderby, isBlock);				

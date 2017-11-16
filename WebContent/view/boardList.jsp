@@ -18,8 +18,20 @@
 <title> 스프링 게시판 </title>
 
 	<script type="text/javascript">
-		function click_whereColumn(){
+		function change_whereColumn(){
 			document.listForm.word.value = "";
+		}
+		
+		function change_isBlock() {
+			
+			//alert(document.listForm.isBlock.value);
+			//"<c:set var = 'isBlock' value = "+ document.listForm.isBlock.value +" />";
+		}
+		
+		function change_pageCutCount() {
+			alert(this.value);
+			alert(document.listForm.pageCutCount.value);
+			//"<c:set var = 'isBlock' value = "+ document.listForm.isBlock.value +" />";
 		}
 	</script>
 	
@@ -34,50 +46,105 @@
 			
 	<%-- 미구현 작업용 주석처리
 	onclick="location.href='delete.do?NUM=${number}'"
+	 onchange
+	 --%>
+	
+	<c:if test="${empty pageCutCount }">
+		<c:set var="pageCutCount" value="5" />
+	</c:if>
+	<c:if test="${empty isBlock }">
+		<c:set var="isBlock" value="ALL" />
+	</c:if>
 	
 		1. 검색조건 유지 -  관리자모드: 일반글, 블록글 <br />
 		2. 페이징 처리  <br />
 	\${sortColumn }: ${sortColumn } <br />
 	\${orderby }: ${orderby } <br />
 	
-	\${listGubun }: ${listGubun } <br />
+	\${isBlock }: ${isBlock } <br />
+	\${pageCutCount }: ${pageCutCount } <br />
 	
 	\${whereColumn }: ${whereColumn } <br />
 	\${word }: ${word } <br />
 	<p /><p />
-	 --%>
+	
 	
 	<section>
 	<div id="search" style="text-align: center;">
-	<form action="search.do" method="post" name="listForm">
+	<%-- <form action="search.do" method="post" name="listForm"> --%>
+	<form action="list.do" method="post" name="listForm">
 	
 		<input type="hidden" name="sortColumn" value="${sortColumn }">
 		<input type="hidden" name="orderby" value="${orderby }">
+		<input type="hidden" name="isBlock" value="${isBlock }">
+		<input type="hidden" name="pageCutCount" value="${pageCutCount }">
+		
 	
 		<!-- 관리자 모드 메뉴 : 미구현 주석처리
+		 -->
 		<table id="listGubun" style="">
 			<tr >
 				<td style="text-align: left;">
 					
 					<c:if test="${not empty sessionScope.id }">
-						<select name = "listGubun">
-							<option value="ALL">전체글</option>
-							<option value="1">블록글</option>
-							<option value="0">일반글</option>
+						<select name ="isBlock" onchange="alert('A');">
+							<%-- <c:choose>
+								<c:when test="${empty isBlock }">
+									<option value="ALL" selected="selected">전체글</option>
+									<option value="1">블록글</option>
+									<option value="0">일반글</option>
+								</c:when>
+								<c:otherwise> --%>
+									
+									<c:choose>
+										<c:when test="${isBlock eq 'ALL' }"><option value="ALL" selected="selected">전체글</option></c:when>
+										<c:otherwise><option value="ALL">전체글</option></c:otherwise>
+									</c:choose>
+									<c:choose>
+										<c:when test="${isBlock eq '1' }"><option value="1" selected="selected">블록글</option></c:when>
+										<c:otherwise><option value="1">블록글</option></c:otherwise>
+									</c:choose>
+									<c:choose>	
+										<c:when test="${isBlock eq '0' }"><option value="0" selected="selected">일반글</option></c:when>
+										<c:otherwise><option value="0">일반글</option></c:otherwise>
+									</c:choose>
+								
+								<%-- </c:otherwise>
+							</c:choose> --%>
 						</select>			
 					</c:if>			
 				</td>
 				<td style="text-align: right;">
-				
-					<select name = "listCnt">
-						<option>5줄</option>
-						<option>10줄</option>
-						<option>20줄</option>
+					<select name = "pageCutCount" id = "pageCutCount" onchange="change_pageCutCount();">
+					
+						<%-- <c:choose>
+							<c:when test="${empty pageCutCount }">
+								<option value="5" selected="selected">5줄</option>
+								<option value="10">10줄</option>
+								<option value="20">20줄</option>
+							</c:when>
+							<c:otherwise> --%>
+								
+								<c:choose>
+									<c:when test="${pageCutCount eq '5' }"><option value="5" selected="selected">5줄</option></c:when>
+									<c:otherwise><option value="5">5줄</option></c:otherwise>
+								</c:choose>
+								<c:choose>		
+									<c:when test="${pageCutCount eq '10' }"><option value="10" selected="selected">10줄</option></c:when>
+									<c:otherwise><option value="10">10줄</option></c:otherwise>
+								</c:choose>
+								<c:choose>		
+									<c:when test="${pageCutCount eq '20' }"><option value="20" selected="selected">20줄</option></c:when>
+									<c:otherwise><option value="20">20줄</option></c:otherwise>
+								</c:choose>
+								
+							<%-- </c:otherwise>
+						</c:choose> --%>
+						
 					</select>				
 				</td>
 			</tr>
 		</table>
-		 -->
 	
 		<table border="1" id="list">
 			<tr>
@@ -87,15 +154,16 @@
 						<c:when test="${sortColumn eq 'TITLE'}"><!-- 제목 정렬일때 -->
 							<c:choose>
 								<c:when test="${orderby eq 'ASC' }">
-									<a href="list.do?sortColumn=TITLE&orderby=DESC&whereColumn=${whereColumn }&word=${word }">제목 ▲</a>		
+									<%-- <a href="list.do?sortColumn=TITLE&orderby=DESC&whereColumn=${whereColumn }&word=${word }&isBlock=${isBlock }&pageCutCount=${pageCutCount }">제목 ▲</a> --%>		
+									<a href="#" onclick="location.href='list.do?sortColumn=TITLE&orderby=DESC&whereColumn=${whereColumn }&word=${word }&isBlock=${isBlock }&pageCutCount=${pageCutCount }'">제목 ▲</a>
 								</c:when>
 								<c:otherwise>
-									<a href="list.do?sortColumn=TITLE&orderby=ASC&whereColumn=${whereColumn }&word=${word }">제목 ▼</a>
+									<a href="list.do?sortColumn=TITLE&orderby=ASC&whereColumn=${whereColumn }&word=${word }&isBlock=${isBlock }&pageCutCount=${pageCutCount }">제목 ▼</a>
 								</c:otherwise>
 							</c:choose>
 						</c:when>
 						<c:otherwise><!-- 제목 정렬이 아닐 때 -->
-							<a href="list.do?sortColumn=TITLE&orderby=ASC&whereColumn=${whereColumn }&word=${word }">제목 ▼</a>
+							<a href="list.do?sortColumn=TITLE&orderby=ASC&whereColumn=${whereColumn }&word=${word }&isBlock=${isBlock }&pageCutCount=${pageCutCount }">제목 ▼</a>
 						</c:otherwise>
 					</c:choose>
 					
@@ -109,15 +177,15 @@
 						<c:when test="${sortColumn eq 'REGTIME'}"><!-- 작성일 일때 -->
 							<c:choose>
 								<c:when test="${orderby eq 'ASC' }">
-									<a href="list.do?sortColumn=REGTIME&orderby=DESC&whereColumn=${whereColumn }&word=${word }">작성일 ▲</a>		
+									<a href="list.do?sortColumn=REGTIME&orderby=DESC&whereColumn=${whereColumn }&word=${word }&isBlock=${isBlock }&pageCutCount=${pageCutCount }">작성일 ▲</a>		
 								</c:when>
 								<c:otherwise>
-									<a href="list.do?sortColumn=REGTIME&orderby=ASC&whereColumn=${whereColumn }&word=${word }">작성일 ▼</a>
+									<a href="list.do?sortColumn=REGTIME&orderby=ASC&whereColumn=${whereColumn }&word=${word }&isBlock=${isBlock }&pageCutCount=${pageCutCount }">작성일 ▼</a>
 								</c:otherwise>
 							</c:choose>
 						</c:when>
 						<c:otherwise><!-- 작성일 정렬이 아닐 때 -->
-							<a href="list.do?sortColumn=REGTIME&orderby=ASC&whereColumn=${whereColumn }&word=${word }">작성일 ▼</a>
+							<a href="list.do?sortColumn=REGTIME&orderby=ASC&whereColumn=${whereColumn }&word=${word }&isBlock=${isBlock }&pageCutCount=${pageCutCount }">작성일 ▼</a>
 						</c:otherwise>
 					</c:choose>
 					
@@ -199,7 +267,7 @@
 		<p /><p /><p />
 		
 				
-				<select name="whereColumn" onclick="click_whereColumn()">
+				<select name="whereColumn" onchange="change_whereColumn()">
 					<c:choose>
 						<c:when test="${not empty whereColumn }">
 							
