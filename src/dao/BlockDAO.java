@@ -23,12 +23,12 @@ public class BlockDAO {
 	
 	public void Block(int num) {
 		System.out.println(">>>>  Block");
-		sqlSessionTemplate.selectOne("sb_list_ns.block", num);
+		sqlSessionTemplate.selectOne("admin_ns.block", num);
 	}
 	
 	public void unBlock(int num) {
 		System.out.println(">>>>  unBlock");
-		sqlSessionTemplate.selectOne("sb_list_ns.unblock", num);
+		sqlSessionTemplate.selectOne("admin_ns.unblock", num);
 	}
 	
 	/**

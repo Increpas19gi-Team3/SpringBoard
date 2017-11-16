@@ -33,7 +33,7 @@ public class adminBlockController {
 	@RequestMapping(value = "/block.do", method = RequestMethod.GET)
 	public String Block(HttpServletRequest req, HttpServletResponse resp, Model model) {
 
-		System.out.println("block 테스트 :"+req.getParameter("NUM"));
+		System.out.println("▶▶▶▶▶ block 테스트 :"+req.getParameter("NUM"));
 		int num = Integer.parseInt(req.getParameter("NUM"));
 		
 		adminBlock.Block(num);		
@@ -45,7 +45,7 @@ public class adminBlockController {
 	@RequestMapping(value = "/unblock.do", method = RequestMethod.GET)
 	public String unBlock(HttpServletRequest req, HttpServletResponse resp, Model model) {
 
-		System.out.println("unblock 테스트 :"+req.getParameter("NUM"));
+		System.out.println("▶▶▶▶▶ unblock 테스트 :"+req.getParameter("NUM"));
 		int num = Integer.parseInt(req.getParameter("NUM"));
 		
 		adminBlock.unBlock(num);		

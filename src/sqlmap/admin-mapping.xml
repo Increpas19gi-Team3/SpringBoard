@@ -15,11 +15,11 @@
     </select>
     
     <update id="block" parameterType="Integer">
-    	update SB_BOARD set ISBLOCK = '1' where num=#{num}
+    	update SB_BOARD set ISBLOCK = '1' where NUM=#{NUM}
     </update>
     
     <update id="unblock" parameterType="Integer">
-    	update SB_BOARD set ISBLOCK = '0' where num=#{num}
+    	update SB_BOARD set ISBLOCK = '0' where NUM=#{NUM}
     </update>
     
     
