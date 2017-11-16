@@ -6,25 +6,31 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import dto.AdminDTO;
 import util.DBManager;
 
 
-
-@Service	// 보통 서비스 클래스는 component 보다 service를 많이 붙인다
+@Repository
 public class AdminLoginDAO {
 		
-	private final String Find_id_name = "SELECT id, name FROM SB_Admin";
+	@Autowired
+	private SqlSessionTemplate sqlSessionTemplate;
 	
 	/**
 	 * 관리자 로그인, 로그아웃 기능
 	 * @return - AdminDTO
 	 */
-	public AdminDTO adminList(){		
+	public AdminDTO adminList(){
+		System.out.println(">>>>  adminList");
+		return sqlSessionTemplate.selectOne("admin_ns.adminList");		
 		
-		AdminDTO aDTO = null;
+		/*
+		 * AdminDTO aDTO = null;
 		Connection con = null;
 		PreparedStatement prepStmt = null;
 		ResultSet rs = null;
@@ -49,7 +55,7 @@ public class AdminLoginDAO {
 		}finally {
 			DBManager.close(con, prepStmt, rs);
 		}		
-		return aDTO;
+		return aDTO;*/
 		
 	} // List<AdminDTO> adminList() - End
 	

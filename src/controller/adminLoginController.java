@@ -33,7 +33,9 @@ public class adminLoginController {
 			HttpServletResponse responce, Model model){
 				
 		System.out.println("세션 저장 테스트");
-		AdminDTO user = adminLogin.adminList();				
+		AdminDTO user = adminLogin.adminList();	
+		System.out.println("▶▶▶▶ user : ");
+		System.out.println(user.toString());
 		
 		request.getSession().setAttribute("id", user.getID());
 		request.getSession().setAttribute("name", user.getNAME());		
