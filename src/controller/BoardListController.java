@@ -80,10 +80,10 @@ public class BoardListController {
 	
 	//@RequestMapping(value="/search.do", method=RequestMethod.POST)
 	@RequestMapping(value="/list.do")
-	public String search(Model model, HttpServletRequest req, HttpServletResponse resp){
+	public String getList(Model model, HttpServletRequest req, HttpServletResponse resp){
 		
 		//검색, 정렬, 페이징 정보도 받아와야 함.
-		System.out.println("▶▶▶ search.do : POST");
+		System.out.println("▶▶▶ list.do");
 		// 블록글 여부
 		
 		//정렬
@@ -112,7 +112,19 @@ public class BoardListController {
 		model.addAttribute("pageCutCount", pageCutCount);
 		
 		
-		List<BoardDTO> list = listService.getSetList(whereColumn, word, sortColumn, orderby, isBlock);				
+		List<BoardDTO> list = null;
+		int allParam = whereColumn.length() + word.length() + sortColumn.length() + orderby.length() + isBlock.length(); 
+		if(allParam == 0){
+			System.out.println("▶▶▶▶▶ getListAll ");
+			list = listService.getListAll();
+		}else{
+			System.out.println("▶▶▶▶▶ getSetList ");
+			list = listService.getSetList(whereColumn, word, sortColumn, orderby, isBlock);
+		}
+		
+		
+		
+						
 		model.addAttribute("list", list);
 		
 		return "/boardList";

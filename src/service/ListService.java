@@ -30,8 +30,7 @@ public class ListService {
 	 */
 	public List<BoardDTO> getListAll(){
 		
-		System.err.println("ListService : getSetList >> 들어옴");
-		
+		System.err.println("▶▶▶▶ ListService : getListAll >> 들어옴");
 		
 		
 		return listDAO.selectList();		
@@ -43,7 +42,7 @@ public class ListService {
 			String sortColumn, String orderby, 
 			String isBlock){
 		
-		System.err.println("ListService : getSetList >> 들어옴");
+		System.err.println("▶▶▶▶ ListService : getSetList >> 들어옴");
 		
 		listDTO.setWhereColumn(whereColumn);
 		listDTO.setWord(word);

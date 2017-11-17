@@ -97,6 +97,7 @@ public class ListDAO {
 		
 		System.out.println("▶▶▶▶ listDTO="+listDTO.toString());
 		
+		
 		return sqlSessionTemplate.selectList("sb_list_ns.selectSetList", listDTO);
 		
 		/*
