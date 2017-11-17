@@ -122,6 +122,10 @@ public class BoardListController {
 			list = listService.getSetList(whereColumn, word, sortColumn, orderby, isBlock);
 		}
 		
+		for(int i=0; i<list.size(); i++){
+			System.out.println(i+": "+ list.get(i).toString());
+		}
+		
 		
 		
 						

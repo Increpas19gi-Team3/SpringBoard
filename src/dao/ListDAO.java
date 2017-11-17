@@ -10,6 +10,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import dto.BoardDTO;
 import dto.ListDTO;
@@ -27,7 +28,8 @@ public class ListDAO {
 	 * 전체 글 검색
 	 * @return - List<BoardDTO>
 	 */
-	public List<BoardDTO> selectList(){	
+	@Transactional
+	public List<BoardDTO> selectList(){
 		return sqlSessionTemplate.selectList("sb_list_ns.selectList");
 		
 		
