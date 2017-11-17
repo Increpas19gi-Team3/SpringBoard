@@ -28,12 +28,8 @@ public class ListService {
 	 * 전체 게시글 목록 가져오기 DAO 활용
 	 * @return
 	 */
-	public List<BoardDTO> getListAll(){
-		
-		System.err.println("ListService : getSetList >> 들어옴");
-		
-		
-		
+	public List<BoardDTO> getListAll(){		
+		System.err.println("ListService : getSetList >> 들어옴");		
 		return listDAO.selectList();		
 	}
 	
