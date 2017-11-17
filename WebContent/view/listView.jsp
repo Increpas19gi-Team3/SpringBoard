@@ -85,6 +85,7 @@
 
 				
 				<div class="inputView">
+				<input type="button" value="답글쓰기" onclick="location.href='reply.do?NUM=${bDTO.NUM}'">
 				<input type="button" value="목록" onclick="location.href='list.do'">
 				<input type="submit" value="수정/삭제" > 
 
