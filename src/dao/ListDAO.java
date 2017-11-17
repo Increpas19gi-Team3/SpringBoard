@@ -208,4 +208,14 @@ public class ListDAO {
 	}
 	
 	
+	/**
+	 * 전체 글 갯수 리턴
+	 * @return
+	 */
+	public int  selectCount() {		
+		System.out.println("▶▶▶▶ listDTO : selectCount");
+		return sqlSessionTemplate.selectOne("sb_list_ns.selectCount");
+	}
+	
+	
 }

@@ -66,9 +66,15 @@
    				ORDER BY ISNOTICE DESC, NUM DESC
    			</otherwise>
    		</choose>
-   		
-   		
-    </select>
+   	
+   	</select>
+    
+    
+    
+    <!-- 전체 글갯수 리턴 -->
+	<select id="selectCount" resultType="int">
+	    SELECT COUNT(*) FROM SB_BOARD
+	</select>
     
     
     
