@@ -6,7 +6,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>	
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-
+<%
+	//브라우저 캐싱 X 
+	response.setHeader("Pragma", "No-cache");
+	response.setHeader("Cache-Control", "no-cache");
+	response.addHeader("Cache-Control", "no-store");
+	response.setDateHeader("Expires", 1L);
+%>
 
 <!DOCTYPE html>
 <html>
@@ -56,11 +62,6 @@
 		<jsp:include page="header.jsp" />
 		</nav>
 	</header>
-			
-	<%-- 미구현 작업용 주석처리
-	onclick="location.href='delete.do?NUM=${number}'"
-	 onchange
-	 --%>
 	
 	<c:if test="${empty pageCutCount }">
 		<c:set var="pageCutCount" value="5" />
@@ -69,8 +70,7 @@
 		<c:set var="isBlock" value="ALL" />
 	</c:if>
 	
-		1. 검색조건 유지 -  관리자모드: 일반글, 블록글 <br />
-		2. 페이징 처리  <br />
+		1. 페이징 처리  <br />
 	\${sortColumn }: ${sortColumn } <br />
 	\${orderby }: ${orderby } <br />
 	

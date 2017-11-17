@@ -4,7 +4,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sb_list_ns">
     
-    <cache eviction="FIFO" flushInterval="60000" size="1024" readOnly="true"/> 
+    <!-- <cache eviction="FIFO" flushInterval="60000" size="1024" readOnly="true"/>  -->
     
     <resultMap id="BoardResult" type="SB_Board" ><!-- BoardResult -->
     	<result property="NUM" />
@@ -30,14 +30,14 @@
     </select>
     
     
-    <select id="selectSetList" parameterType="dto.ListDTO" resultMap="BoardResult">
+    <select id="selectSetList" parameterType="dto.ListDTOListModel" resultMap="BoardResult">
 		SELECT * 
     	FROM SB_BOARD
     	
     	
     	<!-- WHERE -->
     	<where>
-    		<if test="!isBlock.equals('') and !isBlock.equals('ALL')"><!-- //전체글 보기가 아닐때 -->
+    		<if test="!isBlock.equals('') and !isBlock.equals('ALL')"> <!-- //전체글 보기가 아닐때 -->
     			ISBLOCK = #{isBlock}
     		</if>
     		
@@ -50,7 +50,7 @@
     			AND WRITER LIKE '%' || #{word } || '%'
     		</if>
     	</where>	    		
-    		
+    	
     		
     	<!-- ORDER BY -->
    		<choose>
@@ -66,6 +66,8 @@
    				ORDER BY ISNOTICE DESC, NUM DESC
    			</otherwise>
    		</choose>
+   		
+   		
     </select>
     
     

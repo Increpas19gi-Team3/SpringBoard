@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dto.BoardDTO;
-import dto.ListDTO;
+import dto.ListDTOListModel;
 import util.DBManager;
 import util.LoggableStatement;
 
@@ -95,12 +95,12 @@ public class ListDAO {
 	 * @param isBlock : 전체글 검색, 블록글 검색
 	 * @return - List<BoardDTO>
 	 */
-	public List<BoardDTO> selectSetList(ListDTO listDTO){
+	public List<BoardDTO> selectSetList(ListDTOListModel listDTOListModel){
 		
-		System.out.println("▶▶▶▶ listDTO="+listDTO.toString());
+		System.out.println("▶▶▶▶ listDTO="+listDTOListModel.toString());
 		
 		
-		return sqlSessionTemplate.selectList("sb_list_ns.selectSetList", listDTO);
+		return sqlSessionTemplate.selectList("sb_list_ns.selectSetList", listDTOListModel);
 		
 		/*
 		List<BoardDTO> list = null;			
