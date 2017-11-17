@@ -28,11 +28,16 @@ public class ListService {
 	 * 전체 게시글 목록 가져오기 DAO 활용
 	 * @return
 	 */
+<<<<<<< HEAD
 	public List<BoardDTO> getListAll(){
 		
 		System.err.println("▶▶▶▶ ListService : getListAll >> 들어옴");
 		
 		
+=======
+	public List<BoardDTO> getListAll(){		
+		System.err.println("ListService : getSetList >> 들어옴");		
+>>>>>>> branch 'master' of https://github.com/Increpas19gi-Team3/SpringBoard.git
 		return listDAO.selectList();		
 	}
 	

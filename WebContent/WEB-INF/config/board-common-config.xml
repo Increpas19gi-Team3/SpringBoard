@@ -16,9 +16,7 @@
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="-1" /> <!-- 이미지 업로드 사이즈: -1 : 제한 없음<위험>. 가장 좋은건 1MB가 좋음  -->
 		<property name="defaultEncoding" value="UTF-8" />
-	</bean>
-	
-	
+	</bean>	
 	
 	<!-- 메세지 소스 IRVR 역활 빈 등록 -->
 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
@@ -34,8 +32,7 @@
 		</property>
 		<!-- property 파일 한글 UTF-8 인코딩 -->
 		<property name="defaultEncoding" value="utf-8" />
-	</bean>
-	
+	</bean>	
 	
 	<!-- 1. 스프링이 직접 CP 및 JNDI 참조
 		Resource name="jdbc/SpringDB" 을 지정 : 값을 일치 시켜야 함.

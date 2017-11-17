@@ -21,7 +21,5 @@
     <update id="unblock" parameterType="Integer">
     	update SB_BOARD set ISBLOCK = '0' where NUM=#{NUM}
     </update>
-    
-    
-    
+        
 </mapper>
