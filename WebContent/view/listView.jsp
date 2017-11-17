@@ -74,8 +74,9 @@
 
 					<tr>
 						<th>작성시간</th>
-						<td><fmt:formatDate value="${bDTO.REGTIME}"
-								pattern="yyyy-MM-dd" /></td>
+						<td>
+							<fmt:formatDate value="${bDTO.REGTIME}" pattern="yyyy-MM-dd" />
+						</td>
 					</tr>
 				</table>
 
@@ -88,21 +89,17 @@
 					
 						<c:choose>
 							<c:when test="${bDTO.ISBLOCK eq'0'}">
-								<input type="button" value="블락" onclick="location.href='block.do?NUM=${bDTO.NUM}'">
-								
+								<input type="button" value="블락" onclick="location.href='block.do?NUM=${bDTO.NUM}'">								
 							</c:when>
 							<c:otherwise>
-								<input type="button" value="블락취소" onclick="location.href='unblock.do?NUM=${bDTO.NUM}'">
-								
+								<input type="button" value="블락취소" onclick="location.href='unblock.do?NUM=${bDTO.NUM}'">								
 							</c:otherwise>
 						</c:choose>
 					</c:when>
-				</c:choose>
-				
+				</c:choose>				
 
 				<input type="button" value="목록" onclick="location.href='list.do'">
-
-
+				
 			</div>
 		</section>
 	</form>

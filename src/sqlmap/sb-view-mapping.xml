@@ -24,6 +24,13 @@
 
    <select id="selectDetail" parameterType="map" resultMap="BoardResult" useCache="false"  >
 		select * from SB_BOARD where num=#{writeNum}
-	</select> 
+	</select>
+	
+	<!-- 조회수 증가 쿼리문 -->
+	<update id="updateHitCount" parameterType="integer">
+		update tblBoard set count = count+1
+		where num=#{num}
+	</update>
+	 
 	
 </mapper>

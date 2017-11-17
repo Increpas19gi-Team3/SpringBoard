@@ -273,11 +273,9 @@
 					</td>
 				</tr>
 			</c:forEach>			
-		</table>
+		</table>	
 	
-	
-		<p /><p /><p />
-		
+		<p /><p /><p />		
 				
 				<select name="whereColumn" onchange="change_whereColumn()">
 					<c:choose>

@@ -30,7 +30,7 @@ public class BoardDetailViewController {
 	@RequestMapping(value = "/listView.do", method = RequestMethod.GET)
 	public String GET_BoardDetailView(Model model, HttpServletRequest req, HttpServletResponse resp) {
 
-		System.out.println("상세 페이지(GET)로 들어왔니?");
+		System.out.println("'상세페이지'와 '조회수'를 증가시키는 과정입니다.");
 
 		int num = Integer.parseInt(req.getParameter("no"));
 		BoardDTO bDTO = viewService.BoardDetail(num);

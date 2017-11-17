@@ -20,11 +20,15 @@ public class ListViewDAO {
 
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
-	
+
+	// 조회수 증가
+	public void updateHitCount(int num) {
+		sqlSessionTemplate.update("sb_view_ns.updateHitCount", num);
+	}
+
 	public BoardDTO BoardDetailView(int num) {
-		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("writeNum", num);// 글번호 맵에 저장		
-		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("writeNum", num);// 글번호 맵에 저장
 		return sqlSessionTemplate.selectOne("sb_view_ns.selectDetail", map);
 	} // SelectOneMovieByCode(String code) - End
 
