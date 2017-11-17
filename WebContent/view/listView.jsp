@@ -58,8 +58,11 @@
 
 					<tr>
 						<th>이미지파일명</th>
-						<td><img src="../image/${bDTO.IMGNAME}" width="400"
-							height="400"></td>
+						<td>
+							<img src="../image/${bDTO.IMGNAME}" width="400" height="400">
+							<input type="button" name="download" value="첨부파일 다운로드" 
+							onclick="location.href='file_download.do?filename=${bDTO.IMGNAME}'">
+						</td>
 					</tr>
 
 					<tr>
@@ -80,9 +83,10 @@
 					</tr>
 				</table>
 
-				<hr>
-				<br> <br> 
-				<input type="submit" value="수정/삭제"> 
+				
+				<div class="inputView">
+				<input type="button" value="목록" onclick="location.href='list.do'">
+				<input type="submit" value="수정/삭제" > 
 
 				<c:choose>
 					<c:when test="${not empty sessionScope.id}">
@@ -97,11 +101,20 @@
 						</c:choose>
 					</c:when>
 				</c:choose>				
-
-				<input type="button" value="목록" onclick="location.href='list.do'">
 				
+				</div>
 			</div>
 		</section>
+		<hr>
+		<table>
+			<tr>
+				<td>No.</td>
+				<td>제목</td>
+				<td>작성자</td>
+				<td>조회수</td>
+				<td>작성일</td>
+			</tr>
+		</table>
 	</form>
 	<footer>
 		<jsp:include page="footer.jsp" />
