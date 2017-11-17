@@ -14,15 +14,10 @@ public class ViewService {
 	@Autowired
 	ListViewDAO vDao;
 
+	// BoardDetailViewController.java : 'num'으로 보내서 'writeNum'으로 받음
 	@Transactional
-	public BoardDTO findBySeqBoard(int writeNum) {
+	public BoardDTO BoardDetail(int writeNum) {
 		vDao.updateHitCount(writeNum); // 글 조회수 증가
 		return vDao.BoardDetailView(writeNum);
 	}
-
-	// BoardDetailViewController.java : 'num'으로 보내서 'writeNum'으로 받음
-	public BoardDTO BoardDetail(int writeNum) {
-		return vDao.BoardDetailView(writeNum);
-	}
-
 }

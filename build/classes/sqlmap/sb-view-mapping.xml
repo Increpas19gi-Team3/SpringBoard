@@ -28,8 +28,8 @@
 	
 	<!-- 조회수 증가 쿼리문 -->
 	<update id="updateHitCount" parameterType="integer">
-		update tblBoard set count = count+1
-		where num=#{num}
+		update SB_BOARD set count = count+1
+		where num=#{writeNum}
 	</update>
 	 
 	
