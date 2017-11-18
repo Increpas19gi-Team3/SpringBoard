@@ -22,12 +22,11 @@
     	<result property="BLEVEL" column="BLEVEL"/>
     </resultMap>
     
-    
+    <!-- 'NUM'과 'BREF' 동일하게 만들기 위해서 'BREF'위치에 'SB_BOARD_SEQ.NEXTVAL'를 넣었음 -->
     <insert id="insertWrite" parameterType="SB_Board">
     	INSERT INTO SB_BOARD VALUES(SB_BOARD_SEQ.NEXTVAL, #{ISNOTICE}, '0', 
-    	#{TITLE},#{WRITER},#{PWD},#{CONTENTS, jdbcType=VARCHAR},#{IMGNAME, jdbcType=VARCHAR}, 
-    	0, sysdate,#{BREF},#{BSTEP},#{BLEVEL})
-
+    	#{TITLE}, #{WRITER}, #{PWD}, #{CONTENTS, jdbcType=VARCHAR}, #{IMGNAME, jdbcType=VARCHAR}, 
+    	0, sysdate, SB_BOARD_SEQ.NEXTVAL, #{BSTEP}, #{BLEVEL})
 	</insert>
  
     <select id="selectWrtByNum" parameterType="map" resultMap="BoardResult" >
@@ -36,7 +35,7 @@
 
 	<update id="updateWrite" parameterType="SB_Board">
 		update SB_BOARD set TITLE=#{TITLE},WRITER=#{WRITER}, PWD=#{PWD}, 
-		CONTENTS=#{CONTENTS, jdbcType=VARCHAR}, IMGNAME=#{IMGNAME, jdbcType=VARCHAR} 
+		CONTENTS=#{CONTENTS, jdbcType=VARCHAR}, IMGNAME=#{IMGNAME, jdbcType=VARCHAR}
 		where num=#{NUM}
 	</update>
 	
