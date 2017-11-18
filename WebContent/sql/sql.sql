@@ -102,3 +102,24 @@ INSERT INTO SB_BOARD VALUES(SB_BOARD_SEQ.NEXTVAL, '0', '0', '일반글 제목4',
 INSERT INTO SB_BOARD VALUES(SB_BOARD_SEQ.NEXTVAL, '0', '0', '일반글 제목5', 'han', '1234', '일반글일반글5', 'Penguins.jpg', 0, sysdate);
 
 INSERT INTO SB_BOARD VALUES(SB_BOARD_SEQ.NEXTVAL, '0', '0', '공지사항글 제목6', 'han', '1234', '공지사항내용5', 'Penguins.jpg', 0, sysdate);
+
+INSERT INTO SB_BOARD VALUES(SB_BOARD_SEQ.NEXTVAL, '0', '0', '답글0', 'son', '1234', 'bref:0_bstep:0_blevel:0', 'Penguins.jpg', 0, sysdate, 0, 0, 0);
+
+INSERT INTO SB_BOARD VALUES(SB_BOARD_SEQ.NEXTVAL, '0', '0', '답글1', 'son', '1234', 'bref:1_bstep:0_blevel:0', 'Penguins.jpg', 0, sysdate, 1, 0, 0);
+
+INSERT INTO SB_BOARD VALUES(SB_BOARD_SEQ.NEXTVAL, '0', '0', '답글2', 'son', '1234', 'bref:1_bstep:1_blevel:0', 'Penguins.jpg', 0, sysdate, 1, 1, 0);
+
+INSERT INTO SB_BOARD VALUES(SB_BOARD_SEQ.NEXTVAL, '0', '0', '답글3', 'son', '1234', 'bref:1_bstep:1_blevel:1', 'Penguins.jpg', 0, sysdate, 1, 1, 1);
+
+INSERT INTO SB_BOARD VALUES(SB_BOARD_SEQ.NEXTVAL, '0', '0', '답글4', 'son', '1234', 'bref:2_bstep:1_blevel:1', 'Penguins.jpg', 0, sysdate, 2, 1, 1);
+
+INSERT INTO SB_BOARD VALUES(SB_BOARD_SEQ.NEXTVAL, '0', '0', '답글5', 'son', '1234', 'bref:2_bstep:2_blevel:2', 'Penguins.jpg', 0, sysdate, 2, 2, 1);
+
+INSERT INTO SB_BOARD VALUES(SB_BOARD_SEQ.NEXTVAL, '0', '0', '답글6', 'son', '1234', 'bref:2_bstep:2_blevel:2', 'Penguins.jpg', 0, sysdate, 2, 2, 2);
+
+INSERT INTO SB_BOARD VALUES(SB_BOARD_SEQ.NEXTVAL, '0', '0', '답글7', 'son', '1234', 'bref:3_bstep:2_blevel:2', 'Penguins.jpg', 0, sysdate, 3, 2, 2);
+
+INSERT INTO SB_BOARD VALUES(SB_BOARD_SEQ.NEXTVAL, '0', '0', '답글8', 'son', '1234', 'bref:3_bstep:3_blevel:2', 'Penguins.jpg', 0, sysdate, 3, 3, 2);
+
+INSERT INTO SB_BOARD VALUES(SB_BOARD_SEQ.NEXTVAL, '0', '0', '답글9', 'son', '1234', 'bref:3_bstep:3_blevel:3', 'Penguins.jpg', 0, sysdate, 3, 3, 3);
+
