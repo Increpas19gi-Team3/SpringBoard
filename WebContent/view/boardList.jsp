@@ -129,16 +129,16 @@
 					<select name = "pageCutCount" id = "pageCutCount" onchange="change_pageCutCount();">
 					
 						<c:choose>
-							<c:when test="${pageCutCount eq '5' }"><option value="5" selected="selected">5줄</option></c:when>
-							<c:otherwise><option value="5">5줄</option></c:otherwise>
+							<c:when test="${pageCutCount eq '5' }"><option value="5" selected="selected">5개 보기</option></c:when>
+							<c:otherwise><option value="5">5개 보기</option></c:otherwise>
 						</c:choose>
 						<c:choose>		
-							<c:when test="${pageCutCount eq '10' }"><option value="10" selected="selected">10줄</option></c:when>
-							<c:otherwise><option value="10">10줄</option></c:otherwise>
+							<c:when test="${pageCutCount eq '10' }"><option value="10" selected="selected">10개 보기</option></c:when>
+							<c:otherwise><option value="10">10개 보기</option></c:otherwise>
 						</c:choose>
 						<c:choose>		
-							<c:when test="${pageCutCount eq '20' }"><option value="20" selected="selected">20줄</option></c:when>
-							<c:otherwise><option value="20">20줄</option></c:otherwise>
+							<c:when test="${pageCutCount eq '20' }"><option value="20" selected="selected">20개 보기</option></c:when>
+							<c:otherwise><option value="20">20개 보기</option></c:otherwise>
 						</c:choose>
 						
 					</select>				
