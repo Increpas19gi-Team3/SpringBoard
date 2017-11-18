@@ -84,9 +84,7 @@
 
 
 				<div class="inputView">
-					<input type="button" value="답글쓰기"
-						onclick="location.href='reply.do?NUM=${bDTO.NUM}'"> <input
-						type="button" value="목록" onclick="location.href='list.do'">
+					<input type="button" value="목록" onclick="location.href='list.do'">
 					<input type="submit" value="수정/삭제">
 
 					<c:choose>
@@ -111,50 +109,57 @@
 
 		<hr>
 
-		<!-- 답글보여주는 부분 -->
+		<p /><p />
+		<div class="inputView">
+			<input type="button" value="답글쓰기" onclick="location.href='reply.do?NUM=${bDTO.NUM}'"> 
+		</div>
+		
+		<!-- 답글 보여주기 시작 -->		
 		<table>
 			<tr>
-				<td>No.</td>
-				<td>제목</td>
-				<td>내용</td>
-				<td>작성자</td>
-				<td>조회수</td>
-				<td>작성일</td>
+				<th>No.</th>
+				<th>제목</th>
+				<th>내용</th>
+				<th>작성자</th>
+				<th>조회수</th>
+				<th>작성일</th>
 			</tr>
-			
+				
 			<c:choose>
-				<c:when test="${bDTO.BSTEP == 0}">
+				<c:when test="${bDTO.BREF == 0}">
 					<tr>
-						<td colspan="5">답글이 없습니다.</td>
+						<td colspan="6">답글이 없습니다.</td>
 					</tr>
 				</c:when>
 				<c:otherwise>
 					<!-- 글을 boardVO에 저장 -->
-					<c:forEach var="rep" items="${bDTO}">
+					<c:forEach var="reply" items="${replylistBDTO }">
 						<tr>
-							<td>${rep.NUM}</td>
+							<td>${reply.NUM}</td>
 							<!-- 글들여쓰기 검사 -->
 							<td>
-							<c:if test="${rep.BLEVEL > 0}">
+							<c:if test="${reply.BLEVEL > 0}">
 								<!-- 답글이면 '▶→' 을 추가 -->
-								<c:forEach begin="1" end="${rep.BLEVEL}"> ▶→ </c:forEach> &nbsp;
+								<c:forEach begin="1" end="${reply.BLEVEL}"> ▶→ </c:forEach> &nbsp;
 							</c:if> 
 							<!-- 글상세보기 제목링크 --> 
-							${rep.TITLE}
+							${reply.TITLE}
 							</td>
 							
-							<td>${rep.CONTENTS}</td>
-							<td>${rep.WRITER}</td>
-							<td>${rep.COUNT}</td>
+							<td>${reply.CONTENTS}</td>
+							<td>${reply.WRITER}</td>
+							<td>${reply.COUNT}</td>
 							<td>
-							<fmt:formatDate value="${rep.REGTIME}"
-									pattern="yyyy-MM-dd" />
+							<fmt:formatDate value="${reply.REGTIME}"
+									pattern="yyyy-MM-dd HH:mm:ss" />
 							</td>
 						</tr>
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>
 		</table>
+		<!-- 답글 보여주기 끝 -->
+		
 	</form>
 	<footer>
 		<jsp:include page="footer.jsp" />

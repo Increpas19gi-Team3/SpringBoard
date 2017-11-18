@@ -33,4 +33,13 @@
 	</update>
 	 
 	
+	<!-- 답글만 가져오는 쿼리 -->
+	<select id="selectDetailReply" parameterType="int" resultMap="BoardResult">
+		SELECT * 
+		FROM SB_BOARD 
+		WHERE BREF = #{num} AND num != #{num}
+		ORDER BY BREF ASC, BSTEP ASC, BLEVEL ASC
+	</select>
+	
+	
 </mapper>

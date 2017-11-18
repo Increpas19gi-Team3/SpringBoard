@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -33,10 +35,16 @@ public class BoardDetailViewController {
 		System.out.println("'상세페이지'와 '조회수'를 증가시키는 과정입니다.");
 
 		int num = Integer.parseInt(req.getParameter("no"));
+		
+		// 상세글 보기
 		BoardDTO bDTO = viewService.BoardDetail(num);
-
 		model.addAttribute("bDTO", bDTO);
+		
+		// 답글 보기
+		List<BoardDTO> replylistBDTO = viewService.BoardDetailReply(num);
+		model.addAttribute("replylistBDTO", replylistBDTO);
 
 		return "listView";
 	}
+	
 }
