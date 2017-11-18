@@ -26,7 +26,8 @@
     <select id="selectList" resultMap="BoardResult">
     	SELECT * 
     	FROM SB_BOARD
-		ORDER BY ISNOTICE DESC, NUM DESC
+    	WHERE BSTEP = 0
+    	ORDER BY ISNOTICE DESC, NUM DESC
     </select>
     
     
@@ -37,8 +38,10 @@
     	
     	<!-- WHERE -->
     	<where>
+    		BSTEP = 0 <!-- 댓글은 출력하지 않음 -->
+    		
     		<if test="!isBlock.equals('') and !isBlock.equals('ALL')"> <!-- //전체글 보기가 아닐때 -->
-    			ISBLOCK = #{isBlock}
+    			AND ISBLOCK = #{isBlock}
     		</if>
     		
  			
@@ -73,7 +76,9 @@
     
     <!-- 전체 글갯수 리턴 -->
 	<select id="selectCount" resultType="int">
-	    SELECT COUNT(*) FROM SB_BOARD
+	    SELECT COUNT(*) 
+	    FROM SB_BOARD
+	    WHERE BSTEP = 0
 	</select>
     
     
