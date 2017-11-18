@@ -103,6 +103,10 @@ INSERT INTO SB_BOARD VALUES(SB_BOARD_SEQ.NEXTVAL, '0', '0', '일반글 제목5',
 
 INSERT INTO SB_BOARD VALUES(SB_BOARD_SEQ.NEXTVAL, '0', '0', '공지사항글 제목6', 'han', '1234', '공지사항내용5', 'Penguins.jpg', 0, sysdate);
 
+
+
+-- 답글에 관한 더비 
+
 INSERT INTO SB_BOARD VALUES(SB_BOARD_SEQ.NEXTVAL, '0', '0', '답글0', 'son', '1234', 'bref:0_bstep:0_blevel:0', 'Penguins.jpg', 0, sysdate, 0, 0, 0);
 
 INSERT INTO SB_BOARD VALUES(SB_BOARD_SEQ.NEXTVAL, '0', '0', '답글1', 'son', '1234', 'bref:1_bstep:0_blevel:0', 'Penguins.jpg', 0, sysdate, 1, 0, 0);

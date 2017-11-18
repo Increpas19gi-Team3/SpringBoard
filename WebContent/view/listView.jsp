@@ -22,7 +22,7 @@
 	<hr>
 
 	<form action="view/boardChk.jsp" method="post">
-		 <input type="hidden" name="NUM" value="${bDTO.NUM}">
+		<input type="hidden" name="NUM" value="${bDTO.NUM}">
 		<section>
 			<div id="#" align="center">
 				<h1>게시판 상세보기</h1>
@@ -31,7 +31,7 @@
 					<tr>
 						<th>게시판 번호</th>
 						<td>
-							<%-- 수정 못 하도록 처리 <input type="text" name="NUM" value=""> --%> 
+							<%-- 수정 못 하도록 처리 <input type="text" name="NUM" value=""> --%>
 							${bDTO.NUM}
 						</td>
 					</tr>
@@ -58,9 +58,9 @@
 
 					<tr>
 						<th>이미지파일명</th>
-						<td>
-							<img src="../image/${bDTO.IMGNAME}" width="400" height="400">
-							<input type="button" name="download" value="첨부파일 다운로드" 
+						<td><img src="../image/${bDTO.IMGNAME}" width="400"
+							height="400"> <input type="button" name="download"
+							value="첨부파일 다운로드"
 							onclick="location.href='file_download.do?filename=${bDTO.IMGNAME}'">
 						</td>
 					</tr>
@@ -77,44 +77,83 @@
 
 					<tr>
 						<th>작성시간</th>
-						<td>
-							<fmt:formatDate value="${bDTO.REGTIME}" pattern="yyyy-MM-dd" />
-						</td>
+						<td><fmt:formatDate value="${bDTO.REGTIME}"
+								pattern="yyyy-MM-dd" /></td>
 					</tr>
 				</table>
 
-				
-				<div class="inputView">
-				<input type="button" value="답글쓰기" onclick="location.href='reply.do?NUM=${bDTO.NUM}'">
-				<input type="button" value="목록" onclick="location.href='list.do'">
-				<input type="submit" value="수정/삭제" > 
 
-				<c:choose>
-					<c:when test="${not empty sessionScope.id}">
-					
-						<c:choose>
-							<c:when test="${bDTO.ISBLOCK eq'0'}">
-								<input type="button" value="블락" onclick="location.href='block.do?NUM=${bDTO.NUM}'">								
-							</c:when>
-							<c:otherwise>
-								<input type="button" value="블락취소" onclick="location.href='unblock.do?NUM=${bDTO.NUM}'">								
-							</c:otherwise>
-						</c:choose>
-					</c:when>
-				</c:choose>				
-				
+				<div class="inputView">
+					<input type="button" value="답글쓰기"
+						onclick="location.href='reply.do?NUM=${bDTO.NUM}'"> <input
+						type="button" value="목록" onclick="location.href='list.do'">
+					<input type="submit" value="수정/삭제">
+
+					<c:choose>
+						<c:when test="${not empty sessionScope.id}">
+
+							<c:choose>
+								<c:when test="${bDTO.ISBLOCK eq'0'}">
+									<input type="button" value="블락"
+										onclick="location.href='block.do?NUM=${bDTO.NUM}'">
+								</c:when>
+								<c:otherwise>
+									<input type="button" value="블락취소"
+										onclick="location.href='unblock.do?NUM=${bDTO.NUM}'">
+								</c:otherwise>
+							</c:choose>
+						</c:when>
+					</c:choose>
+
 				</div>
 			</div>
 		</section>
+
 		<hr>
+
+		<!-- 답글보여주는 부분 -->
 		<table>
 			<tr>
 				<td>No.</td>
 				<td>제목</td>
+				<td>내용</td>
 				<td>작성자</td>
 				<td>조회수</td>
 				<td>작성일</td>
 			</tr>
+			
+			<c:choose>
+				<c:when test="${bDTO.BSTEP == null}">
+					<tr>
+						<td colspan="5">답글이 없습니다.</td>
+					</tr>
+				</c:when>
+				<c:otherwise>
+					<!-- 글을 boardVO에 저장 -->
+					<c:forEach var="rep" items="${bDTO}">
+						<tr>
+							<td>${rep.NUM}</td>
+							<!-- 글들여쓰기 검사 -->
+							<td>
+							<c:if test="${rep.BLEVEL > 0}">
+								<!-- 답글이면 '▶→' 을 추가 -->
+								<c:forEach begin="1" end="${rep.BLEVEL}"> ▶→ </c:forEach> &nbsp;
+							</c:if> 
+							<!-- 글상세보기 제목링크 --> 
+							${rep.TITLE}
+							</td>
+							
+							<td>${rep.CONTENTS}</td>
+							<td>${rep.WRITER}</td>
+							<td>${rep.COUNT}</td>
+							<td>
+							<fmt:formatDate value="${rep.REGTIME}"
+									pattern="yyyy-MM-dd" />
+							</td>
+						</tr>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
 		</table>
 	</form>
 	<footer>
