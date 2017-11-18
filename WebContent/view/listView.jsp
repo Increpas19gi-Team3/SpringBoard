@@ -123,7 +123,7 @@
 			</tr>
 			
 			<c:choose>
-				<c:when test="${bDTO.BSTEP == null}">
+				<c:when test="${bDTO.BSTEP == 0}">
 					<tr>
 						<td colspan="5">답글이 없습니다.</td>
 					</tr>
