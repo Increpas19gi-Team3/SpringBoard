@@ -61,12 +61,12 @@ public class BoardListController {
 		
 		//페이징  처리
 		String cutCount = NullToBlank.doChange(req.getParameter("pageCutCount"));
-		int pageCutCount =  cutCount.equals("") ? 0 : Integer.parseInt(cutCount);//표시할 게시글 갯수
+		int pageCutCount =  cutCount.equals("") ? 5 : Integer.parseInt(cutCount);//표시할 게시글 갯수
 		System.out.println("pageCutCount="+pageCutCount);		
 		
 		String pn = NullToBlank.doChange(req.getParameter("pn"));
 		// 최종 모델 : BoardVOListModel, 페이지의 시작과 마지막 번호 // FC 에게 리턴
-		int requestPageNumber = pn.equals("") ? 0 : Integer.parseInt(pn);
+		int requestPageNumber = pn.equals("") ? 1 : Integer.parseInt(pn);
 		System.out.println("pn="+requestPageNumber);
 		
 		model.addAttribute("pageCutCount", pageCutCount);
@@ -77,34 +77,34 @@ public class BoardListController {
 		System.out.println("▶▶▶▶▶ getSetList ");
 		
 		
-		List<BoardDTO> list = listService.getSetList(whereColumn, word, sortColumn, orderby, isBlock);
+		//List<BoardDTO> list = listService.getSetList(whereColumn, word, sortColumn, orderby, isBlock);
+		//model.addAttribute("list", list);
 		/*for(int i=0; i<list.size(); i++){
 			System.out.println(i+": "+ list.get(i).toString());
 		}*/
 		
-		//ListDTOListModel list = listService.getBoardVOList(pageCutCount, requestPageNumber, whereColumn, word, sortColumn, orderby, isBlock);
+		ListDTOListModel listModel = listService.getBoardVOList(pageCutCount, requestPageNumber, whereColumn, word, sortColumn, orderby, isBlock);
+		model.addAttribute("listModel", listModel);
 		
 		
 		
-						
-		model.addAttribute("list", list);
 		
 		// 페이지 네비게이션바 설정
-		/* 
-		if (list.getTotalPageCount() > 0) {
+		/**/ 
+		if (listModel.getTotalPageCount() > 0) {
 			
 			// 리스트 화면의 페이지의 시작번호 
-			int beginPageNumber = (list.getRequestPage() - 1) / 10 * 10 + 1;
+			int beginPageNumber = (listModel.getRequestPage() - 1) / 10 * 10 + 1;
 			// 리스트 화면의 페이지의 마지막번호
 			int endPageNumber = beginPageNumber + 9;
-			if (endPageNumber > list.getTotalPageCount()) {
-				endPageNumber = list.getTotalPageCount();
+			if (endPageNumber > listModel.getTotalPageCount()) {
+				endPageNumber = listModel.getTotalPageCount();
 			}
 			
 			model.addAttribute("beginPage", beginPageNumber);//글 시작페이지
 			model.addAttribute("endPage", endPageNumber);
 		}
-		*/	
+		/**/	
 		
 		return "/boardList";
 	}

@@ -32,53 +32,84 @@
     
     
     <select id="selectSetList" parameterType="dto.ListDTOListModel" resultMap="BoardResult">
-		SELECT * 
-    	FROM SB_BOARD
-    	
-    	
-    	<!-- WHERE -->
-    	<where>
-    		BSTEP = 0 <!-- 댓글은 출력하지 않음 -->
-    		
-    		<if test="!isBlock.equals('') and !isBlock.equals('ALL')"> <!-- //전체글 보기가 아닐때 -->
-    			AND ISBLOCK = #{isBlock}
-    		</if>
-    		
- 			
- 			<if test="whereColumn.equals('TITLE')">
-    			AND TITLE LIKE '%' || #{word } || '%'
-    		</if>
-    		
-    		<if test="whereColumn.equals('WRITER')">
-    			AND WRITER LIKE '%' || #{word } || '%'
-    		</if>
-    	</where>	    		
-    	
-    		
-    	<!-- ORDER BY -->
-   		<choose>
-   			<when test="sortColumn.equals('TITLE')">   				
-   				<if test="orderby.equals('ASC')">ORDER BY ISNOTICE DESC, TITLE ASC</if>
-   				<if test="orderby.equals('DESC')">ORDER BY ISNOTICE DESC, TITLE DESC</if>   				
-   			</when>
-   			<when test="sortColumn.equals('REGTIME')">
-   				<if test="orderby.equals('ASC')">ORDER BY ISNOTICE DESC, REGTIME ASC</if>
-   				<if test="orderby.equals('DESC')">ORDER BY ISNOTICE DESC, REGTIME DESC</if>
-   			</when>
-   			<otherwise>
-   				ORDER BY ISNOTICE DESC, NUM DESC
-   			</otherwise>
-   		</choose>
-   	
+		<!-- NUM, ISNOTICE, ISBLOCK, TITLE, WRITER, PWD, CONTENTS, IMGNAME, COUNT, REGTIME, BREF, BSTEP, BLEVEL, REPLY--> 
+		
+	    SELECT * 
+	    FROM (
+	     
+			SELECT NUM, ISNOTICE, ISBLOCK, TITLE, WRITER, PWD, CONTENTS, IMGNAME, COUNT, REGTIME, BREF, BSTEP, BLEVEL, rownum rn 
+			FROM (
+			
+				SELECT NUM, ISNOTICE, ISBLOCK, TITLE, WRITER, PWD, CONTENTS, IMGNAME, COUNT, REGTIME, BREF, BSTEP, BLEVEL
+		    	FROM SB_BOARD 
+	    	 
+	    	 
+		    	<!-- WHERE -->
+		    	<where>
+		    		BSTEP = 0 <!-- 댓글은 출력하지 않음 -->
+		    		
+		    		<if test="!isBlock.equals('') and !isBlock.equals('ALL')"> <!-- //전체글 보기가 아닐때 -->
+		    			AND ISBLOCK = #{isBlock}
+		    		</if>
+		    		
+		 			
+		 			<if test="whereColumn.equals('TITLE')">
+		    			AND TITLE LIKE '%' || #{word } || '%'
+		    		</if>
+		    		
+		    		<if test="whereColumn.equals('WRITER')">
+		    			AND WRITER LIKE '%' || #{word } || '%'
+		    		</if>
+		    	</where>	    		
+		    	
+		    		
+		    	<!-- ORDER BY -->
+		   		<choose>
+		   			<when test="sortColumn.equals('TITLE')">   				
+		   				<if test="orderby.equals('ASC')">ORDER BY ISNOTICE DESC, TITLE ASC</if>
+		   				<if test="orderby.equals('DESC')">ORDER BY ISNOTICE DESC, TITLE DESC</if>   				
+		   			</when>
+		   			<when test="sortColumn.equals('REGTIME')">
+		   				<if test="orderby.equals('ASC')">ORDER BY ISNOTICE DESC, REGTIME ASC</if>
+		   				<if test="orderby.equals('DESC')">ORDER BY ISNOTICE DESC, REGTIME DESC</if>
+		   			</when>
+		   			<otherwise>
+		   				ORDER BY ISNOTICE DESC, NUM DESC
+		   			</otherwise>
+		   		</choose>
+			)
+		)
+		<where>
+			rn between #{startRow} and #{endRow}
+		</where>  
+		
+   		
    	</select>
     
     
     
     <!-- 전체 글갯수 리턴 -->
-	<select id="selectCount" resultType="int">
+	<select id="selectCount" parameterType="dto.ListDTOListModel" resultType="int">
 	    SELECT COUNT(*) 
 	    FROM SB_BOARD
-	    WHERE BSTEP = 0
+	    <!-- WHERE -->
+	    	<where>
+	    		BSTEP = 0 <!-- 댓글은 출력하지 않음 -->
+	    		
+	    		<if test="!isBlock.equals('') and !isBlock.equals('ALL')"> <!-- //전체글 보기가 아닐때 -->
+	    			AND ISBLOCK = #{isBlock}
+	    		</if>
+	    		
+	 			
+	 			<if test="whereColumn.equals('TITLE')">
+	    			AND TITLE LIKE '%' || #{word } || '%'
+	    		</if>
+	    		
+	    		<if test="whereColumn.equals('WRITER')">
+	    			AND WRITER LIKE '%' || #{word } || '%'
+	    		</if>
+	    	</where>
+	    
 	</select>
     
     

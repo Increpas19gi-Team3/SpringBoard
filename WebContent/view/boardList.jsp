@@ -70,7 +70,9 @@
 		<c:set var="isBlock" value="ALL" />
 	</c:if>
 	
-		1. 페이징 처리  <br />
+	<%-- 디버그용 코드	
+	\${pn } : ${pn }<br />
+		
 	\${sortColumn }: ${sortColumn } <br />
 	\${orderby }: ${orderby } <br />
 	
@@ -80,6 +82,7 @@
 	\${whereColumn }: ${whereColumn } <br />
 	\${word }: ${word } <br />
 	<p /><p />
+	 --%>
 	
 	
 	<section>
@@ -95,64 +98,48 @@
 	
 		<!-- 관리자 모드 메뉴 : 미구현 주석처리
 		 -->
-		<table id="listGubun" style="">
-			<tr >
-				<td style="text-align: left;">
+		<table id="listGubun" style="border: none;">
+			<tr style="border: none;">
+				<td style="text-align: left; border: none;">
 					
 					<c:if test="${not empty sessionScope.id }">
 						<select name ="isBlock" id ="isBlock" onchange="change_isBlock();">
-							<%-- <c:choose>
-								<c:when test="${empty isBlock }">
-									<option value="ALL" selected="selected">전체글</option>
-									<option value="1">블록글</option>
-									<option value="0">일반글</option>
-								</c:when>
-								<c:otherwise> --%>
-									
-									<c:choose>
-										<c:when test="${isBlock eq 'ALL' }"><option value="ALL" selected="selected">전체글</option></c:when>
-										<c:otherwise><option value="ALL">전체글</option></c:otherwise>
-									</c:choose>
-									<c:choose>
-										<c:when test="${isBlock eq '1' }"><option value="1" selected="selected">블록글</option></c:when>
-										<c:otherwise><option value="1">블록글</option></c:otherwise>
-									</c:choose>
-									<c:choose>	
-										<c:when test="${isBlock eq '0' }"><option value="0" selected="selected">일반글</option></c:when>
-										<c:otherwise><option value="0">일반글</option></c:otherwise>
-									</c:choose>
-								
-								<%-- </c:otherwise>
-							</c:choose> --%>
+																
+							<c:choose>
+								<c:when test="${isBlock eq 'ALL' }"><option value="ALL" selected="selected">전체글</option></c:when>
+								<c:otherwise><option value="ALL">전체글</option></c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${isBlock eq '1' }"><option value="1" selected="selected">블록글</option></c:when>
+								<c:otherwise><option value="1">블록글</option></c:otherwise>
+							</c:choose>
+							<c:choose>	
+								<c:when test="${isBlock eq '0' }"><option value="0" selected="selected">일반글</option></c:when>
+								<c:otherwise><option value="0">일반글</option></c:otherwise>
+							</c:choose>
+							
 						</select>			
 					</c:if>			
 				</td>
-				<td style="text-align: right;">
+				<td style="text-align: right; border: none;">
+				
+					<%-- ${listModel.startRow}-${listModel.endRow} --%>
+					[${listModel.requestPage}/${listModel.totalPageCount}]
+					
 					<select name = "pageCutCount" id = "pageCutCount" onchange="change_pageCutCount();">
 					
-						<%-- <c:choose>
-							<c:when test="${empty pageCutCount }">
-								<option value="5" selected="selected">5줄</option>
-								<option value="10">10줄</option>
-								<option value="20">20줄</option>
-							</c:when>
-							<c:otherwise> --%>
-								
-								<c:choose>
-									<c:when test="${pageCutCount eq '5' }"><option value="5" selected="selected">5줄</option></c:when>
-									<c:otherwise><option value="5">5줄</option></c:otherwise>
-								</c:choose>
-								<c:choose>		
-									<c:when test="${pageCutCount eq '10' }"><option value="10" selected="selected">10줄</option></c:when>
-									<c:otherwise><option value="10">10줄</option></c:otherwise>
-								</c:choose>
-								<c:choose>		
-									<c:when test="${pageCutCount eq '20' }"><option value="20" selected="selected">20줄</option></c:when>
-									<c:otherwise><option value="20">20줄</option></c:otherwise>
-								</c:choose>
-								
-							<%-- </c:otherwise>
-						</c:choose> --%>
+						<c:choose>
+							<c:when test="${pageCutCount eq '5' }"><option value="5" selected="selected">5줄</option></c:when>
+							<c:otherwise><option value="5">5줄</option></c:otherwise>
+						</c:choose>
+						<c:choose>		
+							<c:when test="${pageCutCount eq '10' }"><option value="10" selected="selected">10줄</option></c:when>
+							<c:otherwise><option value="10">10줄</option></c:otherwise>
+						</c:choose>
+						<c:choose>		
+							<c:when test="${pageCutCount eq '20' }"><option value="20" selected="selected">20줄</option></c:when>
+							<c:otherwise><option value="20">20줄</option></c:otherwise>
+						</c:choose>
 						
 					</select>				
 				</td>
@@ -206,7 +193,7 @@
 			</tr>
 			
 			
-			<c:forEach var="list" items="${list }">
+			<c:forEach var="list" items="${listModel.boardDTOList }">
 				<tr>
 					<td>${list.NUM }</td>
 					
@@ -216,11 +203,11 @@
 								<strong> 
 								<c:choose>
 									<c:when test="${list.ISBLOCK eq '1' }"> <%-- 블록글 처리 --%>
-										<div style="text-decoration: line-through; color: gray;">
+										<div style="text-decoration:line-through; color: red;"> 
 											<img src="/image/notice.png">&nbsp;
 											<c:choose> <%-- 관리자는 블록글 내용보기 가능 --%>
 												<c:when test="${not empty sessionScope.id }">
-													<a href="listView.do?no=${list.NUM }" > 
+													<a href="listView.do?no=${list.NUM }" style="text-decoration:line-through; color: red;"> 
 														${list.TITLE } 
 													</a>
 												</c:when>
@@ -229,9 +216,9 @@
 										</div>
 									</c:when>
 									<c:otherwise>
-										<div style="color: red;">
+										<div>
 											<img src="/image/notice.png">&nbsp;
-											<a href="listView.do?no=${list.NUM }" > 
+											<a href="listView.do?no=${list.NUM }" style="text-decoration:none; color: red;" > 
 												${list.TITLE } 
 											</a>		
 										</div>
@@ -248,7 +235,7 @@
 										
 											<c:choose><%-- 관리자는 블록글 내용보기 가능 --%>
 												<c:when test="${not empty sessionScope.id }">
-													<a href="listView.do?no=${list.NUM }" > 
+													<a href="listView.do?no=${list.NUM }" style="text-decoration: line-through; color: grey;"> 
 														${list.TITLE } 
 													</a>
 												</c:when>
@@ -269,47 +256,93 @@
 					<td>${list.WRITER }</td>
 					<td>${list.COUNT }</td>
 					<td>
-						<fmt:formatDate value="${list.REGTIME }" pattern="yyyy-MM-dd hh:mm"/>
+						<fmt:formatDate value="${list.REGTIME }" pattern="yyyy-MM-dd hh:mm:ss"/>
 					</td>
 				</tr>
 			</c:forEach>			
 		</table>	
 	
-		<p /><p /><p />		
-				
-				<select name="whereColumn" onchange="change_whereColumn()">
+		<!-- 양 끝에 글등록 링크 위치 -->
+		<table style="border: none;">
+			<tr style="border: none;">
+				<td style="text-align: left; border: none;">
+					<input type="button" value="글 쓰기" onclick="location.href='reg.do'" />
+				</td>
+				<td style="text-align: right; border: none;">
+					<input type="button" value="글 쓰기" onclick="location.href='reg.do'" />	
+				</td>
+			</tr>
+		</table>
+	
+	
+	
+		<p /><p /><p />
+		
+		
+		<!-- 페이징 처리 -->		
+		<c:if test="${beginPage > 10 }">
+			<div style="display: inline; color: black;" >
+				<a href='<c:url value="list.do?sortColumn=${sortColumn }&orderby=${orderby }&whereColumn=${whereColumn }&word=${word }&isBlock=${isBlock }&pageCutCount=${pageCutCount }&pn=${beginPage-1}"/>'>◀ 이전 </a>&nbsp;
+			</div>
+		</c:if> 
+		
+		<c:forEach var="pno" begin="${beginPage}" end="${endPage}">
+			
+			<c:choose>
+				<c:when test="${pno == pn}">
+					<div style="display: inline; color: red;" ><strong>${pno}</strong></div>&nbsp;
+				</c:when>
+				<c:otherwise>
+					<div style="display: inline; color: black;" >
+						<a href='<c:url value="list.do?sortColumn=${sortColumn }&orderby=${orderby }&whereColumn=${whereColumn }&word=${word }&isBlock=${isBlock }&pageCutCount=${pageCutCount }&pn=${pno}" />'>${pno}</a>&nbsp;
+					</div>	
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+		 
+		<c:if test="${endPage < listModel.totalPageCount}">
+			<div style="display: inline; color: black;" >
+				&nbsp; <a href='<c:url value="list.do?sortColumn=${sortColumn }&orderby=${orderby }&whereColumn=${whereColumn }&word=${word }&isBlock=${isBlock }&pageCutCount=${pageCutCount }&pn=${endPage + 1}"/>'> 다음 ▶ </a>
+			</div>
+		</c:if>
+		
+		
+		<p /><p />	
+		
+		<!-- 검색 처리 -->		
+		<select name="whereColumn" onchange="change_whereColumn()">
+			<c:choose>
+				<c:when test="${not empty whereColumn }">
+					
 					<c:choose>
-						<c:when test="${not empty whereColumn }">
-							
-							<c:choose>
-								<c:when test="${whereColumn eq 'ALL'}">
-									<option value="ALL" selected="selected">전체검색</option>
-									<option value="TITLE" >제목</option>
-									<option value="WRITER"> 작성자</option>
-								</c:when>
-								<c:when test="${whereColumn eq 'TITLE'}">
-									<option value="ALL">전체검색</option>
-									<option value="TITLE" selected="selected">제목</option>
-									<option value="WRITER"> 작성자</option>
-								</c:when>
-								<c:when test="${whereColumn eq 'WRITER'}">
-									<option value="ALL">전체검색</option>
-									<option value="TITLE" >제목</option>
-									<option value="WRITER" selected="selected"> 작성자</option>
-								</c:when>
-							</c:choose>
-						
-						</c:when>
-						<c:otherwise>
-							<option value="ALL">전체검색</option>
+						<c:when test="${whereColumn eq 'ALL'}">
+							<option value="ALL" selected="selected">전체검색</option>
 							<option value="TITLE" >제목</option>
 							<option value="WRITER"> 작성자</option>
-						</c:otherwise>
+						</c:when>
+						<c:when test="${whereColumn eq 'TITLE'}">
+							<option value="ALL">전체검색</option>
+							<option value="TITLE" selected="selected">제목</option>
+							<option value="WRITER"> 작성자</option>
+						</c:when>
+						<c:when test="${whereColumn eq 'WRITER'}">
+							<option value="ALL">전체검색</option>
+							<option value="TITLE" >제목</option>
+							<option value="WRITER" selected="selected"> 작성자</option>
+						</c:when>
 					</c:choose>
-				</select>
 				
-				<input type="text" name="word" value="${word }">
-				<input type="submit" value="검색">
+				</c:when>
+				<c:otherwise>
+					<option value="ALL">전체검색</option>
+					<option value="TITLE" >제목</option>
+					<option value="WRITER"> 작성자</option>
+				</c:otherwise>
+			</c:choose>
+		</select>
+		
+		<input type="text" name="word" value="${word }">
+		<input type="submit" value="검색">
 	</form>	
 	</div>
 		

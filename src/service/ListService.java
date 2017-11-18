@@ -61,13 +61,20 @@ public class ListService {
 	}
 	
 	
-	/*
+	/**/
 	public ListDTOListModel getBoardVOList(int pageCutCount, int requestPageNumber, 
 			String whereColumn, String word, 
 			String sortColumn, String orderby, 
 			String isBlock){
 		
 		System.err.println("▶▶▶▶ ListService : getBoardVOList >> 조건 검색 들어옴");
+		
+		listDTOListModel.setWhereColumn(whereColumn);
+		listDTOListModel.setWord(word);
+		listDTOListModel.setSortColumn(sortColumn);
+		listDTOListModel.setOrderby(orderby);
+		listDTOListModel.setIsBlock(isBlock);
+		
 		
 		// 페이징 처리
 		if (requestPageNumber < 0) {
@@ -76,7 +83,7 @@ public class ListService {
 		}
 		
 		// DAO에게 DB의 전체 글 개수조회 요청
-		int totalBoardVOCount = listDAO.selectCount();
+		int totalBoardVOCount = listDAO.selectCount(listDTOListModel);
 		
 		
 		if (totalBoardVOCount == 0) {//글의 개수가 0이면
@@ -99,23 +106,25 @@ public class ListService {
 			// 예) 전체글번호 = 2
 			endRow = totalBoardVOCount;
 		}
-				
+		
+		listDTOListModel.setStartRow(firstRow);
+		listDTOListModel.setEndRow(endRow);
 		
 		// DAO에게 DB Select 요청
-		List<BoardDTO> boardVOList = listDAO.select(firstRow, endRow);
+		List<BoardDTO> boardDTOList = listDAO.selectSetList(listDTOListModel);
 
 		
 		//BoardVOListModel 결과 모델을 생성
 		ListDTOListModel boardVOListView = new ListDTOListModel(boardDTOList, 
 				whereColumn, word, sortColumn, orderby, isBlock, pageCutCount,
-				requestPage, totalPageCount, startRow, endRow)
+				requestPageNumber, totalPageCount, firstRow, endRow);
 				
 				//boardVOList,requestPageNumber, totalPageCount, firstRow, endRow);
 		
 		return boardVOListView;
 		
 	}
-	*/
+	/**/
 	
 	private int calculateTotalPageCount(int pageCutCount, int totalBoardVOCount) {
 		if (totalBoardVOCount == 0) {
