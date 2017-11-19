@@ -22,10 +22,10 @@
 	<hr>
 
 	<form action="view/boardChk.jsp" method="post">
-			
-		<input type="hidden" name="NUM" value="${bDTO.NUM}">
-		<input type="hidden" name="BLEV" value="${bDTO.BLEVEL}">
-				
+
+		<input type="hidden" name="NUM" value="${bDTO.NUM}"> <input
+			type="hidden" name="BLEV" value="${bDTO.BLEVEL}">
+
 		<section>
 			<div id="#" align="center">
 				<h1>게시판 상세보기</h1>
@@ -83,7 +83,7 @@
 						<td><fmt:formatDate value="${bDTO.REGTIME}"
 								pattern="yyyy-MM-dd" /></td>
 					</tr>
-						
+
 				</table>
 
 
@@ -112,12 +112,15 @@
 
 		<hr>
 
-		<p /><p />
+		<p />
+		<p />
 		<div class="inputView">
-			<input type="button" value="답글쓰기" onclick="location.href='reply.do?NUM=${bDTO.NUM}'"> 
+			<input type="button" value="답글쓰기"
+				onclick="location.href='reply.do?NUM=${bDTO.NUM}'">
 		</div>
-		
-		<!-- 답글 보여주기 시작 -->		
+	
+
+
 		<table>
 			<tr>
 				<th>No.</th>
@@ -127,9 +130,8 @@
 				<th>조회수</th>
 				<th>작성일</th>
 				<th>수정/삭제</th>
-				
 			</tr>
-				
+
 			<c:choose>
 				<c:when test="${bDTO.BREF == 0}">
 					<tr>
@@ -142,29 +144,29 @@
 						<tr>
 							<td>${reply.NUM}</td>
 							<!-- 글들여쓰기 검사 -->
-							<td>
-							<c:if test="${reply.BLEVEL > 0}">
-								<!-- 답글이면 '▶→' 을 추가 -->
-								<c:forEach begin="1" end="${reply.BLEVEL}"> ▶→ </c:forEach> &nbsp;
-							</c:if> 
-							<!-- 글상세보기 제목링크 --> 
-							<a href="listView.do?no=${reply.NUM}">  ${reply.TITLE}
-							</td>
-							
+							<td><c:if test="${reply.BLEVEL > 0}">
+									<!-- 답글이면 '▶→' 을 추가 -->
+									<c:forEach begin="1" end="${reply.BLEVEL}"> ▶→ </c:forEach> &nbsp;
+							</c:if> <!-- 글상세보기 제목링크 --> <a href="listView.do?no=${reply.NUM}">
+									${reply.TITLE} </td>
+
 							<td>${reply.CONTENTS}</td>
 							<td>${reply.WRITER}</td>
 							<td>${reply.COUNT}</td>
-							<td><fmt:formatDate value="${reply.REGTIME}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-							<td> <input type="submit" value="수정/삭제"> </td>							
+							<td><fmt:formatDate value="${reply.REGTIME}"
+									pattern="yyyy-MM-dd HH:mm:ss" /></td>
+							<td>							
+							<input type="button" value="수정/삭제" onclick="location.href='view/boardChk.jsp?NUM=${reply.NUM}&BLEV=${reply.BLEVEL}'">
+							</td>
 						</tr>
-						<p />											
+						<p />
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>
 		</table>
 		<!-- 답글 보여주기 끝 -->
-		
 	</form>
+
 	<footer>
 		<jsp:include page="footer.jsp" />
 	</footer>
