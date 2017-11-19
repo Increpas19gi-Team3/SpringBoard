@@ -26,14 +26,13 @@
 			<% System.out.println("NUM : ▶▶▶▶▶ "+ request.getParameter("NUM")); %>
 			
 			<!-- 수정부분:손대성 -->
-			<input type="hidden" name="BLEVEL" value="<%=request.getParameter("BLEVEL")%>">
-			<% System.out.println("BLEVEL : ▶▶▶▶▶ "+ request.getParameter("BLEVEL")); %>
+			<input type="hidden" name="BLEVEL" value="<%=request.getParameter("BLEV")%>">
+			<% System.out.println("BLEVEL : ▶▶▶▶▶ "+ request.getParameter("BLEV")); %>
 						
 			<p>비밀번호를 입력하시오!
 			<p><input type="text" name="pass">
 			<p><input type="submit" value="확인">
-			<input type="button" value="취소" onclick="location.href='../list.do'">		
-
+			<input type="button" value="취소" onclick="location.href='../list.do'">
 		</form>
 
 	</section>

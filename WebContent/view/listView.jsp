@@ -24,7 +24,7 @@
 	<form action="view/boardChk.jsp" method="post">
 			
 		<input type="hidden" name="NUM" value="${bDTO.NUM}">
-		<input type="hidden" name="BLEVEL" value="${bDTO.BLEVEL}">
+		<input type="hidden" name="BLEV" value="${bDTO.BLEVEL}">
 				
 		<section>
 			<div id="#" align="center">

@@ -29,6 +29,7 @@ import org.springframework.validation.Errors;
 
 /**
  * 게시판 컨트롤러
+ * 
  * @author 김지현
  *
  */
@@ -36,36 +37,36 @@ import org.springframework.validation.Errors;
 @Controller
 public class BoardViewController {
 
-	@Autowired	//객체 주입
+	@Autowired // 객체 주입
 	WriteService writeService;
-	
-	@RequestMapping(value="/reg.do",method=RequestMethod.GET)
+
+	@RequestMapping(value = "/reg.do", method = RequestMethod.GET)
 	public String form() {
-	
+
 		return "boardReg";
 	}
-	
-	@RequestMapping(value="/reg.do",method=RequestMethod.POST)
-	public String reg(@Valid @ModelAttribute("icmd") BoardDTO bdto,Errors errors, Model model) {
-		
+
+	@RequestMapping(value = "/reg.do", method = RequestMethod.POST)
+	public String reg(@Valid @ModelAttribute("icmd") BoardDTO bdto, Errors errors, Model model) {
+
 		System.out.println("여기 들어오니?");
 		//// MultipartFile 파일 객체
 		MultipartFile file = bdto.getUpfile();
-		String path="C:/images/";
-		
+		String path = "C:/images/";
+
 		String originalFilename = file.getOriginalFilename();
-		String systemFilename = bdto.getWRITER()+"_"+UUID.randomUUID()+"_"+originalFilename;
-		
+		String systemFilename = bdto.getWRITER() + "_" + UUID.randomUUID() + "_" + originalFilename;
+
 		if (!file.isEmpty()) {
 			// 업로드파일객체를 지정한 파일에 복사
 			try {
-				file.transferTo(new File(path,systemFilename));
+				file.transferTo(new File(path, systemFilename));
 				System.out.println(systemFilename + " 업로드완료.");
 				UploadFileDTO fileDTO = new UploadFileDTO();
 				fileDTO.setOriginalFilename(originalFilename);
 				fileDTO.setSystemFilename(systemFilename);
 				fileDTO.setFileSize(file.getSize());
-				//모델에 fileDTO 추가
+				// 모델에 fileDTO 추가
 				bdto.setIMGNAME(systemFilename);
 				model.addAttribute("fileDTO", fileDTO);
 			} catch (IllegalStateException e) {
@@ -76,65 +77,65 @@ public class BoardViewController {
 				e.printStackTrace();
 			}
 		}
-		
-		if(errors.hasErrors()){
+
+		if (errors.hasErrors()) {
 			return "boardReg";
 		}
 
 		writeService.insertWrt(bdto);
-						
+
 		return "redirect:index.jsp";
 	}
 
-
-	@RequestMapping(value="/pwdCheck.do",method=RequestMethod.POST)
+	@RequestMapping(value = "/pwdCheck.do", method = RequestMethod.POST)
 	public String passChk(HttpServletRequest request, Model model) {
-		
-		
+
+		System.out.println("NUMBER : " + request.getParameter("NUMBER"));
+		System.out.println("BLEVEL : " + request.getParameter("BLEVEL"));
+
 		int writeNum = Integer.parseInt(request.getParameter("NUMBER"));
-		
+
 		// 수정부분: 손대성
-		int BLEVEL = Integer.parseInt(request.getParameter("BLEVEL"));
-		
+		int blev = Integer.parseInt(request.getParameter("BLEVEL"));
+
 		String pass = request.getParameter("pass");
-		
 		BoardDTO uptDTO = writeService.selectWrt(writeNum);
-		
-		if(!pass.equals(uptDTO.getPWD())){
+
+		if (!pass.equals(uptDTO.getPWD())) {
 			return "notOK";
 		}
-		
+
 		model.addAttribute("uptDTO", uptDTO);
 		model.addAttribute("number", writeNum);
-		
+
 		// 수정부분:손대성
-		model.addAttribute("BLEVEL", BLEVEL);	
-		
+		model.addAttribute("BLEVEL", blev);
+
 		return "boardUpt";
 	}
-			
-	@RequestMapping(value="/update.do",method=RequestMethod.POST)
+
+	@RequestMapping(value = "/update.do", method = RequestMethod.POST)
 	public String upt(@Valid @ModelAttribute("icmd") BoardDTO bdto, Errors errors, Model model) {
 		System.out.println("update 들어왓음");
 		BoardDTO preDTO = writeService.selectWrt(bdto.getNUM());
-		
+
 		// MultipartFile 파일 객체
 		MultipartFile file = bdto.getUpfile();
-		String path="C:/images/";
-		
-		if(bdto.getCONTENTS().isEmpty()){
+		String path = "C:/images/";
+
+		if (bdto.getCONTENTS().isEmpty()) {
 			bdto.setCONTENTS(preDTO.getCONTENTS());
 		}
-		
-		if(bdto.getPWD().isEmpty()){
+
+		if (bdto.getPWD().isEmpty()) {
 			bdto.setCONTENTS(preDTO.getPWD());
 		}
-		
-		if(bdto.getTITLE().isEmpty()){
+
+		if (bdto.getTITLE().isEmpty()) {
 			bdto.setCONTENTS(preDTO.getTITLE());
 		}
-		
-		if(bdto.getWRITER().isEmpty()){
+
+		if (bdto.getWRITER().isEmpty()) {
 			bdto.setCONTENTS(preDTO.getWRITER());
 		}
 
@@ -142,15 +143,15 @@ public class BoardViewController {
 			// 업로드파일객체를 지정한 파일에 복사
 			try {
 				String originalFilename = file.getOriginalFilename();
-				String systemFilename = bdto.getWRITER()+"_"+UUID.randomUUID()+"_"+originalFilename;
-				
-				file.transferTo(new File(path,systemFilename));
+				String systemFilename = bdto.getWRITER() + "_" + UUID.randomUUID() + "_" + originalFilename;
+
+				file.transferTo(new File(path, systemFilename));
 				System.out.println(systemFilename + " 업로드완료.");
 				UploadFileDTO fileDTO = new UploadFileDTO();
 				fileDTO.setOriginalFilename(originalFilename);
 				fileDTO.setSystemFilename(systemFilename);
 				fileDTO.setFileSize(file.getSize());
-				//모델에 fileDTO 추가
+				// 모델에 fileDTO 추가
 				bdto.setIMGNAME(systemFilename);
 				model.addAttribute("fileDTO", fileDTO);
 			} catch (IllegalStateException e) {
@@ -160,36 +161,41 @@ public class BoardViewController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}else{
+		} else {
 			bdto.setIMGNAME(preDTO.getIMGNAME());
 		}
-		
-		if(errors.hasErrors()){
+
+		if (errors.hasErrors()) {
 			return "boardReg";
 		}
-		System.out.println("bdto.getWRITER() >>> "+bdto.getWRITER());
-		System.out.println("bdto.getCONTENTS() >>> "+bdto.getCONTENTS());
-		System.out.println("bdto.getPWD() >>> "+bdto.getPWD());
-		System.out.println("bdto.getTITLE() >>> "+bdto.getTITLE());
-		System.out.println("bdto.getNUM() >>> "+bdto.getNUM());
-		System.out.println("bdto.getIMGNAME() >>> "+bdto.getIMGNAME());
-		
+		System.out.println("bdto.getWRITER() >>> " + bdto.getWRITER());
+		System.out.println("bdto.getCONTENTS() >>> " + bdto.getCONTENTS());
+		System.out.println("bdto.getPWD() >>> " + bdto.getPWD());
+		System.out.println("bdto.getTITLE() >>> " + bdto.getTITLE());
+		System.out.println("bdto.getNUM() >>> " + bdto.getNUM());
+		System.out.println("bdto.getIMGNAME() >>> " + bdto.getIMGNAME());
+
 		writeService.updatetWrt(bdto);
-						
+
 		return "redirect:index.jsp";
 	}
-	
-	@RequestMapping(value="/delete.do",method=RequestMethod.GET)
+
+	@RequestMapping(value = "/delete.do", method = RequestMethod.GET)
 	public String reg(HttpServletRequest request, Model model) {
-		
+
+		System.out.println("BoardViewController.reg.GET.NUM : " + request.getParameter("NUM"));
+		System.out.println("BoardViewController.reg.GET.BLEVEL : " + request.getParameter("BLEV"));
+
 		int writeNum = Integer.parseInt(request.getParameter("NUM"));
-		
+		System.out.println("▶▶▶ writeNum : " + writeNum);
+
 		// 수정부분:손대성
-		int BLEVEL = Integer.parseInt(request.getParameter("BLEVEL"));
+		int BLEV = Integer.parseInt(request.getParameter("BLEV"));
+		System.out.println("▶▶▶  BLEV : " + BLEV);
 		
 		// writeService.deletetWrt(writeNum);
-		writeService.deletetWrt(writeNum, BLEVEL);
-						
+		writeService.deletetWrt(writeNum, BLEV);
+
 		return "redirect:index.jsp";
 	}
 }

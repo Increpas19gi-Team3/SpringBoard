@@ -20,7 +20,7 @@
 			<input type="hidden" name="NUM" value="${number}">
 			
 			<!-- 수정부분:손대성 -->
-			<input type="hidden" name="BLEVEL" value="${BLEVEL}">	
+			<input type="hidden" name="BLEV" value="${BLEVEL}">	
 					
 			<table>
 				<tr>
@@ -58,8 +58,10 @@
 			<br><br> 
 			<input type="submit" value="수정">
 			<%-- <input type="button" value="삭제" onclick="location.href='delete.do?NUM=${number}'"> --%>
-			<input type="button" value="삭제" onclick="location.href='delete.do?NUM=${number}&BLEVEL${BLEVEL}'">
+			<input type="button" value="삭제" onclick="location.href='delete.do?NUM=${number}&BLEV=${BLEVEL}'">
+			
 		</form:form>
+
 
 	</section>
 
