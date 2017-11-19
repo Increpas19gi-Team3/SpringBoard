@@ -19,10 +19,10 @@
 		<form:form commandName="icmd" action="reply.do" method="post">
 		
 		<!-- 4개 정보 컨츠롤러 전달 -->
-		<input type=hidden name="NUM" value="${bDTO.NUM}"> 
-		<input type=hidden name="BREF" value="${bDTO.BREF}"> 
-		<input type=hidden name="BSTEP" value="${bDTO.BSTEP}"> 
-		<input type=hidden name="BLEVEL" value="${bDTO.BLEVEL}">	
+		<input type="hidden" name="NUM" value="${bDTO.NUM}"> 
+		<input type="hidden" name="BREF" value="${bDTO.BREF}"> 
+		<input type="hidden" name="BSTEP" value="${bDTO.BSTEP}"> 
+		<input type="hidden" name="BLEVEL" value="${bDTO.BLEVEL}">	
 		
 			<table>
 				<tr>

@@ -22,7 +22,10 @@
 	<hr>
 
 	<form action="view/boardChk.jsp" method="post">
+			
 		<input type="hidden" name="NUM" value="${bDTO.NUM}">
+		<input type="hidden" name="BLEVEL" value="${bDTO.BLEVEL}">
+				
 		<section>
 			<div id="#" align="center">
 				<h1>게시판 상세보기</h1>
@@ -80,6 +83,7 @@
 						<td><fmt:formatDate value="${bDTO.REGTIME}"
 								pattern="yyyy-MM-dd" /></td>
 					</tr>
+						
 				</table>
 
 
@@ -102,7 +106,6 @@
 							</c:choose>
 						</c:when>
 					</c:choose>
-
 				</div>
 			</div>
 		</section>
@@ -123,6 +126,8 @@
 				<th>작성자</th>
 				<th>조회수</th>
 				<th>작성일</th>
+				<th>수정/삭제</th>
+				
 			</tr>
 				
 			<c:choose>
@@ -143,16 +148,14 @@
 								<c:forEach begin="1" end="${reply.BLEVEL}"> ▶→ </c:forEach> &nbsp;
 							</c:if> 
 							<!-- 글상세보기 제목링크 --> 
-							<a href="listView.do?no=${reply.NUM }" >  ${reply.TITLE}
+							<a href="listView.do?no=${reply.NUM}">  ${reply.TITLE}
 							</td>
 							
 							<td>${reply.CONTENTS}</td>
 							<td>${reply.WRITER}</td>
 							<td>${reply.COUNT}</td>
-							<td>
-							<fmt:formatDate value="${reply.REGTIME}"
-									pattern="yyyy-MM-dd HH:mm:ss" />
-							</td>
+							<td><fmt:formatDate value="${reply.REGTIME}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+							<td> <input type="submit" value="수정/삭제"> </td>							
 						</tr>
 						<p />											
 					</c:forEach>

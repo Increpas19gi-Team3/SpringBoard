@@ -31,9 +31,15 @@ public class WriteService {
 	}
 	
 	
+//	@Transactional
+//	public void deletetWrt(int writeNum){
+//		wDao.deleteWrite(writeNum);
+//	}
+	
+	// 손대성
 	@Transactional
-	public void deletetWrt(int writeNum){
-		wDao.deleteWrite(writeNum);
+	public void deletetWrt(int writeNum, int BLEVEL){
+		wDao.deleteWrite(writeNum, BLEVEL);
 	}
 	
 	//손대성

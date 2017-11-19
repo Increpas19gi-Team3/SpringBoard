@@ -30,12 +30,18 @@ public class WriteDAO {
 	public void updateWrite(BoardDTO bdto) {
 		sqlSessionTemplate.update("sb_write_ns.updateWrite", bdto);
 	}
+	
+//	public void deleteWrite(int writeNum) {
+//		Map<String,Object> map = new HashMap<String,Object>();
+//		map.put("writeNum", writeNum);// 글번호 맵에 저장		
+//		sqlSessionTemplate.delete("sb_write_ns.deleteWrite", writeNum);
+//	}
 
-	public void deleteWrite(int writeNum) {
+	public void deleteWrite(int writeNum, int BLEVEL) {
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("writeNum", writeNum);// 글번호 맵에 저장
-		
-		sqlSessionTemplate.delete("sb_write_ns.deleteWrite", writeNum);
+		map.put("BLEVEL", BLEVEL);
+		sqlSessionTemplate.delete("sb_write_ns.deleteWrite", map);
 	}
 	
 	

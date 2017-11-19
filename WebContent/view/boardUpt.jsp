@@ -18,6 +18,10 @@
 	<section>
 		<form:form commandName="icmd" action="update.do" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="NUM" value="${number}">
+			
+			<!-- 수정부분:손대성 -->
+			<input type="hidden" name="BLEVEL" value="${BLEVEL}">	
+					
 			<table>
 				<tr>
 					<th>작성자</th>
@@ -27,7 +31,7 @@
 					<th>비밀번호</th>
 					<td><input type="password" name="PWD" value="${uptDTO.getPWD() }"></td>
 				</tr>
-<%-- 				<tr>
+			<%-- <tr>
 					<th>글종류</th>
 					<td>
 						<input type="radio" name="ISNOTICE" value="0" checked="checked">일반글
@@ -51,9 +55,10 @@
 				</tr>
 				
 			</table>
-			<br>
-			<br> <input type="submit" value="수정">
-			<input type="button" value="삭제" onclick="location.href='delete.do?NUM=${number}'">
+			<br><br> 
+			<input type="submit" value="수정">
+			<%-- <input type="button" value="삭제" onclick="location.href='delete.do?NUM=${number}'"> --%>
+			<input type="button" value="삭제" onclick="location.href='delete.do?NUM=${number}&BLEVEL${BLEVEL}'">
 		</form:form>
 
 	</section>

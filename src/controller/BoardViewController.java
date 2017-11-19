@@ -89,7 +89,13 @@ public class BoardViewController {
 
 	@RequestMapping(value="/pwdCheck.do",method=RequestMethod.POST)
 	public String passChk(HttpServletRequest request, Model model) {
+		
+		
 		int writeNum = Integer.parseInt(request.getParameter("NUMBER"));
+		
+		// 수정부분: 손대성
+		int BLEVEL = Integer.parseInt(request.getParameter("BLEVEL"));
+		
 		String pass = request.getParameter("pass");
 		
 		BoardDTO uptDTO = writeService.selectWrt(writeNum);
@@ -99,13 +105,16 @@ public class BoardViewController {
 		}
 		
 		model.addAttribute("uptDTO", uptDTO);
-		model.addAttribute("number",writeNum);
+		model.addAttribute("number", writeNum);
+		
+		// 수정부분:손대성
+		model.addAttribute("BLEVEL", BLEVEL);	
 		
 		return "boardUpt";
 	}
 			
 	@RequestMapping(value="/update.do",method=RequestMethod.POST)
-	public String upt(@Valid @ModelAttribute("icmd") BoardDTO bdto,Errors errors, Model model) {
+	public String upt(@Valid @ModelAttribute("icmd") BoardDTO bdto, Errors errors, Model model) {
 		System.out.println("update 들어왓음");
 		BoardDTO preDTO = writeService.selectWrt(bdto.getNUM());
 		
@@ -172,9 +181,14 @@ public class BoardViewController {
 	
 	@RequestMapping(value="/delete.do",method=RequestMethod.GET)
 	public String reg(HttpServletRequest request, Model model) {
+		
 		int writeNum = Integer.parseInt(request.getParameter("NUM"));
 		
-		writeService.deletetWrt(writeNum);
+		// 수정부분:손대성
+		int BLEVEL = Integer.parseInt(request.getParameter("BLEVEL"));
+		
+		// writeService.deletetWrt(writeNum);
+		writeService.deletetWrt(writeNum, BLEVEL);
 						
 		return "redirect:index.jsp";
 	}

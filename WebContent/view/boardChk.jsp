@@ -23,7 +23,12 @@
 	<section>
 		<form action="../pwdCheck.do" method="post">
 			<input type="hidden" name="NUMBER" value="<%=request.getParameter("NUM")%>">
-			<% System.out.println(request.getParameter("NUM")); %>
+			<% System.out.println("NUM : ▶▶▶▶▶ "+ request.getParameter("NUM")); %>
+			
+			<!-- 수정부분:손대성 -->
+			<input type="hidden" name="BLEVEL" value="<%=request.getParameter("BLEVEL")%>">
+			<% System.out.println("BLEVEL : ▶▶▶▶▶ "+ request.getParameter("BLEVEL")); %>
+						
 			<p>비밀번호를 입력하시오!
 			<p><input type="text" name="pass">
 			<p><input type="submit" value="확인">

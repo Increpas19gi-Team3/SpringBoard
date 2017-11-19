@@ -41,16 +41,16 @@ public class BoardInsertReplyActionCommandController {
 	@RequestMapping(value = "/reply.do", method = RequestMethod.GET)
 	public String formReply(HttpServletRequest req, HttpServletResponse resp, Model model) {
 		
-		System.out.println("BoardInsertReplyActionCommandController >> reply.do >> GET");
+		System.out.println("▶▶▶▶  BoardInsertReplyActionCommandController >> reply.do >> GET");
 		
 		int writeNum = Integer.parseInt(req.getParameter("NUM"));
 		BoardDTO bDTO = viewService.BoardDetail(writeNum);
 		model.addAttribute("bDTO", bDTO);
 		
-		System.out.println(" ▶▶▶▶ bDTO.getNUM() : "  + bDTO.getNUM());
-		System.out.println(" ▶▶▶▶ bDTO.getBREF() : "  + bDTO.getBREF());
-		System.out.println(" ▶▶▶▶ bDTO.getBSTEP() : " + bDTO.getBSTEP());		
-		System.out.println(" ▶▶▶▶ bDTO.getBLEVEL() : " + bDTO.getBLEVEL());
+		System.out.println("▶▶▶▶ bDTO.getNUM() : "  + bDTO.getNUM());
+		System.out.println("▶▶▶▶ bDTO.getBREF() : "  + bDTO.getBREF());
+		System.out.println("▶▶▶▶ bDTO.getBSTEP() : " + bDTO.getBSTEP());		
+		System.out.println("▶▶▶▶ bDTO.getBLEVEL() : " + bDTO.getBLEVEL());
 		
 		return "board_Reply";
 	}
@@ -59,7 +59,7 @@ public class BoardInsertReplyActionCommandController {
 	@RequestMapping(value = "/reply.do", method = RequestMethod.POST)
 	public String onSubmitReplay(@Valid @ModelAttribute("icmd") BoardDTO bDTO, Errors errors, Model model) {
 
-		System.out.println("board_Reply.jsp >>>> reply.do >>>>> POST");
+		System.out.println("▶▶▶▶ board_Reply.jsp >>>> reply.do >>>>> POST");
 
 		// BREF, BSTEP, BLEVEL 변경을 시켜줘함
 		// 보통의 글쓰기는 이 데이터가 필요가 없지만 답글의 경우는 답글을 쓸때마다

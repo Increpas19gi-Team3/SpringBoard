@@ -26,7 +26,11 @@
 	<!-- 'NUM'과 'BREF' 동일하게 만들기 위해서 'BREF'위치에 'SB_BOARD_SEQ.NEXTVAL'를 넣었음 -->
 	<insert id="insertWrite" parameterType="SB_Board">
 		INSERT INTO SB_BOARD
-		VALUES(SB_BOARD_SEQ.NEXTVAL, #{ISNOTICE}, '0', #{TITLE}, #{WRITER}, #{PWD},
+		(NUM, ISNOTICE, ISBLOCK, TITLE, WRITER, PWD, 
+		CONTENTS, IMGNAME, 
+		COUNT, REGTIME, BREF, BSTEP, BLEVEL)
+		VALUES
+		(SB_BOARD_SEQ.NEXTVAL, #{ISNOTICE}, '0', #{TITLE}, #{WRITER}, #{PWD},
 		#{CONTENTS, jdbcType=VARCHAR}, #{IMGNAME, jdbcType=VARCHAR},
 		0, sysdate, SB_BOARD_SEQ.currval, #{BSTEP}, #{BLEVEL})
 	</insert>
@@ -43,10 +47,10 @@
 		num=#{NUM}
 	</update>
 
-	<delete id="deleteWrite" parameterType="map">
+	<!-- <delete id="deleteWrite" parameterType="map">
 		delete from SB_BOARD
 		where num=#{writeNum}
-	</delete>
+	</delete> -->
 
 	<!-- =================================손대성================================================= -->
 
@@ -69,5 +73,17 @@
 		BSTEP=BSTEP+1
 		where BREF=#{BREF} and BSTEP>#{BSTEP}
 	</update>
+	
+	<delete id="deleteWrite" parameterType="Map">
+		delete from SB_BOARD where
+		<choose>
+			<when test="BLEVEL==0"> <!-- 부모글 -->
+				BREF=#{writeNum} <!-- 부모글번호 공유하는 답글들을 함께 삭제 -->
+			</when>
+			<otherwise> <!-- 해당 답글만 삭제 -->
+				NUM=#{writeNum}
+			</otherwise>
+		</choose>
+	</delete>	
 
 </mapper>
