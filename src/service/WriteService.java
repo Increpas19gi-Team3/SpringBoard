@@ -17,8 +17,7 @@ public class WriteService {
 	
 	@Transactional
 	public void insertWrt(BoardDTO bdto){
-		wDao.insert(bdto);
-		
+		wDao.insert(bdto);		
 	}
 	
 	public BoardDTO selectWrt(int writeNum){
@@ -35,6 +34,12 @@ public class WriteService {
 	@Transactional
 	public void deletetWrt(int writeNum){
 		wDao.deleteWrite(writeNum);
+	}
+	
+	//손대성
+	@Transactional
+	public void insertReplyBoard(BoardDTO bdto){
+		wDao.insertReply(bdto);
 	}
 
 }

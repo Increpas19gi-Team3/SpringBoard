@@ -27,8 +27,7 @@ public class ViewService {
 	public BoardDTO BoardDetail(int writeNum) {
 		vDao.updateHitCount(writeNum); // 글 조회수 증가
 		return vDao.BoardDetailView(writeNum);
-	}
-	
+	}	
 	
 	/**
 	 * 답글 보기

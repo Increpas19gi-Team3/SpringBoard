@@ -3,44 +3,71 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sb_write_ns">
-    
-    <cache eviction="FIFO" flushInterval="60000" size="1024" readOnly="true"/> 
-    
-    <resultMap id="BoardResult" type="SB_Board" >
-    	<result property="NUM" column="NUM"/>
-    	<result property="ISNOTICE" column="ISNOTICE"/>
-    	<result property="ISBLOCK" column="ISBLOCK"/>
-    	<result property="TITLE" column="TITLE"/>
-    	<result property="WRITER" column="WRITER"/>
-    	<result property="PWD" column="PWD"/>
-    	<result property="CONTENTS" column="CONTENTS"/>
-    	<result property="IMGNAME" column="IMGNAME"/>
-    	<result property="COUNT" column="COUNT"/>
-    	<result property="REGTIME" column="REGTIME"/>
-    	<result property="BREF" column="BREF"/>
-    	<result property="BSTEP" column="BSTEP"/>
-    	<result property="BLEVEL" column="BLEVEL"/>
-    </resultMap>
-    
-    <!-- 'NUM'과 'BREF' 동일하게 만들기 위해서 'BREF'위치에 'SB_BOARD_SEQ.NEXTVAL'를 넣었음 -->
-    <insert id="insertWrite" parameterType="SB_Board">
-    	INSERT INTO SB_BOARD VALUES(SB_BOARD_SEQ.NEXTVAL, #{ISNOTICE}, '0', 
-    	#{TITLE}, #{WRITER}, #{PWD}, #{CONTENTS, jdbcType=VARCHAR}, #{IMGNAME, jdbcType=VARCHAR}, 
-    	0, sysdate, SB_BOARD_SEQ.NEXTVAL, #{BSTEP}, #{BLEVEL})
+
+	<cache eviction="FIFO" flushInterval="60000" size="1024"
+		readOnly="true" />
+
+	<resultMap id="BoardResult" type="SB_Board">
+		<result property="NUM" column="NUM" />
+		<result property="ISNOTICE" column="ISNOTICE" />
+		<result property="ISBLOCK" column="ISBLOCK" />
+		<result property="TITLE" column="TITLE" />
+		<result property="WRITER" column="WRITER" />
+		<result property="PWD" column="PWD" />
+		<result property="CONTENTS" column="CONTENTS" />
+		<result property="IMGNAME" column="IMGNAME" />
+		<result property="COUNT" column="COUNT" />
+		<result property="REGTIME" column="REGTIME" />
+		<result property="BREF" column="BREF" />
+		<result property="BSTEP" column="BSTEP" />
+		<result property="BLEVEL" column="BLEVEL" />
+	</resultMap>
+
+	<!-- 'NUM'과 'BREF' 동일하게 만들기 위해서 'BREF'위치에 'SB_BOARD_SEQ.NEXTVAL'를 넣었음 -->
+	<insert id="insertWrite" parameterType="SB_Board">
+		INSERT INTO SB_BOARD
+		VALUES(SB_BOARD_SEQ.NEXTVAL, #{ISNOTICE}, '0', #{TITLE}, #{WRITER}, #{PWD},
+		#{CONTENTS, jdbcType=VARCHAR}, #{IMGNAME, jdbcType=VARCHAR},
+		0, sysdate, SB_BOARD_SEQ.currval, #{BSTEP}, #{BLEVEL})
 	</insert>
- 
-    <select id="selectWrtByNum" parameterType="map" resultMap="BoardResult" >
+
+	<select id="selectWrtByNum" parameterType="map" resultMap="BoardResult">
 		select * from SB_BOARD where num=#{writeNum}
 	</select>
 
 	<update id="updateWrite" parameterType="SB_Board">
-		update SB_BOARD set TITLE=#{TITLE},WRITER=#{WRITER}, PWD=#{PWD}, 
+		update SB_BOARD set
+		TITLE=#{TITLE},WRITER=#{WRITER}, PWD=#{PWD},
 		CONTENTS=#{CONTENTS, jdbcType=VARCHAR}, IMGNAME=#{IMGNAME, jdbcType=VARCHAR}
-		where num=#{NUM}
+		where
+		num=#{NUM}
 	</update>
-	
- 	<delete id="deleteWrite" parameterType="map">
-		delete from SB_BOARD where num=#{writeNum}
-	</delete> 
+
+	<delete id="deleteWrite" parameterType="map">
+		delete from SB_BOARD
+		where num=#{writeNum}
+	</delete>
+
+	<!-- =================================손대성================================================= -->
+
+	<!-- 답글은 부모원글의 순번 +1, 부모원글의 들여쓰기 수준 +1 -->
+	<insert id="insertReplyBoard" parameterType="SB_Board">
+		INSERT INTO SB_BOARD
+		(NUM, ISNOTICE, ISBLOCK, TITLE, WRITER, PWD,
+		CONTENTS, IMGNAME,
+		COUNT, REGTIME, BREF, BSTEP, BLEVEL)
+		VALUES
+		(SB_BOARD_SEQ.NEXTVAL,
+		#{ISNOTICE}, '0', #{TITLE}, #{WRITER}, #{PWD},
+		#{CONTENTS, jdbcType=VARCHAR}, #{IMGNAME, jdbcType=VARCHAR},
+		0, SYSDATE, #{BREF}, #{BSTEP}+1, #{BLEVEL}+1)
+	</insert>
+
+	<!-- 같은 참조번호 글그룹이면서 원글순번보다 큰 순번을 가지는 기존의 답글의 순번이 1증가 -->
+	<update id="replyUpdateBoard" parameterType="SB_Board">
+		update SB_BOARD set
+		BSTEP=BSTEP+1
+		where BREF=#{BREF} and BSTEP>#{BSTEP}
+	</update>
 
 </mapper>

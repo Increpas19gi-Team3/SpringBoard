@@ -38,11 +38,12 @@ public class BoardDetailViewController {
 		
 		// 상세글 보기
 		BoardDTO bDTO = viewService.BoardDetail(num);
+		System.out.println("'상세페이지'와 '조회수'를 증가시키는 과정입니다.2");
 		model.addAttribute("bDTO", bDTO);
 		
 		// 답글 보기
 		List<BoardDTO> replylistBDTO = viewService.BoardDetailReply(num);
-		model.addAttribute("replylistBDTO", replylistBDTO);
+		model.addAttribute("replylistBDTO", replylistBDTO);		
 
 		return "listView";
 	}

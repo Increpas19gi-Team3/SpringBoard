@@ -37,4 +37,12 @@ public class WriteDAO {
 		
 		sqlSessionTemplate.delete("sb_write_ns.deleteWrite", writeNum);
 	}
+	
+	
+	//=======================손대성====================================
+	
+	public void insertReply(BoardDTO bDTO) {
+		sqlSessionTemplate.update("sb_write_ns.replyUpdateBoard", bDTO);
+		sqlSessionTemplate.insert("sb_write_ns.insertReplyBoard", bDTO);		
+	}
 }
