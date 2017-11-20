@@ -15,6 +15,12 @@
 </head>
 <body>
 
+	<header>
+		<nav>
+			<jsp:include page="header.jsp" />
+		</nav>
+	</header>
+
 	<section>
 		<form:form commandName="icmd" action="update.do" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="NUM" value="${number}">

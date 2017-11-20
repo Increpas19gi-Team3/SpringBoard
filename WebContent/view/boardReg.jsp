@@ -15,11 +15,11 @@
 </head>
 <body>
 
-<%-- 	<header>
+	<header>
 		<nav>
 			<jsp:include page="header.jsp" />
 		</nav>
-	</header> --%>
+	</header>
 
 
 	<section>

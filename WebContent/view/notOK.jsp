@@ -14,9 +14,9 @@
 <title>글수정</title>
 </head>
 <body>
-<header>
+	<header>
 		<nav>
-		<jsp:include page="header.jsp" />
+			<jsp:include page="header.jsp" />
 		</nav>
 	</header>
 	

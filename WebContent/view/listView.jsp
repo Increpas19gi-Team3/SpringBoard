@@ -19,7 +19,6 @@
 			<jsp:include page="header.jsp" />
 		</nav>
 	</header>
-	<hr>
 
 	<form action="view/boardChk.jsp" method="post">
 
