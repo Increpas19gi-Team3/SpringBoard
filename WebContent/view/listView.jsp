@@ -79,8 +79,7 @@
 
 					<tr>
 						<th>작성시간</th>
-						<td><fmt:formatDate value="${bDTO.REGTIME}"
-								pattern="yyyy-MM-dd" /></td>
+						<td><fmt:formatDate value="${bDTO.REGTIME}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 					</tr>
 
 				</table>

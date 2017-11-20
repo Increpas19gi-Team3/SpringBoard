@@ -6,6 +6,7 @@ package dto;
  */
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.validation.constraints.Max;
 
@@ -32,7 +33,7 @@ public class BoardDTO {
 	private String IMGNAME;		//이미지파일명, VARCHAR2(500)
 	private int COUNT;			//조회수, NUMBER(4)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
-	private Date REGTIME;		//작성일, DATE
+	private Timestamp REGTIME;		//작성일, DATE에서 시간 형식을 위해 timestamp로 변경함
 	
 	private int BREF;
 	private int BSTEP;
@@ -94,10 +95,10 @@ public class BoardDTO {
 	public void setCOUNT(int cOUNT) {
 		COUNT = cOUNT;
 	}
-	public Date getREGTIME() {
+	public Timestamp getREGTIME() {
 		return REGTIME;
 	}
-	public void setREGTIME(Date rEGTIME) {
+	public void setREGTIME(Timestamp rEGTIME) {
 		REGTIME = rEGTIME;
 	}
 	
