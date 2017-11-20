@@ -34,7 +34,7 @@
     <select id="selectSetList" parameterType="dto.ListDTOListModel" resultMap="BoardResult">
 		<!-- NUM, ISNOTICE, ISBLOCK, TITLE, WRITER, PWD, CONTENTS, IMGNAME, COUNT, REGTIME, BREF, BSTEP, BLEVEL, REPLY--> 
 		
-	    SELECT NUM, ISNOTICE, ISBLOCK, TITLE, WRITER, PWD, CONTENTS, IMGNAME, COUNT, REGTIME, BREF, BSTEP, BLEVEL 
+	    SELECT *  
 	    FROM (
 	     
 			SELECT NUM, ISNOTICE, ISBLOCK, TITLE, WRITER, PWD, CONTENTS, IMGNAME, COUNT, REGTIME, BREF, BSTEP, BLEVEL, rownum rn 
@@ -111,10 +111,5 @@
 	    	</where>
 	    
 	</select>
-    
-    
-    
-    
-    
     
 </mapper>

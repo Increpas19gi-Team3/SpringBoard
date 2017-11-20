@@ -255,8 +255,8 @@
 					
 					<td>${list.WRITER }</td>
 					<td>${list.COUNT }</td>
-					<td>
-						<fmt:formatDate value="${list.REGTIME }" pattern="yyyy-MM-dd hh:mm:ss"/>
+					<td>	${list.REGTIME } &nbsp;
+						<fmt:formatDate value="${list.REGTIME }" pattern="yyyy-MM-dd HH:mm:ss" /> 
 					</td>
 				</tr>
 			</c:forEach>			
